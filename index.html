@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashu App Store - Direct Fast Download</title>
+    <title>Ashu App Store - Liquid Glass UI</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Animated Liquid Mesh Background */
+        /* Animated Liquid Gradient Background */
         body {
             background: linear-gradient(135deg, #090d16, #161233, #064e47);
             background-size: 400% 400%;
@@ -30,7 +30,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glassmorphism Common Style */
+        /* Glassmorphism Panel */
         .glass-panel {
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(16px);
@@ -61,7 +61,7 @@
             text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             text-align: center;
             padding: 35px 20px 20px;
@@ -199,9 +199,22 @@
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            color: #38bdf8;
             box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0,0,0,0.3);
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        /* Instagram Gradient Icon */
+        .insta-gradient {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #ffffff;
         }
 
         .app-details h3 {
@@ -237,7 +250,7 @@
             margin-bottom: 15px;
         }
 
-        /* Direct Download Button with 1-Click Action */
+        /* Direct Download Button */
         .direct-download-btn {
             display: flex;
             align-items: center;
@@ -250,20 +263,17 @@
             border-radius: 12px;
             font-size: 14px;
             font-weight: 700;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            width: 100%;
         }
 
         .direct-download-btn:hover {
             background: linear-gradient(135deg, #0284c7, #4f46e5);
             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
             transform: scale(1.02);
-        }
-
-        .direct-download-btn:active {
-            transform: scale(0.98);
         }
 
         .footer-box {
@@ -277,36 +287,64 @@
 </head>
 <body>
 
+    <!-- Header -->
     <header class="glass-panel">
         <a href="#" class="logo">
             <i class="fa-solid fa-cube"></i> Ashu App Store
         </a>
     </header>
 
+    <!-- Hero Section -->
     <div class="hero">
         <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
-        <p>बिना किसी विज्ञापन या इंतज़ार के सीधे डायरेक्ट डाउनलोड</p>
+        <p>100% सुरक्षित और डायरेक्ट APK डाउनलोड्स</p>
 
+        <!-- Search Bar -->
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम सर्च करें..." onkeyup="filterApps()">
         </div>
 
+        <!-- Categories -->
         <div class="categories">
             <button class="cat-btn active" onclick="filterCategory('all', this)">All Apps</button>
+            <button class="cat-btn" onclick="filterCategory('social', this)">Social</button>
             <button class="cat-btn" onclick="filterCategory('gaming', this)">Gaming</button>
             <button class="cat-btn" onclick="filterCategory('tools', this)">Tools</button>
-            <button class="cat-btn" onclick="filterCategory('media', this)">Media</button>
         </div>
     </div>
 
+    <!-- App Cards -->
     <div class="container">
         <div class="app-grid" id="appsContainer">
 
+            <!-- APP 1: Instagram Lite (Real MediaFire Link & Official Logo) -->
+            <div class="app-card glass-panel" data-category="social" data-title="Instagram Lite">
+                <div class="app-info-row">
+                    <div class="app-icon insta-gradient">
+                        <i class="fa-brands fa-instagram" style="font-size: 36px;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>Instagram Lite</h3>
+                        <span class="app-badge">v524.0.0.3.106 • Social</span>
+                    </div>
+                </div>
+                <p class="app-desc">कम इंटरनेट और कम रैम वाले फोन के लिए सुपरफास्ट Instagram ऐप। रील्स और चैट सपोर्ट।</p>
+                <div class="app-meta">
+                    <span><i class="fa-solid fa-hard-drive"></i> 3.5 MB</span>
+                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.9</span>
+                </div>
+                <!-- Real MediaFire Download Link Attached -->
+                <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" rel="noopener noreferrer" class="direct-download-btn">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </a>
+            </div>
+
+            <!-- APP 2: Gaming (GFX Tool) -->
             <div class="app-card glass-panel" data-category="gaming" data-title="GFX Tool Ultra Pro">
                 <div class="app-info-row">
-                    <div class="app-icon">
-                        <i class="fa-solid fa-gamepad" style="color:#a855f7;"></i>
+                    <div class="app-icon" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">
+                        <i class="fa-solid fa-gamepad"></i>
                     </div>
                     <div class="app-details">
                         <h3>GFX Tool Ultra Pro</h3>
@@ -318,15 +356,16 @@
                     <span><i class="fa-solid fa-hard-drive"></i> 8.5 MB</span>
                     <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.9</span>
                 </div>
-                <a href="https://example.com/gfxtool.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
+                <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" class="direct-download-btn">
                     <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
                 </a>
             </div>
 
+            <!-- APP 3: Tools (Speed Booster) -->
             <div class="app-card glass-panel" data-category="tools" data-title="Speed Booster Pro">
                 <div class="app-info-row">
-                    <div class="app-icon">
-                        <i class="fa-solid fa-bolt" style="color:#38bdf8;"></i>
+                    <div class="app-icon" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">
+                        <i class="fa-solid fa-bolt"></i>
                     </div>
                     <div class="app-details">
                         <h3>Speed Booster Pro</h3>
@@ -338,47 +377,7 @@
                     <span><i class="fa-solid fa-hard-drive"></i> 12.0 MB</span>
                     <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.8</span>
                 </div>
-                <a href="https://example.com/speedbooster.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                </a>
-            </div>
-
-            <div class="app-card glass-panel" data-category="media" data-title="HD Video Player Max">
-                <div class="app-info-row">
-                    <div class="app-icon">
-                        <i class="fa-solid fa-play" style="color:#10b981;"></i>
-                    </div>
-                    <div class="app-details">
-                        <h3>HD Video Player Max</h3>
-                        <span class="app-badge">v5.0.0 • Media</span>
-                    </div>
-                </div>
-                <p class="app-desc">4K और Full HD वीडियो बैकग्राउंड और पॉपअप मोड में चलाएं।</p>
-                <div class="app-meta">
-                    <span><i class="fa-solid fa-hard-drive"></i> 24.2 MB</span>
-                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.7</span>
-                </div>
-                <a href="https://example.com/videoplayer.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                </a>
-            </div>
-
-            <div class="app-card glass-panel" data-category="tools" data-title="Fast VPN Pro">
-                <div class="app-info-row">
-                    <div class="app-icon">
-                        <i class="fa-solid fa-shield-halved" style="color:#ec4899;"></i>
-                    </div>
-                    <div class="app-details">
-                        <h3>Fast VPN Pro</h3>
-                        <span class="app-badge">v1.8.4 • Tools</span>
-                    </div>
-                </div>
-                <p class="app-desc">अनलिमिटेड हाई-स्पीड प्रॉक्सी सर्वर और 100% सुरक्षित ब्राउज़िंग।</p>
-                <div class="app-meta">
-                    <span><i class="fa-solid fa-hard-drive"></i> 16.5 MB</span>
-                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.6</span>
-                </div>
-                <a href="https://example.com/fastvpn.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
+                <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" class="direct-download-btn">
                     <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
                 </a>
             </div>
@@ -386,27 +385,13 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer-box">
-        <p>© 2026 Ashu App Store • सभी APK सुरक्षित और जांची गई हैं</p>
+        <p>© 2026 Ashu App Store • सभी APK 100% सुरक्षित हैं</p>
     </div>
 
+    <!-- Search & Filter Script -->
     <script>
-        // 1-Click Instant Download Handler
-        function triggerDirectDownload(btn) {
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
-            btn.style.background = '#059669';
-
-            setTimeout(function() {
-                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Downloaded!';
-                setTimeout(function() {
-                    btn.innerHTML = originalHTML;
-                    btn.style.background = '';
-                }, 3000);
-            }, 1500);
-        }
-
-        // Live Search
         function filterApps() {
             var input = document.getElementById('searchInput').value.toLowerCase();
             var cards = document.querySelectorAll('.app-card');
@@ -421,7 +406,6 @@
             });
         }
 
-        // Categories Filter
         function filterCategory(category, btn) {
             document.querySelectorAll('.cat-btn').forEach(function(b) {
                 b.classList.remove('active');
@@ -439,4 +423,5 @@
         }
     </script>
 </body>
-</html>
+                              </html>
+                              
