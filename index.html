@@ -1,201 +1,442 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Madaripur Kirana Store - All daily essentials like pulses, rice, flour, spices, and household items. Best grocery services in Kanpur Dehat.">
-    <meta name="keywords" content="kirana store, daily essentials, pulses rice, spices, Madaripur Kanpur Dehat">
-    <title>Madaripur Kirana Store - All Daily Essentials</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Ashu App Store - Direct Fast Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom, #e8f5e8, #f4f4f4);
-            color: #333;
-            line-height: 1.6;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        /* Animated Liquid Mesh Background */
+        body {
+            background: linear-gradient(135deg, #090d16, #161233, #064e47);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Common Style */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Header */
         header {
-            background: linear-gradient(135deg, #2e7d32, #4caf50);
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        header img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-        nav {
-            background-color: #1b5e20;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        nav a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 16px 20px;
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #38bdf8;
             text-decoration: none;
-            font-weight: 700;
-            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
         }
-        nav a:hover {
-            background-color: #4caf50;
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 35px 20px 20px;
+            max-width: 700px;
+            margin: 0 auto;
         }
+
+        .hero h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        /* Categories Filter */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: 0.3s;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background: linear-gradient(135deg, #0284c7, #6366f1);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+        }
+
+        /* App Cards Grid */
         .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        .products {
+
+        .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
-        .product {
-            text-align: center;
-            border: 1px solid #e0e0e0;
+
+        /* Liquid Glass App Card */
+        .app-card {
+            border-radius: 20px;
             padding: 20px;
-            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .product:hover {
+
+        .app-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
         }
-        .product img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
+
+        .app-info-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 12px;
         }
-        footer {
-            background-color: #1b5e20;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+
+        /* Liquid Glass App Icon */
+        .app-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #38bdf8;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0,0,0,0.3);
+            flex-shrink: 0;
         }
-        form {
-            max-width: 500px;
-            margin: 30px auto;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+        .app-details h3 {
+            font-size: 17px;
+            color: #ffffff;
+            margin-bottom: 4px;
         }
-        input, textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
+
+        .app-badge {
+            display: inline-block;
+            font-size: 11px;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 3px 8px;
             border-radius: 6px;
-            font-size: 16px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
         }
-        button {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: linear-gradient(135deg, #2e7d32, #4caf50);
-        }
-        h1, h2 {
-            margin-bottom: 20px;
-        }
-        p {
+
+        .app-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.4;
             margin-bottom: 15px;
+        }
+
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #cbd5e1;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 15px;
+        }
+
+        /* Direct Download Button with 1-Click Action */
+        .direct-download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .direct-download-btn:hover {
+            background: linear-gradient(135deg, #0284c7, #4f46e5);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            transform: scale(1.02);
+        }
+
+        .direct-download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .footer-box {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 13px;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="https://source.unsplash.com/100x100/?logo" alt="Store Logo"> <!-- Add your logo here -->
-        <h1>Madaripur Kirana Store</h1>
-        <p>All daily essentials in one place! - Madaripur, Kanpur Dehat</p>
-        <p>Fulfill your daily needs with fresh, quality products.</p>
+    <header class="glass-panel">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-cube"></i> Ashu App Store
+        </a>
     </header>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <div class="hero">
+        <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
+        <p>बिना किसी विज्ञापन या इंतज़ार के सीधे डायरेक्ट डाउनलोड</p>
 
-    <div class="container" id="home">
-        <h2>About Us</h2>
-        <p>Our kirana store is located in Madaripur, Kanpur Dehat, where you can easily find all daily essentials. Whether it's pulses, rice, flour, oil, spices, biscuits, snacks, soap, shampoo, toothpaste, baby products, or all household items - everything under one roof! We focus on providing customers with the best quality and service.</p>
-        <p><strong>Our Features:</strong> Fresh products, reasonable prices, and home delivery (in local areas).</p>
-        <img src="https://source.unsplash.com/800x400/?grocery-store" alt="Store View" style="width:100%; border-radius:8px;">
-    </div>
-
-    <div class="container" id="products">
-        <h2>Our Products</h2>
-        <div class="products">
-            <div class="product">
-                <img src="https://source.unsplash.com/300x200/?lentils" alt="Pulses">
-                <h3>Pulses and Grains</h3>
-                <p>Fresh pulses, rice, flour, and other grains.</p>
-            </div>
-            <div class="product">
-                <img src="https://source.unsplash.com/300x200/?spices" alt="Spices">
-                <h3>Spices and Oil</h3>
-                <p>All types of spices, cooking oil, and essentials.</p>
-            </div>
-            <div class="product">
-                <img src="https://source.unsplash.com/300x200/?snacks" alt="Snacks">
-                <h3>Biscuits and Snacks</h3>
-                <p>Delicious biscuits, snacks, and kids' favorites.</p>
-            </div>
-            <div class="product">
-                <img src="https://source.unsplash.com/300x200/?soap" alt="Soap">
-                <h3>Personal Care</h3>
-                <p>Soap, shampoo, toothpaste, and other personal products.</p>
-            </div>
-            <div class="product">
-                <img src="https://source.unsplash.com/300x200/?baby-products" alt="Baby Products">
-                <h3>Baby Products</h3>
-                <p>Diapers, powder, toys, and other essentials for babies.</p>
-            </div>
-            <div class="product">
-                <img src="https://source.unsplash.com/300x200/?household" alt="Household Items">
-                <h3>Household Items</h3>
-                <p>All household products like cleaning supplies, utensils, and more.</p>
-            </div>
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम सर्च करें..." onkeyup="filterApps()">
         </div>
-        <p><strong>Call-to-Action:</strong> Visit today and fulfill your home needs! Special Offer: 10% off on first purchase.</p>
+
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterCategory('all', this)">All Apps</button>
+            <button class="cat-btn" onclick="filterCategory('gaming', this)">Gaming</button>
+            <button class="cat-btn" onclick="filterCategory('tools', this)">Tools</button>
+            <button class="cat-btn" onclick="filterCategory('media', this)">Media</button>
+        </div>
     </div>
 
-    <div class="container" id="contact">
-        <h2>Contact Us</h2>
-        <p><strong>Location:</strong> Madaripur, Kanpur Dehat, Uttar Pradesh</p>
-        <p><strong>Phone:</strong> 8853092306</p>
-        <p><strong>Email:</strong> [Add your email here, e.g., info@madaripurkirana.com]</p>
-        <form action="#" method="post">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+    <div class="container">
+        <div class="app-grid" id="appsContainer">
+
+            <div class="app-card glass-panel" data-category="gaming" data-title="GFX Tool Ultra Pro">
+                <div class="app-info-row">
+                    <div class="app-icon">
+                        <i class="fa-solid fa-gamepad" style="color:#a855f7;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>GFX Tool Ultra Pro</h3>
+                        <span class="app-badge">v3.2.0 • Gaming</span>
+                    </div>
+                </div>
+                <p class="app-desc">60FPS और 90FPS तुरंत अनलॉक करें। बिना लैग गेमिंग का अनुभव पाएं।</p>
+                <div class="app-meta">
+                    <span><i class="fa-solid fa-hard-drive"></i> 8.5 MB</span>
+                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.9</span>
+                </div>
+                <a href="https://example.com/gfxtool.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </a>
+            </div>
+
+            <div class="app-card glass-panel" data-category="tools" data-title="Speed Booster Pro">
+                <div class="app-info-row">
+                    <div class="app-icon">
+                        <i class="fa-solid fa-bolt" style="color:#38bdf8;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>Speed Booster Pro</h3>
+                        <span class="app-badge">v2.1.0 • Tools</span>
+                    </div>
+                </div>
+                <p class="app-desc">रैम और बैकग्राउंड ऐप्स को साफ़ करके फ़ोन को सुपरफ़ास्ट बनाएं।</p>
+                <div class="app-meta">
+                    <span><i class="fa-solid fa-hard-drive"></i> 12.0 MB</span>
+                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.8</span>
+                </div>
+                <a href="https://example.com/speedbooster.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </a>
+            </div>
+
+            <div class="app-card glass-panel" data-category="media" data-title="HD Video Player Max">
+                <div class="app-info-row">
+                    <div class="app-icon">
+                        <i class="fa-solid fa-play" style="color:#10b981;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>HD Video Player Max</h3>
+                        <span class="app-badge">v5.0.0 • Media</span>
+                    </div>
+                </div>
+                <p class="app-desc">4K और Full HD वीडियो बैकग्राउंड और पॉपअप मोड में चलाएं।</p>
+                <div class="app-meta">
+                    <span><i class="fa-solid fa-hard-drive"></i> 24.2 MB</span>
+                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.7</span>
+                </div>
+                <a href="https://example.com/videoplayer.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </a>
+            </div>
+
+            <div class="app-card glass-panel" data-category="tools" data-title="Fast VPN Pro">
+                <div class="app-info-row">
+                    <div class="app-icon">
+                        <i class="fa-solid fa-shield-halved" style="color:#ec4899;"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>Fast VPN Pro</h3>
+                        <span class="app-badge">v1.8.4 • Tools</span>
+                    </div>
+                </div>
+                <p class="app-desc">अनलिमिटेड हाई-स्पीड प्रॉक्सी सर्वर और 100% सुरक्षित ब्राउज़िंग।</p>
+                <div class="app-meta">
+                    <span><i class="fa-solid fa-hard-drive"></i> 16.5 MB</span>
+                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.6</span>
+                </div>
+                <a href="https://example.com/fastvpn.apk" download class="direct-download-btn" onclick="triggerDirectDownload(this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </a>
+            </div>
+
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2023 Madaripur Kirana Store. All rights reserved. | Designed by AI | Professional Grocery Services</p>
-    </footer>
+    <div class="footer-box">
+        <p>© 2026 Ashu App Store • सभी APK सुरक्षित और जांची गई हैं</p>
+    </div>
 
+    <script>
+        // 1-Click Instant Download Handler
+        function triggerDirectDownload(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
+            btn.style.background = '#059669';
+
+            setTimeout(function() {
+                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Downloaded!';
+                setTimeout(function() {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                }, 3000);
+            }, 1500);
+        }
+
+        // Live Search
+        function filterApps() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var cards = document.querySelectorAll('.app-card');
+
+            cards.forEach(function(card) {
+                var title = card.getAttribute('data-title').toLowerCase();
+                if (title.indexOf(input) > -1) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Categories Filter
+        function filterCategory(category, btn) {
+            document.querySelectorAll('.cat-btn').forEach(function(b) {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            var cards = document.querySelectorAll('.app-card');
+            cards.forEach(function(card) {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
-                  </html>
+</html>
