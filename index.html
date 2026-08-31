@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashu App Store - Liquid Glass UI</title>
+    <title>Ashu App Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Animated Liquid Gradient Background */
         body {
             background: linear-gradient(135deg, #090d16, #161233, #064e47);
             background-size: 400% 400%;
@@ -30,7 +29,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glassmorphism Panel */
         .glass-panel {
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(16px);
@@ -39,7 +37,6 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* Header */
         header {
             position: sticky;
             top: 0;
@@ -61,7 +58,6 @@
             text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
         }
 
-        /* Hero */
         .hero {
             text-align: center;
             padding: 35px 20px 20px;
@@ -84,7 +80,6 @@
             margin-bottom: 25px;
         }
 
-        /* Search Bar */
         .search-container {
             max-width: 500px;
             margin: 0 auto 25px;
@@ -121,57 +116,26 @@
             color: #94a3b8;
         }
 
-        /* Categories Filter */
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .cat-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #e2e8f0;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: 0.3s;
-        }
-
-        .cat-btn.active, .cat-btn:hover {
-            background: linear-gradient(135deg, #0284c7, #6366f1);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
-        }
-
-        /* App Cards Grid */
         .container {
-            max-width: 1000px;
+            max-width: 600px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr;
             gap: 20px;
         }
 
-        /* Liquid Glass App Card */
         .app-card {
             border-radius: 20px;
-            padding: 20px;
+            padding: 22px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
-            overflow: hidden;
         }
 
         .app-card:hover {
@@ -187,38 +151,22 @@
             margin-bottom: 12px;
         }
 
-        /* Liquid Glass App Icon */
         .app-icon {
-            width: 62px;
-            height: 62px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.15), 0 8px 20px rgba(0,0,0,0.3);
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 14px;
-        }
-
-        /* Instagram Gradient Icon */
-        .insta-gradient {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            font-size: 36px;
             color: #ffffff;
+            box-shadow: 0 8px 20px rgba(220, 39, 67, 0.35);
+            flex-shrink: 0;
         }
 
         .app-details h3 {
-            font-size: 17px;
+            font-size: 18px;
             color: #ffffff;
             margin-bottom: 4px;
         }
@@ -234,23 +182,22 @@
         }
 
         .app-desc {
-            font-size: 13px;
+            font-size: 13.5px;
             color: #94a3b8;
-            line-height: 1.4;
+            line-height: 1.45;
             margin-bottom: 15px;
         }
 
         .app-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 12.5px;
             color: #cbd5e1;
             padding: 10px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             margin-bottom: 15px;
         }
 
-        /* Direct Download Button */
         .direct-download-btn {
             display: flex;
             align-items: center;
@@ -258,8 +205,7 @@
             gap: 8px;
             background: linear-gradient(135deg, #0ea5e9, #6366f1);
             color: white;
-            text-decoration: none;
-            padding: 12px;
+            padding: 13px;
             border-radius: 12px;
             font-size: 14px;
             font-weight: 700;
@@ -287,141 +233,115 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="glass-panel">
         <a href="#" class="logo">
             <i class="fa-solid fa-cube"></i> Ashu App Store
         </a>
     </header>
 
-    <!-- Hero Section -->
     <div class="hero">
         <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
         <p>100% सुरक्षित और डायरेक्ट APK डाउनलोड्स</p>
 
-        <!-- Search Bar -->
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम सर्च करें..." onkeyup="filterApps()">
-        </div>
-
-        <!-- Categories -->
-        <div class="categories">
-            <button class="cat-btn active" onclick="filterCategory('all', this)">All Apps</button>
-            <button class="cat-btn" onclick="filterCategory('social', this)">Social</button>
-            <button class="cat-btn" onclick="filterCategory('gaming', this)">Gaming</button>
-            <button class="cat-btn" onclick="filterCategory('tools', this)">Tools</button>
+            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." onkeyup="renderApps()">
         </div>
     </div>
 
-    <!-- App Cards -->
     <div class="container">
-        <div class="app-grid" id="appsContainer">
-
-            <!-- APP 1: Instagram Lite (Real MediaFire Link & Official Logo) -->
-            <div class="app-card glass-panel" data-category="social" data-title="Instagram Lite">
-                <div class="app-info-row">
-                    <div class="app-icon insta-gradient">
-                        <i class="fa-brands fa-instagram" style="font-size: 36px;"></i>
-                    </div>
-                    <div class="app-details">
-                        <h3>Instagram Lite</h3>
-                        <span class="app-badge">v524.0.0.3.106 • Social</span>
-                    </div>
-                </div>
-                <p class="app-desc">कम इंटरनेट और कम रैम वाले फोन के लिए सुपरफास्ट Instagram ऐप। रील्स और चैट सपोर्ट।</p>
-                <div class="app-meta">
-                    <span><i class="fa-solid fa-hard-drive"></i> 3.5 MB</span>
-                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.9</span>
-                </div>
-                <!-- Real MediaFire Download Link Attached -->
-                <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" rel="noopener noreferrer" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                </a>
-            </div>
-
-            <!-- APP 2: Gaming (GFX Tool) -->
-            <div class="app-card glass-panel" data-category="gaming" data-title="GFX Tool Ultra Pro">
-                <div class="app-info-row">
-                    <div class="app-icon" style="background: rgba(168, 85, 247, 0.2); color: #c084fc;">
-                        <i class="fa-solid fa-gamepad"></i>
-                    </div>
-                    <div class="app-details">
-                        <h3>GFX Tool Ultra Pro</h3>
-                        <span class="app-badge">v3.2.0 • Gaming</span>
-                    </div>
-                </div>
-                <p class="app-desc">60FPS और 90FPS तुरंत अनलॉक करें। बिना लैग गेमिंग का अनुभव पाएं।</p>
-                <div class="app-meta">
-                    <span><i class="fa-solid fa-hard-drive"></i> 8.5 MB</span>
-                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.9</span>
-                </div>
-                <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                </a>
-            </div>
-
-            <!-- APP 3: Tools (Speed Booster) -->
-            <div class="app-card glass-panel" data-category="tools" data-title="Speed Booster Pro">
-                <div class="app-info-row">
-                    <div class="app-icon" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <div class="app-details">
-                        <h3>Speed Booster Pro</h3>
-                        <span class="app-badge">v2.1.0 • Tools</span>
-                    </div>
-                </div>
-                <p class="app-desc">रैम और बैकग्राउंड ऐप्स को साफ़ करके फ़ोन को सुपरफ़ास्ट बनाएं।</p>
-                <div class="app-meta">
-                    <span><i class="fa-solid fa-hard-drive"></i> 12.0 MB</span>
-                    <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> 4.8</span>
-                </div>
-                <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                </a>
-            </div>
-
-        </div>
+        <div class="app-grid" id="appsContainer"></div>
     </div>
 
-    <!-- Footer -->
     <div class="footer-box">
-        <p>© 2026 Ashu App Store • सभी APK 100% सुरक्षित हैं</p>
+        <p>© 2026 Ashu App Store • सभी APK सुरक्षित हैं</p>
     </div>
 
-    <!-- Search & Filter Script -->
     <script>
-        function filterApps() {
-            var input = document.getElementById('searchInput').value.toLowerCase();
-            var cards = document.querySelectorAll('.app-card');
+        // ऐप्स डेटाबेस (भविष्य में नई ऐप्स यहाँ जोड़ें)
+        const myApps = [
+            {
+                id: 1,
+                title: "Instagram Lite",
+                version: "v524.0.0.3.106",
+                category: "Social",
+                size: "3.5 MB",
+                rating: "4.9",
+                description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
+                iconClass: "fa-brands fa-instagram",
+                // डायरेक्ट लिंक यहाँ डालें:
+                downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
+                fileName: "Instagram_Lite.apk"
+            }
+        ];
 
-            cards.forEach(function(card) {
-                var title = card.getAttribute('data-title').toLowerCase();
-                if (title.indexOf(input) > -1) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+        function renderApps() {
+            const container = document.getElementById('appsContainer');
+            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            container.innerHTML = "";
+
+            const filtered = myApps.filter(app => app.title.toLowerCase().includes(searchVal));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#94a3b8; padding:20px;">कोई ऐप नहीं मिली।</p>`;
+                return;
+            }
+
+            filtered.forEach(app => {
+                const card = document.createElement('div');
+                card.className = "app-card glass-panel";
+                card.innerHTML = `
+                    <div class="app-info-row">
+                        <div class="app-icon">
+                            <i class="${app.iconClass}"></i>
+                        </div>
+                        <div class="app-details">
+                            <h3>${app.title}</h3>
+                            <span class="app-badge">${app.version} • ${app.category}</span>
+                        </div>
+                    </div>
+                    <p class="app-desc">${app.description}</p>
+                    <div class="app-meta">
+                        <span><i class="fa-solid fa-hard-drive"></i> ${app.size}</span>
+                        <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> ${app.rating}</span>
+                    </div>
+                    <button class="direct-download-btn" onclick="directDownload('${app.downloadUrl}', '${app.fileName}', this)">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                    </button>
+                `;
+                container.appendChild(card);
             });
         }
 
-        function filterCategory(category, btn) {
-            document.querySelectorAll('.cat-btn').forEach(function(b) {
-                b.classList.remove('active');
-            });
-            btn.classList.add('active');
+        // 1-Click Pure Direct Download
+        function directDownload(url, fileName, btn) {
+            if (!url || url === "") {
+                alert("⚠️ इस ऐप का डाउनलोड लिंक उपलब्ध नहीं है।");
+                return;
+            }
 
-            var cards = document.querySelectorAll('.app-card');
-            cards.forEach(function(card) {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
+            btn.style.background = '#059669';
+
+            // सीधे फ़ाइल डाउनलोड शुरू करने का ट्रिगर
+            const a = document.createElement('a');
+            a.href = url;
+            a.setAttribute('download', fileName);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Downloaded!';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '';
+                }, 2000);
+            }, 1500);
         }
+
+        renderApps();
     </script>
 </body>
-                              </html>
-                              
+</html>
