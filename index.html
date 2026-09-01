@@ -363,6 +363,7 @@
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(2, 132, 199, 1));
         }
 
+        /* Instagram कांटेक्ट कार्ड */
         .contact-card {
             width: 100%;
             border-radius: 24px;
@@ -480,11 +481,7 @@
         </div>
 
         <!-- ऐप ग्रिड -->
-        <div class="app-grid" id="appsContainer">
-            <p style="text-align:center; color:#94a3b8; padding:20px;">
-                <i class="fa-solid fa-spinner fa-spin"></i> ऐप्स लोड हो रहे हैं...
-            </p>
-        </div>
+        <div class="app-grid" id="appsContainer"></div>
 
         <p id="noAppMsg">इस श्रेणी में कोई ऐप नहीं मिला।</p>
 
@@ -504,110 +501,115 @@
     </div>
 
     <script>
-        let allApps = [];
-        let currentCategory = "all";
-
-        async function loadAppsFromJSON() {
-            try {
-                const res = await fetch('apps.json');
-                allApps = await res.json();
-                filterAndRender();
-            } catch (err) {
-                console.error("JSON Error:", err);
-                document.getElementById('appsContainer').innerHTML = `
-                    <p style="text-align:center; color:#ef4444; padding:20px;">
-                        apps.json लोड नहीं हो सकी।
-                    </p>
-                `;
-            }
-        }
-
-        function setCategory(cat, btn) {
-            currentCategory = cat;
-            document.querySelectorAll('.category-chip').forEach(el => el.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            filterAndRender();
-        }
-
-        function filterAndRender() {
-            const container = document.getElementById('appsContainer');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
-            const noMsg = document.getElementById('noAppMsg');
-            container.innerHTML = "";
-
-            const filtered = allApps.filter(app => {
-                const matchesSearch = app.title.toLowerCase().includes(searchVal);
-                const matchesCat = (currentCategory === "all") || (app.category.toLowerCase() === currentCategory.toLowerCase());
-                return matchesSearch && matchesCat;
-            });
-
-            if (filtered.length === 0) {
-                noMsg.style.display = "block";
-                return;
-            } else {
-                noMsg.style.display = "none";
-            }
-
-            filtered.forEach(app => {
-                const card = document.createElement('div');
-                card.className = "app-card glass-panel";
-                card.innerHTML = `
-                    <div class="app-top-meta">
-                        <span class="verified-badge">
-                            <i class="fa-solid fa-shield-halved"></i> Verified Safe
-                        </span>
-                        <span class="downloads-count">
-                            <i class="fa-solid fa-download"></i> ${app.downloads}
-                        </span>
-                    </div>
-
-                    <div class="app-info-row">
-                        <div class="liquid-glass-icon app-icon">
-                            <i class="${app.icon}"></i>
-                        </div>
-                        <div class="app-details">
-                            <h3>${app.title}</h3>
-                            <span class="app-badge">${app.version} • ${app.category.toUpperCase()}</span>
-                        </div>
-                    </div>
-                    
-                    <p class="app-desc">${app.description}</p>
-                    
-                    <div class="app-meta">
-                        <span class="meta-item">
-                            <span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span>
-                            ${app.size}
-                        </span>
-                        <span class="meta-item">
-                            <span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span>
-                            ${app.rating}
-                        </span>
-                    </div>
-
-                    <button class="direct-download-btn" onclick="directDownload('${app.downloadUrl}', '${app.fileName}', this)">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function directDownload(url, fileName, btn) {
-            if (!url) return;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
-            btn.style.background = 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.9))';
-
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', fileName);
-            link.setAttribute('target', '_blank');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Started!';
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-   
+        // 20 ऐप्स का इनबिल्ट डेटाबेस (0 सेकेंड में तुरंत लोड होगा)
+        const allApps = [
+            {
+                id: 1,
+                title: "Instagram Lite",
+                version: "v524.0.0.3.106",
+                category: "social",
+                size: "3.5 MB",
+                rating: "4.9",
+                downloads: "500K+",
+                description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
+                icon: "fa-brands fa-instagram",
+                downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
+                fileName: "Instagram_Lite.apk"
+            },
+            {
+                id: 2,
+                title: "UC Browser",
+                version: "v13.5.8",
+                category: "tools",
+                size: "45 MB",
+                rating: "4.8",
+                downloads: "250K+",
+                description: "सुपर फ़ास्ट डाउनलोडिंग, डेटा सेविंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।",
+                icon: "fa-solid fa-compass",
+                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
+                fileName: "UC_Browser.apk"
+            },
+            {
+                id: 3,
+                title: "Telegram Official",
+                version: "v10.8.1",
+                category: "social",
+                size: "42 MB",
+                rating: "4.9",
+                downloads: "1M+",
+                description: "फास्ट, सिक्योर और क्लाउड बेस्ड मैसेजिंग ऐप। लार्ज फाइल्स और ग्रुप्स के लिए बेस्ट।",
+                icon: "fa-brands fa-telegram",
+                downloadUrl: "https://telegram.org/dl/android/apk",
+                fileName: "Telegram.apk"
+            },
+            {
+                id: 4,
+                title: "WhatsApp Messenger",
+                version: "v2.24.12",
+                category: "social",
+                size: "58 MB",
+                rating: "4.8",
+                downloads: "5M+",
+                description: "एंड-टू-एंड एन्क्रिप्टेड सिक्योर चैटिंग, एचडी वॉयस और वीडियो कॉलिंग ऐप।",
+                icon: "fa-brands fa-whatsapp",
+                downloadUrl: "https://www.whatsapp.com/android/current/WhatsApp.apk",
+                fileName: "WhatsApp.apk"
+            },
+            {
+                id: 5,
+                title: "Facebook Lite",
+                version: "v412.0.0",
+                category: "social",
+                size: "2.8 MB",
+                rating: "4.6",
+                downloads: "2M+",
+                description: "स्लो नेटवर्क में भी सुपरफास्ट फेसबुक एक्सपीरियंस और स्टोरीज़ सपोर्ट।",
+                icon: "fa-brands fa-facebook",
+                downloadUrl: "https://www.facebook.com/lite/download",
+                fileName: "Facebook_Lite.apk"
+            },
+            {
+                id: 6,
+                title: "Snapchat",
+                version: "v12.85.0",
+                category: "social",
+                size: "72 MB",
+                rating: "4.7",
+                downloads: "1.5M+",
+                description: "मज़ेदार AR कैमरा फिल्टर्स, स्ट्रीक्स और दोस्तों के साथ फास्ट स्नैप शेयरिंग।",
+                icon: "fa-brands fa-snapchat",
+                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
+                fileName: "Snapchat.apk"
+            },
+            {
+                id: 7,
+                title: "X (Twitter Lite)",
+                version: "v3.2.1",
+                category: "social",
+                size: "4.2 MB",
+                rating: "4.5",
+                downloads: "800K+",
+                description: "दुनिया भर के ट्रेंड्स, न्यूज़ और ट्वीट्स पर नज़र रखने के लिए लाइटवेट ऐप।",
+                icon: "fa-brands fa-x-twitter",
+                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
+                fileName: "Twitter_Lite.apk"
+            },
+            {
+                id: 8,
+                title: "Spotify Lite",
+                version: "v1.9.0",
+                category: "apps",
+                size: "15 MB",
+                rating: "4.8",
+                downloads: "800K+",
+                description: "कम डेटा खर्च में लाखों गानों और पॉडकास्ट का हाई-क्वालिटी ऑडियो मज़ा।",
+                icon: "fa-brands fa-spotify",
+                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
+                fileName: "Spotify_Lite.apk"
+            },
+            {
+                id: 9,
+                title: "VLC Media Player",
+                version: "v3.5.4",
+                category: "apps",
+          
