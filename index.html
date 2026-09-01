@@ -8,7 +8,7 @@
     <style>
         :root {
             --water-glow: rgba(56, 189, 248, 0.4);
-            --water-border: rgba(255, 255, 255, 0.3);
+            --water-border: rgba(255, 255, 255, 0.25);
             --water-bg: rgba(15, 35, 55, 0.45);
         }
 
@@ -21,7 +21,7 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 20%, #0d2b3a, #071724 60%, #020b12);
+            background: radial-gradient(circle at 50% 15%, #0d2b3a, #071724 55%, #020b12);
             color: #ffffff;
             min-height: 100vh;
             display: flex;
@@ -34,7 +34,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--water-border);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.25);
         }
 
         header {
@@ -42,19 +42,19 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 15px 25px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
         }
 
         .logo {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
             color: #e0f2fe;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .liquid-glass-icon {
@@ -62,30 +62,30 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(56, 189, 248, 0.15) 50%, rgba(14, 165, 233, 0.25));
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(56, 189, 248, 0.15) 50%, rgba(14, 165, 233, 0.25));
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: #e0f2fe;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25), inset 0 2px 5px rgba(255, 255, 255, 0.7);
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.6);
+            flex-shrink: 0;
         }
 
         .header-icon {
-            width: 40px;
-            height: 40px;
-            font-size: 18px;
-            border-radius: 12px;
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+            border-radius: 10px;
         }
 
         .main-wrapper {
             width: 100%;
             max-width: 580px;
-            padding: 25px 20px 80px;
+            padding: 18px 16px 80px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 16px;
         }
 
         .hero {
@@ -93,40 +93,40 @@
         }
 
         .hero h1 {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             background: linear-gradient(90deg, #7dd3fc, #38bdf8, #bae6fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 14px;
+            font-size: 13px;
             color: #94a3b8;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .search-container {
             position: relative;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
         .search-input {
             width: 100%;
-            padding: 15px 20px 15px 52px;
-            border-radius: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 13px 18px 13px 46px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
             background: rgba(15, 35, 55, 0.35);
             backdrop-filter: blur(15px);
             color: #ffffff;
-            font-size: 15px;
+            font-size: 14.5px;
             outline: none;
         }
 
         .search-input:focus {
             border-color: #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.35);
         }
 
         .search-icon-wrapper {
@@ -134,18 +134,18 @@
             left: 8px;
             top: 50%;
             transform: translateY(-50%);
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .category-container {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            justify-content: flex-start;
+            gap: 8px;
             overflow-x: auto;
-            padding: 4px 5px;
+            padding: 2px 2px 8px;
             scrollbar-width: none;
         }
         .category-container::-webkit-scrollbar { display: none; }
@@ -153,204 +153,194 @@
         .category-chip {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 18px 8px 10px;
-            border-radius: 30px;
+            gap: 6px;
+            padding: 6px 14px 6px 8px;
+            border-radius: 20px;
             background: rgba(15, 35, 55, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             color: #cbd5e1;
-            font-size: 13.5px;
+            font-size: 12.5px;
             font-weight: 600;
             cursor: pointer;
-            backdrop-filter: blur(14px);
+            backdrop-filter: blur(10px);
             white-space: nowrap;
         }
 
         .category-chip .chip-icon {
-            width: 28px;
-            height: 28px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .category-chip.active {
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(2, 132, 199, 0.45));
-            border-color: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
             color: #ffffff;
-            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
 
+        /* 📱 कॉम्पैक्ट लिस्ट लेआउट 📱 */
         .app-grid {
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 10px;
             width: 100%;
         }
 
         .app-card {
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 18px;
+            padding: 12px 14px;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .app-top-meta {
-            display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            gap: 12px;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .verified-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            color: #34d399;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
+        .app-card:active {
+            transform: scale(0.98);
         }
 
-        .downloads-count {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 11.5px;
-            color: #94a3b8;
-            font-weight: 600;
-        }
-
-        .downloads-count i { color: #38bdf8; font-size: 10px; }
-
-        .app-info-row {
+        .app-left {
             display: flex;
-            gap: 16px;
             align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0; /* truncate support */
         }
 
         .app-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 20px;
-            font-size: 30px;
-            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            font-size: 22px;
+        }
+
+        .app-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .app-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .app-details h3 {
-            font-size: 18.5px;
+            font-size: 15px;
+            font-weight: 700;
             color: #f0f9ff;
-            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .app-badge {
-            display: inline-block;
-            font-size: 11px;
-            background: rgba(56, 189, 248, 0.12);
-            color: #38bdf8;
-            padding: 3px 8px;
-            border-radius: 20px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-        }
-
-        .app-desc {
-            font-size: 13.5px;
-            color: #94a3b8;
-            line-height: 1.45;
-        }
-
-        .app-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: #bae6fd;
-            padding: 10px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .meta-item {
+        .app-sub-meta {
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 11.5px;
+            color: #94a3b8;
         }
 
-        .meta-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 8px;
-            font-size: 11px;
+        .star-tag {
+            color: #fbbf24;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
         }
 
+        .free-tag {
+            color: #34d399;
+            font-weight: 700;
+        }
+
+        .app-desc {
+            font-size: 11.5px;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 220px;
+        }
+
+        /* दाईं तरफ का कॉम्पैक्ट डाउनलोड बटन */
         .direct-download-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.8), rgba(2, 132, 199, 0.85));
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.8), rgba(2, 132, 199, 0.9));
             color: #ffffff;
-            padding: 14px;
-            border-radius: 16px;
-            font-size: 14.5px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12.5px;
             font-weight: 700;
             border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
             text-decoration: none;
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.35);
-            width: 100%;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .direct-download-btn:active {
+            transform: scale(0.95);
         }
 
         .contact-card {
             width: 100%;
-            border-radius: 24px;
-            padding: 25px 20px;
+            border-radius: 20px;
+            padding: 18px 16px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .contact-card h4 {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 800;
             color: #e0f2fe;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .contact-card p {
-            font-size: 13.5px;
+            font-size: 12.5px;
             color: #94a3b8;
-            line-height: 1.4;
+            line-height: 1.35;
         }
 
         .insta-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 13px 26px;
-            border-radius: 30px;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 25px;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(56, 189, 248, 0.25));
             color: #ffffff;
             text-decoration: none;
-            font-size: 14.5px;
+            font-size: 13.5px;
             font-weight: 700;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.25);
         }
 
-        .insta-btn i { font-size: 19px; color: #38bdf8; }
+        .insta-btn i { font-size: 17px; color: #38bdf8; }
 
         .footer-box {
             text-align: center;
             padding: 15px 20px;
-            font-size: 12px;
+            font-size: 11.5px;
             color: #64748b;
         }
 
@@ -358,7 +348,8 @@
             display: none;
             text-align: center;
             color: #64748b;
-            padding: 30px 20px;
+            padding: 25px 20px;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -374,11 +365,11 @@
     <div class="main-wrapper">
         <div class="hero">
             <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
-            <p>100% सुरक्षित, स्मूथ और डायरेक्ट APK डाउनलोड्स</p>
+            <p>100% सुरक्षित, लाइटवेट और डायरेक्ट APK डाउनलोड्स</p>
 
             <div class="search-container">
                 <span class="liquid-glass-icon search-icon-wrapper"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="applyFilters()">
+                <input type="text" id="searchInput" class="search-input" placeholder="ऐप खोजें..." oninput="applyFilters()">
             </div>
 
             <div class="category-container">
@@ -397,129 +388,164 @@
             </div>
         </div>
 
+        <!-- 📱 कॉम्पैक्ट लिस्ट व्यू ऐप्स 📱 -->
         <div class="app-grid" id="appsContainer">
 
             <!-- 1. Instagram Lite -->
             <div class="app-card glass-panel app-item" data-title="instagram lite" data-category="social">
-                <div class="app-top-meta">
-                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
-                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 500K+</span>
-                </div>
-                <div class="app-info-row">
+                <div class="app-left">
                     <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-instagram"></i></div>
                     <div class="app-details">
-                        <h3>Instagram Lite</h3>
-                        <span class="app-badge">v524.0.0 • SOCIAL</span>
+                        <div class="app-title-row">
+                            <h3>Instagram Lite</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>3.5 MB</span>
+                        </div>
+                        <p class="app-desc">कम डेटा में तेज़ रील्स और चैट सपोर्ट।</p>
                     </div>
                 </div>
-                <p class="app-desc">कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स और चैट सपोर्ट।</p>
-                <div class="app-meta">
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 3.5 MB</span>
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.9</span>
-                </div>
                 <a href="https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                    <i class="fa-solid fa-download"></i> Get
                 </a>
             </div>
 
             <!-- 2. UC Browser -->
             <div class="app-card glass-panel app-item" data-title="uc browser" data-category="tools">
-                <div class="app-top-meta">
-                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
-                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 250K+</span>
-                </div>
-                <div class="app-info-row">
+                <div class="app-left">
                     <div class="liquid-glass-icon app-icon"><i class="fa-solid fa-compass"></i></div>
                     <div class="app-details">
-                        <h3>UC Browser</h3>
-                        <span class="app-badge">v13.5.8 • TOOLS</span>
+                        <div class="app-title-row">
+                            <h3>UC Browser</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.8</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>45 MB</span>
+                        </div>
+                        <p class="app-desc">सुपर फास्ट डाउनलोडिंग व ब्राउज़िंग।</p>
                     </div>
                 </div>
-                <p class="app-desc">सुपर फ़ास्ट डाउनलोडिंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।</p>
-                <div class="app-meta">
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 45 MB</span>
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.8</span>
-                </div>
                 <a href="https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                    <i class="fa-solid fa-download"></i> Get
                 </a>
             </div>
 
             <!-- 3. Telegram Official -->
             <div class="app-card glass-panel app-item" data-title="telegram official" data-category="social">
-                <div class="app-top-meta">
-                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
-                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 1M+</span>
-                </div>
-                <div class="app-info-row">
+                <div class="app-left">
                     <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-telegram"></i></div>
                     <div class="app-details">
-                        <h3>Telegram Official</h3>
-                        <span class="app-badge">v10.8.1 • SOCIAL</span>
+                        <div class="app-title-row">
+                            <h3>Telegram Official</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.9</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>42 MB</span>
+                        </div>
+                        <p class="app-desc">सिक्योर और सुपरफास्ट मैसेजिंग ऐप।</p>
                     </div>
                 </div>
-                <p class="app-desc">फास्ट, सिक्योर और क्लाउड बेस्ड मैसेजिंग ऐप। लार्ज फाइल्स और ग्रुप्स के लिए बेस्ट।</p>
-                <div class="app-meta">
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 42 MB</span>
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.9</span>
-                </div>
                 <a href="https://telegram.org/dl/android/apk" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                    <i class="fa-solid fa-download"></i> Get
                 </a>
             </div>
 
             <!-- 4. WhatsApp Messenger -->
             <div class="app-card glass-panel app-item" data-title="whatsapp messenger" data-category="social">
-                <div class="app-top-meta">
-                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
-                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 5M+</span>
-                </div>
-                <div class="app-info-row">
+                <div class="app-left">
                     <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-whatsapp"></i></div>
                     <div class="app-details">
-                        <h3>WhatsApp Messenger</h3>
-                        <span class="app-badge">v2.24.12 • SOCIAL</span>
+                        <div class="app-title-row">
+                            <h3>WhatsApp</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.8</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>58 MB</span>
+                        </div>
+                        <p class="app-desc">एंड-टू-एंड एन्क्रिप्टेड चैटिंग व कॉलिंग।</p>
                     </div>
                 </div>
-                <p class="app-desc">एंड-टू-एंड एन्क्रिप्टेड सिक्योर चैटिंग, एचडी वॉयस और वीडियो कॉलिंग ऐप।</p>
-                <div class="app-meta">
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 58 MB</span>
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.8</span>
-                </div>
                 <a href="https://www.whatsapp.com/android/current/WhatsApp.apk" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                    <i class="fa-solid fa-download"></i> Get
                 </a>
             </div>
 
             <!-- 5. Facebook Lite -->
             <div class="app-card glass-panel app-item" data-title="facebook lite" data-category="social">
-                <div class="app-top-meta">
-                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
-                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 2M+</span>
-                </div>
-                <div class="app-info-row">
+                <div class="app-left">
                     <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-facebook"></i></div>
                     <div class="app-details">
-                        <h3>Facebook Lite</h3>
-                        <span class="app-badge">v412.0 • SOCIAL</span>
+                        <div class="app-title-row">
+                            <h3>Facebook Lite</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.6</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>2.8 MB</span>
+                        </div>
+                        <p class="app-desc">कम इंटरनेट में तेज़ फेसबुक एक्सपीरियंस।</p>
                     </div>
                 </div>
-                <p class="app-desc">स्लो नेटवर्क में भी सुपरफास्ट फेसबुक एक्सपीरियंस और स्टोरीज़ सपोर्ट।</p>
-                <div class="app-meta">
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 2.8 MB</span>
-                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.6</span>
-                </div>
                 <a href="https://www.facebook.com/lite/download" target="_blank" class="direct-download-btn">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                    <i class="fa-solid fa-download"></i> Get
                 </a>
             </div>
 
             <!-- 6. Snapchat -->
             <div class="app-card glass-panel app-item" data-title="snapchat" data-category="social">
-                <div class="app-top-meta">
-                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
-                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 1.5M+</span>
-                </div>
-                <div class="app-info-row">
+                <div class="app-left">
                     <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-snapchat"></i></div>
-                    <div class="
+                    <div class="app-details">
+                        <div class="app-title-row">
+                            <h3>Snapchat</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.7</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>72 MB</span>
+                        </div>
+                        <p class="app-desc">मज़ेदार AR कैमरा फिल्टर्स व स्नैप्स।</p>
+                    </div>
+                </div>
+                <a href="https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i" target="_blank" class="direct-download-btn">
+                    <i class="fa-solid fa-download"></i> Get
+                </a>
+            </div>
+
+            <!-- 7. X (Twitter Lite) -->
+            <div class="app-card glass-panel app-item" data-title="x twitter lite" data-category="social">
+                <div class="app-left">
+                    <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-x-twitter"></i></div>
+                    <div class="app-details">
+                        <div class="app-title-row">
+                            <h3>X (Twitter Lite)</h3>
+                        </div>
+                        <div class="app-sub-meta">
+                            <span class="star-tag"><i class="fa-solid fa-star"></i> 4.5</span>
+                            <span>•</span>
+                            <span class="free-tag">Free</span>
+                            <span>•</span>
+                            <span>4.2 MB</span>
+                        </div>
+                        <p class="app-desc">ग्लोबल ट्रेंड्स और लाइव न्यूज़ अपडेट्स।</p>
+                    </div>
+                </div>
+                <a href="https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i" target="_blank" class="direct-download-btn">
+                    <i class="fa-solid fa-download"></i>
