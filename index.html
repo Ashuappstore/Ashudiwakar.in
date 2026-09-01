@@ -28,7 +28,6 @@
             padding-bottom: 40px;
         }
 
-        /* लिक्विड ग्लास बेस पैनल */
         .glass-panel {
             background: rgba(15, 35, 55, 0.45);
             backdrop-filter: blur(20px);
@@ -59,7 +58,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* लिक्विड ग्लास आइकन स्टाइल */
         .liquid-glass-icon {
             display: inline-flex;
             align-items: center;
@@ -161,12 +159,12 @@
             font-size: 14px;
         }
 
-        /* 💧 लिक्विड ग्लास कैटिगरी बार 💧 */
+        /* लिक्विड ग्लास 5 कैटिगरी बार */
         .category-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             overflow-x: auto;
             padding: 5px 15px 25px;
             scrollbar-width: none;
@@ -179,13 +177,13 @@
         .category-chip {
             display: inline-flex;
             align-items: center;
-            gap: 9px;
-            padding: 8px 18px 8px 10px;
+            gap: 8px;
+            padding: 8px 16px 8px 8px;
             border-radius: 30px;
             background: rgba(15, 35, 55, 0.45);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #cbd5e1;
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -196,10 +194,10 @@
         }
 
         .category-chip .chip-icon {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            font-size: 12.5px;
+            font-size: 12px;
             border: 1px solid rgba(255, 255, 255, 0.5);
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(56, 189, 248, 0.2));
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.6);
@@ -234,6 +232,7 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 22px;
+            min-height: 150px;
         }
 
         .app-card {
@@ -463,7 +462,7 @@
             <span class="liquid-glass-icon search-icon-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." onkeyup="renderApps()">
+            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="renderApps()">
         </div>
 
         <!-- 💧 कैटिगरी बटन्स 💧 -->
@@ -511,7 +510,7 @@
     </div>
 
     <script>
-        // आपके ओरिजिनल ऐप्स (Instagram Lite = Social, UC Browser = Tools)
+        // आपके ऐप्स डेटाबेस
         const myApps = [
             {
                 id: 1,
@@ -547,24 +546,29 @@
 
         function filterCategory(category, btn) {
             selectedCategory = category;
-            document.querySelectorAll('.category-chip').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
+            const buttons = document.querySelectorAll('.category-chip');
+            buttons.forEach(el => el.classList.remove('active'));
+            if (btn) btn.classList.add('active');
             renderApps();
         }
 
         function renderApps() {
             const container = document.getElementById('appsContainer');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase();
+            const searchInput = document.getElementById('searchInput');
+            if (!container) return;
+
+            const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : "";
             container.innerHTML = "";
 
             const filtered = myApps.filter(app => {
                 const matchesSearch = app.title.toLowerCase().includes(searchVal);
-                const matchesCategory = selectedCategory === "All" || app.category.toLowerCase() === selectedCategory.toLowerCase();
+                const matchesCategory = (selectedCategory === "All") || 
+                                        (app.category.toLowerCase() === selectedCategory.toLowerCase());
                 return matchesSearch && matchesCategory;
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#64748b; padding:30px 20px;">इस श्रेणी में अभी कोई ऐप नहीं है।</p>`;
+                container.innerHTML = `<p style="text-align:center; color:#64748b; padding:30px 20px; width:100%;">इस श्रेणी में अभी कोई ऐप नहीं है।</p>`;
                 return;
             }
 
@@ -591,6 +595,4 @@
                         </div>
                     </div>
                     
-                    <p class="app-desc">${app.description}</p>
-                    
-                    <div class="app-meta">
+                
