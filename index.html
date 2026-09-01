@@ -25,7 +25,7 @@
             background: radial-gradient(circle at 50% 20%, #0d2b3a, #071724 60%, #020b12);
             color: #ffffff;
             min-height: 100vh;
-            padding-bottom: 50px;
+            padding-bottom: 140px; /* नीचे स्क्रॉल करने के लिए पूरा स्पेस */
         }
 
         /* लिक्विड ग्लास बेस पैनल */
@@ -161,7 +161,7 @@
             font-size: 14px;
         }
 
-        /* 💧 5 लिक्विड ग्लास कैटिगरी बार 💧 */
+        /* 💧 5 कैटिगरी बटन्स 💧 */
         .category-container {
             display: flex;
             justify-content: center;
@@ -378,29 +378,35 @@
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(2, 132, 199, 1));
         }
 
-        /* 💧 Instagram कांटेक्ट कार्ड 💧 */
+        /* 💧 Instagram कांटेक्ट कार्ड (स्पेशल लिक्विड ग्लास) 💧 */
         .contact-card {
-            margin-top: 40px;
+            margin-top: 35px;
             border-radius: 24px;
-            padding: 24px;
+            padding: 24px 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            background: rgba(15, 35, 55, 0.55);
         }
 
         .contact-card h4 {
-            font-size: 17px;
-            font-weight: 700;
+            font-size: 18px;
+            font-weight: 800;
             color: #e0f2fe;
-            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
         }
 
         .contact-card p {
-            font-size: 13px;
+            font-size: 13.5px;
             color: #94a3b8;
-            max-width: 400px;
+            max-width: 420px;
+            line-height: 1.4;
         }
 
         .insta-btn {
@@ -409,29 +415,29 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 12px 28px;
+            padding: 14px 32px;
             border-radius: 30px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(56, 189, 248, 0.25));
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(2, 132, 199, 0.5));
             color: #ffffff;
             text-decoration: none;
-            font-size: 14.5px;
+            font-size: 15px;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .insta-btn:hover {
             transform: translateY(-3px) scale(1.03);
             border-color: #38bdf8;
-            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.8);
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(14, 165, 233, 0.5));
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.9);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(14, 165, 233, 0.7));
         }
 
         .insta-btn i {
-            font-size: 18px;
+            font-size: 20px;
             color: #38bdf8;
         }
 
@@ -576,7 +582,4 @@
             <p id="noAppMsg">इस श्रेणी में अभी कोई ऐप नहीं है।</p>
         </div>
 
-        <!-- 💧 डेवलपर से संपर्क करें (Instagram हैंडल फिक्स) 💧 -->
-        <div class="contact-card glass-panel">
-            <h4><i class="fa-regular fa-paper-plane" style="color: #38bdf8; margin-right: 6px;"></i> डेवलपर से संपर्क करें</h4>
-            <p>किसी भी ऐप रिक्वेस्ट, बग रिपोर्ट या नए सुझाव के लिए सीध
+        <!-- 💧 Instagram संपर्क सेक्शन 💧 -
