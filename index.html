@@ -17,6 +17,8 @@ button,input{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inh
 .wrap{width:min(1260px,calc(100% - 24px));margin:14px auto}.panel{padding:20px;border-radius:25px;margin-bottom:16px}.cats{display:flex;flex-wrap:wrap;gap:9px}.cat{border:1px solid #fff;background:#ffffffa8;color:#53627b;border-radius:15px;padding:10px 15px;font-size:13px;font-weight:750}.cat.active,.cat:hover{color:#1476ea;background:#fff;border-color:#7dbfff66}
 .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.head h2{margin:0;font-size:25px}.head h2:before{content:"";display:inline-block;width:5px;height:25px;border-radius:5px;background:#1476ea;margin-right:9px;vertical-align:-4px}.view{border:0;background:none;color:#1476ea;font-weight:800}
 .apps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{padding:17px;border-radius:21px;background:linear-gradient(145deg,#ffffffdf,#ffffff8c);border:1px solid #fff;box-shadow:inset 0 1px #fff,0 12px 30px #315a8d12;transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-3px);box-shadow:inset 0 1px #fff,0 19px 40px #315a8d1c}.top{display:flex;gap:12px;align-items:flex-start}.icon{width:66px;height:66px;flex:none;border-radius:18px;overflow:hidden;display:grid;place-items:center;font-size:29px;background:linear-gradient(145deg,#eaf7ff,#c9e7ff);box-shadow:0 8px 20px #3277ad16,inset 0 1px #fff}.icon img{width:100%;height:100%;object-fit:cover}.info{min-width:0;flex:1}.name{font-weight:850;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.category{margin-top:4px;color:#1476ea;font-size:12px;font-weight:750}.rating{padding:6px 8px;border-radius:10px;background:#fff;border:1px solid #e0e9f3;font-size:11px;font-weight:800}.desc{min-height:42px;margin-top:13px;color:#6b7890;font-size:12.5px;line-height:1.55}.meta{display:flex;justify-content:space-between;color:#8793a6;font-size:11px;margin-top:10px}.actions{display:flex;gap:8px;margin-top:14px}.download{flex:1;border:1px solid #fff;border-radius:13px;padding:10px;background:#fffffff0;color:#1476ea;font-weight:850}.download:hover{background:#fff}.fav{width:44px;border:1px solid #fff;border-radius:13px;background:#ffffffb5;color:#68778e;font-size:18px}.fav.active{color:#ee4c78}.empty{display:none;text-align:center;padding:40px;color:#74839b}.features{display:grid;grid-template-columns:repeat(4,1fr);gap:0}.feature{padding:8px 18px;border-right:1px solid #9bb0c733}.feature:last-child{border:0}.fi{font-size:22px;color:#1476ea}.feature b{font-size:13px}.feature p{margin:3px 0;color:#7b899e;font-size:11px}.footer{width:min(1260px,calc(100% - 24px));margin:14px auto 25px;padding:25px;border-radius:25px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px}.footer b{font-size:16px}.footer p,.footer a{font-size:12px;color:#74839a;line-height:1.6}.footer h4{margin:0 0 7px;font-size:13px}.footer a{display:block;margin:5px 0}.copy{grid-column:1/-1;border-top:1px solid #9bb0c733;text-align:center;padding-top:14px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,33,61,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;z-index:250}
+.modal-backdrop.show{display:flex}.modal{width:min(420px,100%);padding:22px;border-radius:24px;background:rgba(255,255,255,.86);border:1px solid #fff;box-shadow:0 25px 80px rgba(20,40,80,.25);text-align:center}.modal-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:17px;background:#eaf5ff;display:grid;place-items:center;color:#1476ea;font-size:25px}.modal h3{margin:5px 0 7px;font-size:21px}.modal p{margin:0;color:#6d7b91;font-size:12.5px;line-height:1.6}.modal-actions{display:flex;gap:9px;margin-top:18px}.modal-actions button{flex:1;border:0;border-radius:13px;padding:12px;font-weight:800}.cancel{background:#eef3f8;color:#58677d}.anyway{background:linear-gradient(145deg,#3094ff,#1469e5);color:#fff}.modal-note{margin-top:10px!important;font-size:10.5px!important;color:#8a96a8!important}
 .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:300;padding:12px 16px;border-radius:14px;background:#14213ded;color:#fff;font-size:12px;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:950px){.apps{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:repeat(2,1fr)}.feature:nth-child(2){border-right:0}.hero-content{max-width:75%}}
 @media(max-width:680px){.header{height:62px}.brand{font-size:17px}.logo{width:37px;height:37px}.nav{display:none}.menu{display:block}.nav.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;padding:10px;background:#fffffff2;border:1px solid #fff;border-radius:18px;box-shadow:0 18px 40px #315a8d20}.hero{min-height:500px;padding:34px 20px}.hero-content{max-width:100%}.hero h1{font-size:40px}.hero p{font-size:14px}.o1{width:180px;height:180px;right:70px;top:auto;bottom:45px}.o2{width:190px;height:125px;right:-35px;top:auto;bottom:20px}.o3{display:none}.apps{grid-template-columns:1fr}.features{grid-template-columns:1fr}.feature{border-right:0;border-bottom:1px solid #9bb0c733;padding:12px 0}.footer{grid-template-columns:1fr 1fr}.copy{grid-column:1/-1}}
@@ -63,6 +65,18 @@ button,input{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inh
   <div><h4>Contact</h4><a href="mailto:contact@example.com">Email</a></div>
   <div class="copy">© 2026 Ashu App Store</div>
 </footer>
+<div class="modal-backdrop" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal glass">
+    <div class="modal-icon">↓</div>
+    <h3 id="modalTitle">Download app</h3>
+    <p id="modalText">Ready to download.</p>
+    <div class="modal-actions">
+      <button class="cancel" id="cancelDownload" type="button">Cancel</button>
+      <button class="anyway" id="downloadAnyway" type="button">Download Anyway</button>
+    </div>
+    <p class="modal-note">Direct APK download works only when apps.json contains a real direct .apk file URL.</p>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -88,14 +102,53 @@ function render(){
   <div class="desc">${esc(a.description)}</div>
   <div class="meta"><span>${esc(a.size)}</span><span>v${esc(a.version)}</span></div>
   <div class="actions">
-   <a class="download" href="${safeUrl(a.downloadUrl)?esc(a.downloadUrl):"#"}" target="_blank" rel="noopener noreferrer" data-download="${esc(a.id)}">↓ &nbsp; Download</a>
+   <button class="download" type="button" data-download="${esc(a.id)}">↓ &nbsp; Download</button>
    <button class="fav ${favorites.has(a.id)?"active":""}" data-fav="${esc(a.id)}" aria-label="Favorite">${favorites.has(a.id)?"♥":"♡"}</button>
   </div>
  </article>`).join("");
- document.querySelectorAll("[data-download]").forEach(el=>el.onclick=e=>{
-   const a=apps.find(x=>x.id===el.dataset.download);
-   if(!a||!safeUrl(a.downloadUrl)){e.preventDefault();toast("This app does not have a valid download link.");}
- });
+ let pendingApp=null;
+function isDirectApk(url){
+  try{
+    const u=new URL(url,location.href);
+    return /\.apk(?:$|[?#])/i.test(u.pathname+u.search);
+  }catch(e){return false}
+}
+function openDownloadModal(a){
+  pendingApp=a;
+  $("modalTitle").textContent="Download "+a.name;
+  $("modalText").textContent=isDirectApk(a.downloadUrl)
+    ?"The official APK is ready. Tap Download Anyway to start the download."
+    :"This entry does not contain a direct APK file. The official publisher provides a webpage instead, so this site cannot safely turn that webpage into an APK.";
+  $("downloadModal").classList.add("show");
+}
+function closeDownloadModal(){pendingApp=null;$("downloadModal").classList.remove("show")}
+function startDirectDownload(a){
+  if(!a||!safeUrl(a.downloadUrl)){toast("Invalid download URL.");return}
+  if(!isDirectApk(a.downloadUrl)){
+    toast("No direct APK URL is available for this app.");
+    return;
+  }
+  const link=document.createElement("a");
+  link.href=a.downloadUrl;
+  link.setAttribute("download","");
+  link.rel="noopener";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  toast("Download started: "+a.name);
+}
+document.querySelectorAll("[data-download]").forEach(el=>el.onclick=()=>{
+  const a=apps.find(x=>x.id===el.dataset.download);
+  if(a)openDownloadModal(a);
+});
+$("cancelDownload").onclick=closeDownloadModal;
+$("downloadAnyway").onclick=()=>{
+  const a=pendingApp;
+  closeDownloadModal();
+  startDirectDownload(a);
+};
+$("downloadModal").onclick=e=>{if(e.target===$("downloadModal"))closeDownloadModal()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDownloadModal()});
  document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{const id=b.dataset.fav;favorites.has(id)?favorites.delete(id):favorites.add(id);render()});
 }
 async function load(){
