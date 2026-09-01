@@ -183,12 +183,12 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px 8px 8px;
+            padding: 8px 18px 8px 10px;
             border-radius: 30px;
             background: rgba(15, 35, 55, 0.45);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #cbd5e1;
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -363,7 +363,7 @@
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(2, 132, 199, 1));
         }
 
-        /* Instagram कांटेक्ट कार्ड */
+        /* Instagram & Developer Card */
         .contact-card {
             width: 100%;
             border-radius: 24px;
@@ -456,10 +456,10 @@
                 <span class="liquid-glass-icon search-icon-wrapper">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
-                <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="filterAndRender()">
+                <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="applyFilters()">
             </div>
 
-            <!-- कैटिगरी बटन्स -->
+            <!-- 4 Categories: All, Social, Apps, Tools -->
             <div class="category-container">
                 <button class="category-chip active" onclick="setCategory('all', this)">
                     <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-border-all"></i></span>
@@ -480,136 +480,85 @@
             </div>
         </div>
 
-        <!-- ऐप ग्रिड -->
-        <div class="app-grid" id="appsContainer"></div>
+        <!-- Static Hardcoded Apps Grid (Instantly visible without load delay) -->
+        <div class="app-grid" id="appsContainer">
 
-        <p id="noAppMsg">इस श्रेणी में कोई ऐप नहीं मिला।</p>
+            <!-- 1. Instagram Lite -->
+            <div class="app-card glass-panel app-item" data-title="instagram lite" data-category="social">
+                <div class="app-top-meta">
+                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
+                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 500K+</span>
+                </div>
+                <div class="app-info-row">
+                    <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-instagram"></i></div>
+                    <div class="app-details">
+                        <h3>Instagram Lite</h3>
+                        <span class="app-badge">v524.0.0.3.106 • SOCIAL</span>
+                    </div>
+                </div>
+                <p class="app-desc">कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।</p>
+                <div class="app-meta">
+                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 3.5 MB</span>
+                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.9</span>
+                </div>
+                <button class="direct-download-btn" onclick="directDownload('https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file', 'Instagram_Lite.apk', this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </button>
+            </div>
 
-        <!-- डेवलपर संपर्क व Instagram -->
-        <div class="contact-card glass-panel">
-            <h4><i class="fa-regular fa-paper-plane" style="color: #38bdf8;"></i> डेवलपर से संपर्क करें</h4>
-            <p>किसी भी ऐप रिक्वेस्ट, बग रिपोर्ट या नए सुझाव के लिए सीधे Instagram पर संपर्क करें:</p>
-            <a href="https://instagram.com/ashu___op___" target="_blank" class="insta-btn">
-                <i class="fa-brands fa-instagram"></i>
-                <span>@ashu___op___</span>
-            </a>
-        </div>
+            <!-- 2. UC Browser -->
+            <div class="app-card glass-panel app-item" data-title="uc browser" data-category="tools">
+                <div class="app-top-meta">
+                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
+                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 250K+</span>
+                </div>
+                <div class="app-info-row">
+                    <div class="liquid-glass-icon app-icon"><i class="fa-solid fa-compass"></i></div>
+                    <div class="app-details">
+                        <h3>UC Browser</h3>
+                        <span class="app-badge">v13.5.8 • TOOLS</span>
+                    </div>
+                </div>
+                <p class="app-desc">सुपर फ़ास्ट डाउनलोडिंग, डेटा सेविंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।</p>
+                <div class="app-meta">
+                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 45 MB</span>
+                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.8</span>
+                </div>
+                <button class="direct-download-btn" onclick="directDownload('https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i', 'UC_Browser.apk', this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </button>
+            </div>
 
-        <div class="footer-box">
-            <p>Copyright © 2026 Ashu App Store • All rights reserved.</p>
-        </div>
-    </div>
+            <!-- 3. Telegram Official -->
+            <div class="app-card glass-panel app-item" data-title="telegram official" data-category="social">
+                <div class="app-top-meta">
+                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
+                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 1M+</span>
+                </div>
+                <div class="app-info-row">
+                    <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-telegram"></i></div>
+                    <div class="app-details">
+                        <h3>Telegram Official</h3>
+                        <span class="app-badge">v10.8.1 • SOCIAL</span>
+                    </div>
+                </div>
+                <p class="app-desc">फास्ट, सिक्योर और क्लाउड बेस्ड मैसेजिंग ऐप। लार्ज फाइल्स और ग्रुप्स के लिए बेस्ट।</p>
+                <div class="app-meta">
+                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span> 42 MB</span>
+                    <span class="meta-item"><span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span> 4.9</span>
+                </div>
+                <button class="direct-download-btn" onclick="directDownload('https://telegram.org/dl/android/apk', 'Telegram.apk', this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </button>
+            </div>
 
-    <script>
-        // 20 ऐप्स का इनबिल्ट डेटाबेस (0 सेकेंड में तुरंत लोड होगा)
-        const allApps = [
-            {
-                id: 1,
-                title: "Instagram Lite",
-                version: "v524.0.0.3.106",
-                category: "social",
-                size: "3.5 MB",
-                rating: "4.9",
-                downloads: "500K+",
-                description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
-                icon: "fa-brands fa-instagram",
-                downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
-                fileName: "Instagram_Lite.apk"
-            },
-            {
-                id: 2,
-                title: "UC Browser",
-                version: "v13.5.8",
-                category: "tools",
-                size: "45 MB",
-                rating: "4.8",
-                downloads: "250K+",
-                description: "सुपर फ़ास्ट डाउनलोडिंग, डेटा सेविंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।",
-                icon: "fa-solid fa-compass",
-                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
-                fileName: "UC_Browser.apk"
-            },
-            {
-                id: 3,
-                title: "Telegram Official",
-                version: "v10.8.1",
-                category: "social",
-                size: "42 MB",
-                rating: "4.9",
-                downloads: "1M+",
-                description: "फास्ट, सिक्योर और क्लाउड बेस्ड मैसेजिंग ऐप। लार्ज फाइल्स और ग्रुप्स के लिए बेस्ट।",
-                icon: "fa-brands fa-telegram",
-                downloadUrl: "https://telegram.org/dl/android/apk",
-                fileName: "Telegram.apk"
-            },
-            {
-                id: 4,
-                title: "WhatsApp Messenger",
-                version: "v2.24.12",
-                category: "social",
-                size: "58 MB",
-                rating: "4.8",
-                downloads: "5M+",
-                description: "एंड-टू-एंड एन्क्रिप्टेड सिक्योर चैटिंग, एचडी वॉयस और वीडियो कॉलिंग ऐप।",
-                icon: "fa-brands fa-whatsapp",
-                downloadUrl: "https://www.whatsapp.com/android/current/WhatsApp.apk",
-                fileName: "WhatsApp.apk"
-            },
-            {
-                id: 5,
-                title: "Facebook Lite",
-                version: "v412.0.0",
-                category: "social",
-                size: "2.8 MB",
-                rating: "4.6",
-                downloads: "2M+",
-                description: "स्लो नेटवर्क में भी सुपरफास्ट फेसबुक एक्सपीरियंस और स्टोरीज़ सपोर्ट।",
-                icon: "fa-brands fa-facebook",
-                downloadUrl: "https://www.facebook.com/lite/download",
-                fileName: "Facebook_Lite.apk"
-            },
-            {
-                id: 6,
-                title: "Snapchat",
-                version: "v12.85.0",
-                category: "social",
-                size: "72 MB",
-                rating: "4.7",
-                downloads: "1.5M+",
-                description: "मज़ेदार AR कैमरा फिल्टर्स, स्ट्रीक्स और दोस्तों के साथ फास्ट स्नैप शेयरिंग।",
-                icon: "fa-brands fa-snapchat",
-                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
-                fileName: "Snapchat.apk"
-            },
-            {
-                id: 7,
-                title: "X (Twitter Lite)",
-                version: "v3.2.1",
-                category: "social",
-                size: "4.2 MB",
-                rating: "4.5",
-                downloads: "800K+",
-                description: "दुनिया भर के ट्रेंड्स, न्यूज़ और ट्वीट्स पर नज़र रखने के लिए लाइटवेट ऐप।",
-                icon: "fa-brands fa-x-twitter",
-                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
-                fileName: "Twitter_Lite.apk"
-            },
-            {
-                id: 8,
-                title: "Spotify Lite",
-                version: "v1.9.0",
-                category: "apps",
-                size: "15 MB",
-                rating: "4.8",
-                downloads: "800K+",
-                description: "कम डेटा खर्च में लाखों गानों और पॉडकास्ट का हाई-क्वालिटी ऑडियो मज़ा।",
-                icon: "fa-brands fa-spotify",
-                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
-                fileName: "Spotify_Lite.apk"
-            },
-            {
-                id: 9,
-                title: "VLC Media Player",
-                version: "v3.5.4",
-                category: "apps",
-          
+            <!-- 4. WhatsApp Messenger -->
+            <div class="app-card glass-panel app-item" data-title="whatsapp messenger" data-category="social">
+                <div class="app-top-meta">
+                    <span class="verified-badge"><i class="fa-solid fa-shield-halved"></i> Verified Safe</span>
+                    <span class="downloads-count"><i class="fa-solid fa-download"></i> 5M+</span>
+                </div>
+                <div class="app-info-row">
+                    <div class="liquid-glass-icon app-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="app-details">
+                        <h3>WhatsApp Messenger
