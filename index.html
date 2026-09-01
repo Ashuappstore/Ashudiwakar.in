@@ -11,7 +11,6 @@
             --water-border: rgba(255, 255, 255, 0.35);
             --water-bg: rgba(255, 255, 255, 0.08);
             --safe-green: #10b981;
-            --safe-green-glow: rgba(16, 185, 129, 0.25);
         }
 
         * {
@@ -100,7 +99,7 @@
 
         .hero {
             text-align: center;
-            padding: 40px 20px 20px;
+            padding: 35px 20px 10px;
             max-width: 700px;
             margin: 0 auto;
         }
@@ -118,12 +117,12 @@
         .hero p {
             font-size: 14.5px;
             color: #94a3b8;
-            margin-bottom: 30px;
+            margin-bottom: 22px;
         }
 
         .search-container {
             max-width: 500px;
-            margin: 0 auto 30px;
+            margin: 0 auto 20px;
             position: relative;
         }
 
@@ -162,6 +161,69 @@
             font-size: 14px;
         }
 
+        /* 💧 लिक्विड ग्लास 5 कैटिगरी बार 💧 */
+        .category-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 5px 15px 25px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .category-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 18px 8px 10px;
+            border-radius: 30px;
+            background: rgba(15, 35, 55, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .category-chip .chip-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 12.5px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(56, 189, 248, 0.2));
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+        }
+
+        .category-chip:hover {
+            border-color: rgba(56, 189, 248, 0.6);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .category-chip.active {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(2, 132, 199, 0.45));
+            border-color: rgba(255, 255, 255, 0.6);
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .category-chip.active .chip-icon {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(56, 189, 248, 0.5));
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -182,7 +244,6 @@
             justify-content: space-between;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
             position: relative;
-            overflow: hidden;
         }
 
         .app-card:hover {
@@ -190,7 +251,6 @@
             box-shadow: 0 16px 45px rgba(2, 132, 199, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.4);
         }
 
-        /* टॉप ट्रस्ट रो (Verified + Downloads) */
         .app-top-meta {
             display: flex;
             justify-content: space-between;
@@ -318,7 +378,6 @@
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(2, 132, 199, 1));
         }
 
-        /* एस्थेटिक कांटेक्ट सेक्शन */
         .contact-card {
             margin-top: 45px;
             border-radius: 24px;
@@ -399,11 +458,36 @@
         <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
         <p>100% सुरक्षित, स्मूथ और डायरेक्ट APK डाउनलोड्स</p>
 
+        <!-- सर्च बार -->
         <div class="search-container">
             <span class="liquid-glass-icon search-icon-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
             <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." onkeyup="renderApps()">
+        </div>
+
+        <!-- 💧 5 लिक्विड ग्लास कैटिगरी बटन्स 💧 -->
+        <div class="category-container">
+            <button class="category-chip active" onclick="filterCategory('All', this)">
+                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-border-all"></i></span>
+                All
+            </button>
+            <button class="category-chip" onclick="filterCategory('Social', this)">
+                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-users"></i></span>
+                Social
+            </button>
+            <button class="category-chip" onclick="filterCategory('Games', this)">
+                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-gamepad"></i></span>
+                Games
+            </button>
+            <button class="category-chip" onclick="filterCategory('Apps', this)">
+                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-shapes"></i></span>
+                Apps
+            </button>
+            <button class="category-chip" onclick="filterCategory('Tools', this)">
+                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-wrench"></i></span>
+                Tools
+            </button>
         </div>
     </div>
 
@@ -427,7 +511,7 @@
     </div>
 
     <script>
-        // ऐप्स डेटाबेस (downloads और verified स्टेटस के साथ)
+        // ऐप्स डेटाबेस (Social, Apps, Games, Tools के साथ)
         const myApps = [
             {
                 id: 1,
@@ -447,7 +531,7 @@
                 id: 2,
                 title: "UC Browser",
                 version: "v13.5.8",
-                category: "Browser",
+                category: "Apps",
                 size: "45 MB",
                 rating: "4.8",
                 downloads: "250K+",
@@ -459,15 +543,28 @@
             }
         ];
 
+        let selectedCategory = "All";
+
+        function filterCategory(category, btn) {
+            selectedCategory = category;
+            document.querySelectorAll('.category-chip').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+            renderApps();
+        }
+
         function renderApps() {
             const container = document.getElementById('appsContainer');
             const searchVal = document.getElementById('searchInput').value.toLowerCase();
             container.innerHTML = "";
 
-            const filtered = myApps.filter(app => app.title.toLowerCase().includes(searchVal));
+            const filtered = myApps.filter(app => {
+                const matchesSearch = app.title.toLowerCase().includes(searchVal);
+                const matchesCategory = selectedCategory === "All" || app.category.toLowerCase() === selectedCategory.toLowerCase();
+                return matchesSearch && matchesCategory;
+            });
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">कोई ऐप नहीं मिली।</p>`;
+                container.innerHTML = `<p style="text-align:center; color:#64748b; padding:30px 20px;">इस श्रेणी में अभी कोई ऐप नहीं है।</p>`;
                 return;
             }
 
@@ -496,58 +593,4 @@
                     
                     <p class="app-desc">${app.description}</p>
                     
-                    <div class="app-meta">
-                        <span class="meta-item">
-                            <span class="liquid-glass-icon meta-icon">
-                                <i class="fa-solid fa-hard-drive"></i>
-                            </span>
-                            ${app.size}
-                        </span>
-                        <span class="meta-item">
-                            <span class="liquid-glass-icon meta-icon">
-                                <i class="fa-solid fa-star" style="color:#38bdf8;"></i>
-                            </span>
-                            ${app.rating}
-                        </span>
-                    </div>
-
-                    <button class="direct-download-btn" onclick="directDownload('${app.downloadUrl}', '${app.fileName}', this)">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // 1-Click डायरेक्ट डाउनलोड इंजन
-        function directDownload(url, fileName, btn) {
-            if (!url || url === "") {
-                alert("⚠️ इस ऐप का डाउनलोड लिंक उपलब्ध नहीं है।");
-                return;
-            }
-
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
-            btn.style.background = 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.9))';
-
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', fileName);
-            link.setAttribute('target', '_blank');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-check"></i> Started!';
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.style.background = '';
-                }, 2500);
-            }, 1000);
-        }
-
-        renderApps();
-    </script>
-</body>
-</html>
+                    <div class="app-m
