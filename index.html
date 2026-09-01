@@ -161,7 +161,7 @@
             font-size: 14px;
         }
 
-        /* 💧 लिक्विड ग्लास 5 कैटिगरी बार 💧 */
+        /* 💧 लिक्विड ग्लास कैटिगरी बार 💧 */
         .category-container {
             display: flex;
             justify-content: center;
@@ -466,7 +466,7 @@
             <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." onkeyup="renderApps()">
         </div>
 
-        <!-- 💧 5 लिक्विड ग्लास कैटिगरी बटन्स 💧 -->
+        <!-- 💧 कैटिगरी बटन्स 💧 -->
         <div class="category-container">
             <button class="category-chip active" onclick="filterCategory('All', this)">
                 <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-border-all"></i></span>
@@ -495,7 +495,7 @@
         <!-- ऐप ग्रिड -->
         <div class="app-grid" id="appsContainer"></div>
 
-        <!-- एस्थेटिक कांटेक्ट सेक्शन -->
+        <!-- डेवलपर से संपर्क करें -->
         <div class="contact-card glass-panel">
             <h4><i class="fa-regular fa-paper-plane" style="color: #38bdf8; margin-right: 6px;"></i> डेवलपर से संपर्क करें</h4>
             <p>किसी भी ऐप रिक्वेस्ट, बग रिपोर्ट या नए सुझाव के लिए सीधे Instagram पर कनेक्ट करें।</p>
@@ -511,7 +511,7 @@
     </div>
 
     <script>
-        // ऐप्स डेटाबेस (Social, Apps, Games, Tools के साथ)
+        // आपके ओरिजिनल ऐप्स (Instagram Lite = Social, UC Browser = Tools)
         const myApps = [
             {
                 id: 1,
@@ -531,7 +531,7 @@
                 id: 2,
                 title: "UC Browser",
                 version: "v13.5.8",
-                category: "Apps",
+                category: "Tools",
                 size: "45 MB",
                 rating: "4.8",
                 downloads: "250K+",
@@ -593,4 +593,4 @@
                     
                     <p class="app-desc">${app.description}</p>
                     
-                    <div class="app-m
+                    <div class="app-meta">
