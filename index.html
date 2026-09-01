@@ -25,10 +25,11 @@
             background: radial-gradient(circle at 50% 20%, #0d2b3a, #071724 60%, #020b12);
             color: #ffffff;
             min-height: 100vh;
-            padding-bottom: 140px; /* नीचे स्क्रॉल करने के लिए पूरा स्पेस */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* लिक्विड ग्लास बेस पैनल */
         .glass-panel {
             background: rgba(15, 35, 55, 0.45);
             backdrop-filter: blur(20px);
@@ -39,6 +40,7 @@
         }
 
         header {
+            width: 100%;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -59,7 +61,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* लिक्विड ग्लास आइकन स्टाइल */
         .liquid-glass-icon {
             display: inline-flex;
             align-items: center;
@@ -97,17 +98,23 @@
             border-radius: 12px;
         }
 
+        .main-wrapper {
+            width: 100%;
+            max-width: 580px;
+            padding: 25px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
         .hero {
             text-align: center;
-            padding: 35px 20px 10px;
-            max-width: 700px;
-            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: linear-gradient(90deg, #7dd3fc, #38bdf8, #bae6fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -115,20 +122,19 @@
         }
 
         .hero p {
-            font-size: 14.5px;
+            font-size: 14px;
             color: #94a3b8;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
         }
 
         .search-container {
-            max-width: 500px;
-            margin: 0 auto 20px;
             position: relative;
+            margin-bottom: 18px;
         }
 
         .search-input {
             width: 100%;
-            padding: 16px 20px 16px 52px;
+            padding: 15px 20px 15px 52px;
             border-radius: 35px;
             border: 1px solid rgba(255, 255, 255, 0.25);
             background: rgba(15, 35, 55, 0.35);
@@ -142,8 +148,7 @@
 
         .search-input:focus {
             border-color: #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 2px 4px rgba(0, 0, 0, 0.2);
-            background: rgba(15, 35, 55, 0.5);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
         }
 
         .search-input::placeholder {
@@ -161,16 +166,14 @@
             font-size: 14px;
         }
 
-        /* 💧 5 कैटिगरी बटन्स 💧 */
         .category-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             overflow-x: auto;
-            padding: 5px 15px 25px;
+            padding: 4px 5px;
             scrollbar-width: none;
-            -ms-overflow-style: none;
         }
         .category-container::-webkit-scrollbar {
             display: none;
@@ -190,8 +193,6 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.2);
             white-space: nowrap;
         }
 
@@ -202,38 +203,30 @@
             font-size: 12px;
             border: 1px solid rgba(255, 255, 255, 0.5);
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(56, 189, 248, 0.2));
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.6);
         }
 
         .category-chip:hover {
             border-color: rgba(56, 189, 248, 0.6);
             color: #ffffff;
-            transform: translateY(-2px);
         }
 
         .category-chip.active {
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(2, 132, 199, 0.45));
             border-color: rgba(255, 255, 255, 0.6);
             color: #ffffff;
-            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
         }
 
         .category-chip.active .chip-icon {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(56, 189, 248, 0.5));
             color: #ffffff;
-            border-color: #ffffff;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 20px;
         }
 
         .app-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 22px;
+            width: 100%;
         }
 
         .app-card {
@@ -242,13 +235,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
-            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .app-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 45px rgba(2, 132, 199, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 45px rgba(2, 132, 199, 0.2);
         }
 
         .app-top-meta {
@@ -271,8 +263,6 @@
             font-weight: 700;
             padding: 4px 10px;
             border-radius: 20px;
-            letter-spacing: 0.3px;
-            backdrop-filter: blur(8px);
         }
 
         .downloads-count {
@@ -318,7 +308,6 @@
             padding: 4px 10px;
             border-radius: 20px;
             border: 1px solid rgba(56, 189, 248, 0.3);
-            backdrop-filter: blur(8px);
         }
 
         .app-desc {
@@ -365,31 +354,26 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.35),
-                        inset 0 1px 2px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.35);
             width: 100%;
-            backdrop-filter: blur(10px);
         }
 
         .direct-download-btn:hover {
             transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.5),
-                        inset 0 2px 4px rgba(255, 255, 255, 0.7);
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(2, 132, 199, 1));
         }
 
-        /* 💧 Instagram कांटेक्ट कार्ड (स्पेशल लिक्विड ग्लास) 💧 */
+        /* 💧 Instagram & डेवलपर संपर्क सेक्शन 💧 */
         .contact-card {
-            margin-top: 35px;
+            width: 100%;
             border-radius: 24px;
             padding: 24px 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            background: rgba(15, 35, 55, 0.55);
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .contact-card h4 {
@@ -399,7 +383,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            letter-spacing: 0.5px;
         }
 
         .contact-card p {
@@ -410,42 +393,38 @@
         }
 
         .insta-btn {
-            margin-top: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 14px 32px;
+            padding: 13px 26px;
             border-radius: 30px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(2, 132, 199, 0.5));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(56, 189, 248, 0.25));
             color: #ffffff;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.7);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3);
+            transition: all 0.3s ease;
         }
 
         .insta-btn:hover {
-            transform: translateY(-3px) scale(1.03);
+            transform: translateY(-2px);
             border-color: #38bdf8;
-            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.9);
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(14, 165, 233, 0.7));
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(14, 165, 233, 0.5));
         }
 
         .insta-btn i {
-            font-size: 20px;
+            font-size: 19px;
             color: #38bdf8;
         }
 
         .footer-box {
             text-align: center;
-            margin-top: 35px;
             padding: 15px 20px;
-            font-size: 12.5px;
+            font-size: 12px;
             color: #64748b;
         }
 
@@ -468,48 +447,44 @@
         </a>
     </header>
 
-    <div class="hero">
-        <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
-        <p>100% सुरक्षित, स्मूथ और डायरेक्ट APK डाउनलोड्स</p>
+    <div class="main-wrapper">
+        <div class="hero">
+            <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
+            <p>100% सुरक्षित, स्मूथ और डायरेक्ट APK डाउनलोड्स</p>
 
-        <!-- सर्च बार -->
-        <div class="search-container">
-            <span class="liquid-glass-icon search-icon-wrapper">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
-            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="applyFilters()">
+            <div class="search-container">
+                <span class="liquid-glass-icon search-icon-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="applyFilters()">
+            </div>
+
+            <div class="category-container">
+                <button class="category-chip active" onclick="setCategory('all', this)">
+                    <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-border-all"></i></span>
+                    All
+                </button>
+                <button class="category-chip" onclick="setCategory('social', this)">
+                    <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-users"></i></span>
+                    Social
+                </button>
+                <button class="category-chip" onclick="setCategory('games', this)">
+                    <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-gamepad"></i></span>
+                    Games
+                </button>
+                <button class="category-chip" onclick="setCategory('apps', this)">
+                    <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-shapes"></i></span>
+                    Apps
+                </button>
+                <button class="category-chip" onclick="setCategory('tools', this)">
+                    <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-wrench"></i></span>
+                    Tools
+                </button>
+            </div>
         </div>
 
-        <!-- 💧 5 कैटिगरी बटन्स 💧 -->
-        <div class="category-container">
-            <button class="category-chip active" onclick="setCategory('all', this)">
-                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-border-all"></i></span>
-                All
-            </button>
-            <button class="category-chip" onclick="setCategory('social', this)">
-                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-users"></i></span>
-                Social
-            </button>
-            <button class="category-chip" onclick="setCategory('games', this)">
-                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-gamepad"></i></span>
-                Games
-            </button>
-            <button class="category-chip" onclick="setCategory('apps', this)">
-                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-shapes"></i></span>
-                Apps
-            </button>
-            <button class="category-chip" onclick="setCategory('tools', this)">
-                <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-wrench"></i></span>
-                Tools
-            </button>
-        </div>
-    </div>
-
-    <div class="container">
-        <!-- ऐप ग्रिड -->
         <div class="app-grid" id="appsContainer">
-            
-            <!-- 1. Instagram Lite (Social) -->
+            <!-- 1. Instagram Lite -->
             <div class="app-card glass-panel app-item" data-title="instagram lite" data-category="social">
                 <div class="app-top-meta">
                     <span class="verified-badge">
@@ -544,7 +519,7 @@
                 </button>
             </div>
 
-            <!-- 2. UC Browser (Tools) -->
+            <!-- 2. UC Browser -->
             <div class="app-card glass-panel app-item" data-title="uc browser" data-category="tools">
                 <div class="app-top-meta">
                     <span class="verified-badge">
@@ -582,4 +557,39 @@
             <p id="noAppMsg">इस श्रेणी में अभी कोई ऐप नहीं है।</p>
         </div>
 
-        <!-- 💧 Instagram संपर्क सेक्शन 💧 -
+        <!-- 💧 डेवलपर संपर्क व Instagram 💧 -->
+        <div class="contact-card glass-panel">
+            <h4><i class="fa-regular fa-paper-plane" style="color: #38bdf8;"></i> डेवलपर से संपर्क करें</h4>
+            <p>किसी भी ऐप रिक्वेस्ट, बग रिपोर्ट या नए सुझाव के लिए Instagram पर संपर्क करें:</p>
+            <a href="https://instagram.com/ashu___op___" target="_blank" class="insta-btn">
+                <i class="fa-brands fa-instagram"></i>
+                <span>@ashu___op___</span>
+            </a>
+        </div>
+
+        <div class="footer-box">
+            <p>Copyright © 2026 Ashu App Store • All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = "all";
+
+        function setCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.category-chip').forEach(el => el.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.app-item');
+            const noMsg = document.getElementById('noAppMsg');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                const category = card.getAttribute('data-category');
+
+                const matchesS
