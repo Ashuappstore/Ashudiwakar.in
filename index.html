@@ -27,7 +27,6 @@
             padding-bottom: 60px;
         }
 
-        /* लिक्विड ग्लास बेस पैनल */
         .glass-panel {
             background: rgba(15, 35, 55, 0.45);
             backdrop-filter: blur(20px);
@@ -58,7 +57,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* लिक्विड ग्लास आइकन स्टाइल */
         .liquid-glass-icon {
             display: inline-flex;
             align-items: center;
@@ -77,7 +75,6 @@
             overflow: hidden;
         }
 
-        /* पानी का रिफ्लेक्शन/शाइन इफ़ेक्ट */
         .liquid-glass-icon::before {
             content: '';
             position: absolute;
@@ -320,15 +317,16 @@
         const myApps = [
             {
                 id: 1,
-                title: "Instagram Lite",
-                version: "v524.0.0.3.106",
-                category: "Social",
-                size: "3.5 MB",
-                rating: "4.9",
-                description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
-                iconClass: "fa-brands fa-instagram",
-                downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
-                fileName: "Instagram_Lite.apk"
+                title: "UC Browser",
+                version: "Latest APK",
+                category: "Browser",
+                size: "45 MB",
+                rating: "4.8",
+                description: "सुपर फ़ास्ट डाउनलोडिंग और डेटा सेविंग फ़ीचर्स के साथ बेस्ट मोबाइल ब्राउज़र।",
+                iconClass: "fa-solid fa-compass",
+                // Google Drive Direct Download Link
+                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
+                fileName: "UC_Browser.apk"
             }
         ];
 
@@ -380,6 +378,7 @@
             });
         }
 
+        // 1-Click Instant Direct Download Engine
         function directDownload(url, fileName, btn) {
             if (!url || url === "") {
                 alert("⚠️ इस ऐप का डाउनलोड लिंक उपलब्ध नहीं है।");
@@ -390,18 +389,18 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
             btn.style.background = 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.9))';
 
-            const a = document.createElement('a');
-            a.href = url;
-            a.setAttribute('download', fileName);
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            // बैकग्राउंड में सीधे फ़ाइल डाउनलोड ट्रिगर करना
+            const hiddenFrame = document.createElement('iframe');
+            hiddenFrame.style.display = 'none';
+            hiddenFrame.src = url;
+            document.body.appendChild(hiddenFrame);
 
             setTimeout(() => {
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Downloaded!';
                 setTimeout(() => {
                     btn.innerHTML = originalHTML;
                     btn.style.background = '';
+                    document.body.removeChild(hiddenFrame);
                 }, 2000);
             }, 1500);
         }
