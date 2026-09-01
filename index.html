@@ -28,6 +28,7 @@
             padding-bottom: 40px;
         }
 
+        /* लिक्विड ग्लास बेस पैनल */
         .glass-panel {
             background: rgba(15, 35, 55, 0.45);
             backdrop-filter: blur(20px);
@@ -58,6 +59,7 @@
             letter-spacing: 0.5px;
         }
 
+        /* लिक्विड ग्लास आइकन स्टाइल */
         .liquid-glass-icon {
             display: inline-flex;
             align-items: center;
@@ -159,7 +161,7 @@
             font-size: 14px;
         }
 
-        /* लिक्विड ग्लास 5 कैटिगरी बार */
+        /* 💧 5 लिक्विड ग्लास कैटिगरी बार 💧 */
         .category-container {
             display: flex;
             justify-content: center;
@@ -232,7 +234,6 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 22px;
-            min-height: 150px;
         }
 
         .app-card {
@@ -440,6 +441,13 @@
             font-size: 12.5px;
             color: #64748b;
         }
+
+        #noAppMsg {
+            display: none;
+            text-align: center;
+            color: #64748b;
+            padding: 30px 20px;
+        }
     </style>
 </head>
 <body>
@@ -462,28 +470,28 @@
             <span class="liquid-glass-icon search-icon-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="renderApps()">
+            <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." oninput="applyFilters()">
         </div>
 
-        <!-- 💧 कैटिगरी बटन्स 💧 -->
+        <!-- 💧 5 कैटिगरी बटन्स 💧 -->
         <div class="category-container">
-            <button class="category-chip active" onclick="filterCategory('All', this)">
+            <button class="category-chip active" onclick="setCategory('all', this)">
                 <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-border-all"></i></span>
                 All
             </button>
-            <button class="category-chip" onclick="filterCategory('Social', this)">
+            <button class="category-chip" onclick="setCategory('social', this)">
                 <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-users"></i></span>
                 Social
             </button>
-            <button class="category-chip" onclick="filterCategory('Games', this)">
+            <button class="category-chip" onclick="setCategory('games', this)">
                 <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-gamepad"></i></span>
                 Games
             </button>
-            <button class="category-chip" onclick="filterCategory('Apps', this)">
+            <button class="category-chip" onclick="setCategory('apps', this)">
                 <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-shapes"></i></span>
                 Apps
             </button>
-            <button class="category-chip" onclick="filterCategory('Tools', this)">
+            <button class="category-chip" onclick="setCategory('tools', this)">
                 <span class="liquid-glass-icon chip-icon"><i class="fa-solid fa-wrench"></i></span>
                 Tools
             </button>
@@ -491,108 +499,84 @@
     </div>
 
     <div class="container">
-        <!-- ऐप ग्रिड -->
-        <div class="app-grid" id="appsContainer"></div>
+        <!-- ऐप ग्रिड (हार्डकोडेड स्टैटिक - तुरंत लोड होगा) -->
+        <div class="app-grid" id="appsContainer">
+            
+            <!-- 1. Instagram Lite (Social) -->
+            <div class="app-card glass-panel app-item" data-title="instagram lite" data-category="social">
+                <div class="app-top-meta">
+                    <span class="verified-badge">
+                        <i class="fa-solid fa-shield-halved"></i> Verified Safe
+                    </span>
+                    <span class="downloads-count">
+                        <i class="fa-solid fa-download"></i> 500K+
+                    </span>
+                </div>
+                <div class="app-info-row">
+                    <div class="liquid-glass-icon app-icon">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>Instagram Lite</h3>
+                        <span class="app-badge">v524.0.0.3.106 • Social</span>
+                    </div>
+                </div>
+                <p class="app-desc">कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।</p>
+                <div class="app-meta">
+                    <span class="meta-item">
+                        <span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span>
+                        3.5 MB
+                    </span>
+                    <span class="meta-item">
+                        <span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span>
+                        4.9
+                    </span>
+                </div>
+                <button class="direct-download-btn" onclick="directDownload('https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file', 'Instagram_Lite.apk', this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </button>
+            </div>
+
+            <!-- 2. UC Browser (Tools) -->
+            <div class="app-card glass-panel app-item" data-title="uc browser" data-category="tools">
+                <div class="app-top-meta">
+                    <span class="verified-badge">
+                        <i class="fa-solid fa-shield-halved"></i> Verified Safe
+                    </span>
+                    <span class="downloads-count">
+                        <i class="fa-solid fa-download"></i> 250K+
+                    </span>
+                </div>
+                <div class="app-info-row">
+                    <div class="liquid-glass-icon app-icon">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <div class="app-details">
+                        <h3>UC Browser</h3>
+                        <span class="app-badge">v13.5.8 • Tools</span>
+                    </div>
+                </div>
+                <p class="app-desc">सुपर फ़ास्ट डाउनलोडिंग, डेटा सेविंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।</p>
+                <div class="app-meta">
+                    <span class="meta-item">
+                        <span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-hard-drive"></i></span>
+                        45 MB
+                    </span>
+                    <span class="meta-item">
+                        <span class="liquid-glass-icon meta-icon"><i class="fa-solid fa-star" style="color:#38bdf8;"></i></span>
+                        4.8
+                    </span>
+                </div>
+                <button class="direct-download-btn" onclick="directDownload('https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i', 'UC_Browser.apk', this)">
+                    <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
+                </button>
+            </div>
+
+            <p id="noAppMsg">इस श्रेणी में अभी कोई ऐप नहीं है।</p>
+        </div>
 
         <!-- डेवलपर से संपर्क करें -->
         <div class="contact-card glass-panel">
             <h4><i class="fa-regular fa-paper-plane" style="color: #38bdf8; margin-right: 6px;"></i> डेवलपर से संपर्क करें</h4>
             <p>किसी भी ऐप रिक्वेस्ट, बग रिपोर्ट या नए सुझाव के लिए सीधे Instagram पर कनेक्ट करें।</p>
-            <a href="https://instagram.com/ashu___op___" target="_blank" class="insta-btn">
-                <i class="fa-brands fa-instagram"></i>
-                <span>@ashu___op___</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="footer-box">
-        <p>Copyright © 2026 Ashu App Store • All rights reserved.</p>
-    </div>
-
-    <script>
-        // आपके ऐप्स डेटाबेस
-        const myApps = [
-            {
-                id: 1,
-                title: "Instagram Lite",
-                version: "v524.0.0.3.106",
-                category: "Social",
-                size: "3.5 MB",
-                rating: "4.9",
-                downloads: "500K+",
-                isVerified: true,
-                description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
-                iconClass: "fa-brands fa-instagram",
-                downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
-                fileName: "Instagram_Lite.apk"
-            },
-            {
-                id: 2,
-                title: "UC Browser",
-                version: "v13.5.8",
-                category: "Tools",
-                size: "45 MB",
-                rating: "4.8",
-                downloads: "250K+",
-                isVerified: true,
-                description: "सुपर फ़ास्ट डाउनलोडिंग, डेटा सेविंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।",
-                iconClass: "fa-solid fa-compass",
-                downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
-                fileName: "UC_Browser.apk"
-            }
-        ];
-
-        let selectedCategory = "All";
-
-        function filterCategory(category, btn) {
-            selectedCategory = category;
-            const buttons = document.querySelectorAll('.category-chip');
-            buttons.forEach(el => el.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            renderApps();
-        }
-
-        function renderApps() {
-            const container = document.getElementById('appsContainer');
-            const searchInput = document.getElementById('searchInput');
-            if (!container) return;
-
-            const searchVal = searchInput ? searchInput.value.toLowerCase().trim() : "";
-            container.innerHTML = "";
-
-            const filtered = myApps.filter(app => {
-                const matchesSearch = app.title.toLowerCase().includes(searchVal);
-                const matchesCategory = (selectedCategory === "All") || 
-                                        (app.category.toLowerCase() === selectedCategory.toLowerCase());
-                return matchesSearch && matchesCategory;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#64748b; padding:30px 20px; width:100%;">इस श्रेणी में अभी कोई ऐप नहीं है।</p>`;
-                return;
-            }
-
-            filtered.forEach(app => {
-                const card = document.createElement('div');
-                card.className = "app-card glass-panel";
-                card.innerHTML = `
-                    <div class="app-top-meta">
-                        <span class="verified-badge">
-                            <i class="fa-solid fa-shield-halved"></i> Verified Safe
-                        </span>
-                        <span class="downloads-count">
-                            <i class="fa-solid fa-download"></i> ${app.downloads}
-                        </span>
-                    </div>
-
-                    <div class="app-info-row">
-                        <div class="liquid-glass-icon app-icon">
-                            <i class="${app.iconClass}"></i>
-                        </div>
-                        <div class="app-details">
-                            <h3>${app.title}</h3>
-                            <span class="app-badge">${app.version} • ${app.category}</span>
-                        </div>
-                    </div>
-                    
-                
+            <a href=
