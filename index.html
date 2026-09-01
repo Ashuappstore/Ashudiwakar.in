@@ -6,6 +6,12 @@
     <title>Ashu App Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --water-glow: rgba(56, 189, 248, 0.4);
+            --water-border: rgba(255, 255, 255, 0.35);
+            --water-bg: rgba(255, 255, 255, 0.08);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,33 +21,27 @@
         }
 
         body {
-            background: linear-gradient(135deg, #090d16, #161233, #064e47);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: radial-gradient(circle at 50% 20%, #0d2b3a, #071724 60%, #020b12);
             color: #ffffff;
             min-height: 100vh;
             padding-bottom: 60px;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* लिक्विड ग्लास बेस पैनल */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            background: rgba(15, 35, 55, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--water-border);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.3);
         }
 
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 15px 20px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -50,70 +50,115 @@
         .logo {
             font-size: 20px;
             font-weight: 800;
-            color: #38bdf8;
+            color: #e0f2fe;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        /* लिक्विड ग्लास आइकन स्टाइल */
+        .liquid-glass-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(56, 189, 248, 0.15) 50%, rgba(14, 165, 233, 0.25));
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: #e0f2fe;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25),
+                        inset 0 2px 5px rgba(255, 255, 255, 0.7),
+                        inset 0 -3px 8px rgba(2, 132, 199, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        /* पानी का रिफ्लेक्शन/शाइन इफ़ेक्ट */
+        .liquid-glass-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 45%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.05));
+            border-radius: 18px 18px 50% 50%;
+            pointer-events: none;
+        }
+
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+            border-radius: 12px;
         }
 
         .hero {
             text-align: center;
-            padding: 35px 20px 20px;
+            padding: 40px 20px 20px;
             max-width: 700px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #7dd3fc, #38bdf8, #bae6fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
 
         .hero p {
-            font-size: 14px;
-            color: #cbd5e1;
-            margin-bottom: 25px;
+            font-size: 14.5px;
+            color: #94a3b8;
+            margin-bottom: 30px;
         }
 
         .search-container {
             max-width: 500px;
-            margin: 0 auto 25px;
+            margin: 0 auto 30px;
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            padding: 14px 20px 14px 48px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
+            padding: 16px 20px 16px 52px;
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(15, 35, 55, 0.35);
+            backdrop-filter: blur(15px);
             color: #ffffff;
             font-size: 15px;
             outline: none;
-            transition: 0.3s;
+            transition: 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .search-input:focus {
             border-color: #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            background: rgba(15, 35, 55, 0.5);
         }
 
         .search-input::placeholder {
-            color: #94a3b8;
+            color: #64748b;
         }
 
-        .search-icon {
+        .search-icon-wrapper {
             position: absolute;
-            left: 18px;
+            left: 8px;
             top: 50%;
             transform: translateY(-50%);
-            color: #94a3b8;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 14px;
         }
 
         .container {
@@ -125,109 +170,118 @@
         .app-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 22px;
         }
 
         .app-card {
-            border-radius: 20px;
-            padding: 22px;
+            border-radius: 24px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
         }
 
         .app-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 45px rgba(2, 132, 199, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.4);
         }
 
         .app-info-row {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .app-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 18px;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            color: #ffffff;
-            box-shadow: 0 8px 20px rgba(220, 39, 67, 0.35);
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            font-size: 32px;
             flex-shrink: 0;
         }
 
         .app-details h3 {
-            font-size: 18px;
-            color: #ffffff;
-            margin-bottom: 4px;
+            font-size: 19px;
+            color: #f0f9ff;
+            margin-bottom: 6px;
         }
 
         .app-badge {
             display: inline-block;
-            font-size: 11px;
-            background: rgba(56, 189, 248, 0.15);
+            font-size: 11.5px;
+            background: rgba(56, 189, 248, 0.12);
             color: #38bdf8;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
             border: 1px solid rgba(56, 189, 248, 0.3);
+            backdrop-filter: blur(8px);
         }
 
         .app-desc {
             font-size: 13.5px;
             color: #94a3b8;
-            line-height: 1.45;
-            margin-bottom: 15px;
+            line-height: 1.5;
+            margin-bottom: 16px;
         }
 
         .app-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 12.5px;
-            color: #cbd5e1;
-            padding: 10px 0;
+            font-size: 13px;
+            color: #bae6fd;
+            padding: 12px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meta-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            font-size: 11px;
         }
 
         .direct-download-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #0ea5e9, #6366f1);
-            color: white;
-            padding: 13px;
-            border-radius: 12px;
-            font-size: 14px;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.8), rgba(2, 132, 199, 0.85));
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 14.5px;
             font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.35),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.5);
             width: 100%;
+            backdrop-filter: blur(10px);
         }
 
         .direct-download-btn:hover {
-            background: linear-gradient(135deg, #0284c7, #4f46e5);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
             transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.5),
+                        inset 0 2px 4px rgba(255, 255, 255, 0.7);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(2, 132, 199, 1));
         }
 
         .footer-box {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 60px;
             padding: 20px;
             font-size: 13px;
-            color: #94a3b8;
+            color: #64748b;
         }
     </style>
 </head>
@@ -235,16 +289,21 @@
 
     <header class="glass-panel">
         <a href="#" class="logo">
-            <i class="fa-solid fa-cube"></i> Ashu App Store
+            <span class="liquid-glass-icon header-icon">
+                <i class="fa-solid fa-droplet"></i>
+            </span>
+            Ashu App Store
         </a>
     </header>
 
     <div class="hero">
         <h1>प्रीमियम ऐप्स 1-Click में डाउनलोड करें</h1>
-        <p>100% सुरक्षित और डायरेक्ट APK डाउनलोड्स</p>
+        <p>100% सुरक्षित, स्मूथ और डायरेक्ट APK डाउनलोड्स</p>
 
         <div class="search-container">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <span class="liquid-glass-icon search-icon-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
             <input type="text" id="searchInput" class="search-input" placeholder="ऐप का नाम खोजें..." onkeyup="renderApps()">
         </div>
     </div>
@@ -254,11 +313,10 @@
     </div>
 
     <div class="footer-box">
-        <p>© 2026 Ashu App Store • सभी APK सुरक्षित हैं</p>
+        <p>© 2026 Ashu App Store • Pure Liquid Glass Experience</p>
     </div>
 
     <script>
-        // ऐप्स डेटाबेस (भविष्य में नई ऐप्स यहाँ जोड़ें)
         const myApps = [
             {
                 id: 1,
@@ -269,7 +327,6 @@
                 rating: "4.9",
                 description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
                 iconClass: "fa-brands fa-instagram",
-                // डायरेक्ट लिंक यहाँ डालें:
                 downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
                 fileName: "Instagram_Lite.apk"
             }
@@ -283,7 +340,7 @@
             const filtered = myApps.filter(app => app.title.toLowerCase().includes(searchVal));
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#94a3b8; padding:20px;">कोई ऐप नहीं मिली।</p>`;
+                container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">कोई ऐप नहीं मिली।</p>`;
                 return;
             }
 
@@ -292,7 +349,7 @@
                 card.className = "app-card glass-panel";
                 card.innerHTML = `
                     <div class="app-info-row">
-                        <div class="app-icon">
+                        <div class="liquid-glass-icon app-icon">
                             <i class="${app.iconClass}"></i>
                         </div>
                         <div class="app-details">
@@ -302,8 +359,18 @@
                     </div>
                     <p class="app-desc">${app.description}</p>
                     <div class="app-meta">
-                        <span><i class="fa-solid fa-hard-drive"></i> ${app.size}</span>
-                        <span><i class="fa-solid fa-star" style="color:#f59e0b;"></i> ${app.rating}</span>
+                        <span class="meta-item">
+                            <span class="liquid-glass-icon meta-icon">
+                                <i class="fa-solid fa-hard-drive"></i>
+                            </span>
+                            ${app.size}
+                        </span>
+                        <span class="meta-item">
+                            <span class="liquid-glass-icon meta-icon">
+                                <i class="fa-solid fa-star" style="color:#38bdf8;"></i>
+                            </span>
+                            ${app.rating}
+                        </span>
                     </div>
                     <button class="direct-download-btn" onclick="directDownload('${app.downloadUrl}', '${app.fileName}', this)">
                         <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
@@ -313,7 +380,6 @@
             });
         }
 
-        // 1-Click Pure Direct Download
         function directDownload(url, fileName, btn) {
             if (!url || url === "") {
                 alert("⚠️ इस ऐप का डाउनलोड लिंक उपलब्ध नहीं है।");
@@ -322,9 +388,8 @@
 
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Downloading...';
-            btn.style.background = '#059669';
+            btn.style.background = 'linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(5, 150, 105, 0.9))';
 
-            // सीधे फ़ाइल डाउनलोड शुरू करने का ट्रिगर
             const a = document.createElement('a');
             a.href = url;
             a.setAttribute('download', fileName);
