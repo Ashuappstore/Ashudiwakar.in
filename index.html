@@ -10,6 +10,8 @@
             --water-glow: rgba(56, 189, 248, 0.4);
             --water-border: rgba(255, 255, 255, 0.35);
             --water-bg: rgba(255, 255, 255, 0.08);
+            --safe-green: #10b981;
+            --safe-green-glow: rgba(16, 185, 129, 0.25);
         }
 
         * {
@@ -179,11 +181,52 @@
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
         .app-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 16px 45px rgba(2, 132, 199, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        /* टॉप ट्रस्ट रो (Verified + Downloads) */
+        .app-top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(8px);
+        }
+
+        .downloads-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11.5px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .downloads-count i {
+            color: #38bdf8;
+            font-size: 10px;
         }
 
         .app-info-row {
@@ -384,7 +427,7 @@
     </div>
 
     <script>
-        // ऐप्स डेटाबेस
+        // ऐप्स डेटाबेस (downloads और verified स्टेटस के साथ)
         const myApps = [
             {
                 id: 1,
@@ -393,6 +436,8 @@
                 category: "Social",
                 size: "3.5 MB",
                 rating: "4.9",
+                downloads: "500K+",
+                isVerified: true,
                 description: "कम इंटरनेट और कम स्टोरेज में तेज़ Instagram का मज़ा लें। रील्स, स्टोरीज़ और डायरेक्ट चैट सपोर्ट।",
                 iconClass: "fa-brands fa-instagram",
                 downloadUrl: "https://www.mediafire.com/file/st9y9z7zunxmm4d/com.instagram.lite-524.0.0.3.106.apk/file",
@@ -405,6 +450,8 @@
                 category: "Browser",
                 size: "45 MB",
                 rating: "4.8",
+                downloads: "250K+",
+                isVerified: true,
                 description: "सुपर फ़ास्ट डाउनलोडिंग, डेटा सेविंग और बेहतरीन ब्राउज़िंग स्पीड के साथ ऑल-इन-वन ब्राउज़र।",
                 iconClass: "fa-solid fa-compass",
                 downloadUrl: "https://drive.google.com/uc?export=download&id=1Bx0p54XluZkujUUeNFyAfhrjoSJPw5-i",
@@ -428,6 +475,15 @@
                 const card = document.createElement('div');
                 card.className = "app-card glass-panel";
                 card.innerHTML = `
+                    <div class="app-top-meta">
+                        <span class="verified-badge">
+                            <i class="fa-solid fa-shield-halved"></i> Verified Safe
+                        </span>
+                        <span class="downloads-count">
+                            <i class="fa-solid fa-download"></i> ${app.downloads}
+                        </span>
+                    </div>
+
                     <div class="app-info-row">
                         <div class="liquid-glass-icon app-icon">
                             <i class="${app.iconClass}"></i>
@@ -437,7 +493,9 @@
                             <span class="app-badge">${app.version} • ${app.category}</span>
                         </div>
                     </div>
+                    
                     <p class="app-desc">${app.description}</p>
+                    
                     <div class="app-meta">
                         <span class="meta-item">
                             <span class="liquid-glass-icon meta-icon">
@@ -452,6 +510,7 @@
                             ${app.rating}
                         </span>
                     </div>
+
                     <button class="direct-download-btn" onclick="directDownload('${app.downloadUrl}', '${app.fileName}', this)">
                         <i class="fa-solid fa-cloud-arrow-down"></i> Download APK
                     </button>
