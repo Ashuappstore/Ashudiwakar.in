@@ -83,18 +83,47 @@ let apps=[],category="All",favorites=new Set(),pendingApp=null;
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeUrl=s=>/^(https?:\/\/|\/|\.\/|\.\.\/)/i.test(String(s||""));
-const getUrl=a=>String(a?.directApkUrl||a?.downloadUrl||"");
-const isDirect=a=>a&&(a.downloadType==="direct-apk"||!!a.directApkUrl);
+const getUrl=a=>String(a?.directApkUrl||a?.uptodownDirectApkUrl||a?.downloadUrl||"");
+const isDirect=a=>a&&(a.downloadType==="direct-apk"||!!a.directApkUrl||!!a.uptodownDirectApkUrl);
 function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2800)}
 function icon(v){return safeUrl(v)?'<img src="'+esc(v)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.parentElement.textContent=\'▣\'">':esc(v||"▣")}
 function categories(){const all=["All",...new Set(apps.map(a=>a.category).filter(Boolean))];$("cats").innerHTML=all.map(c=>'<button class="cat '+(c===category?"active":"")+'" data-cat="'+esc(c)+'">'+(c==="All"?"▦ ":"• ")+esc(c)+"</button>").join("");document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{category=b.dataset.cat;categories();render()})}
 function render(){const q=$("search").value.trim().toLowerCase();const shown=apps.filter(a=>(category==="All"||a.category===category)&&(!q||(a.name+" "+a.category+" "+a.description).toLowerCase().includes(q)));$("empty").style.display=shown.length?"none":"block";$("list").innerHTML=shown.map(a=>`<article class="card"><div class="top"><div class="icon">${icon(a.icon)}</div><div class="info"><div class="name">${esc(a.name)}</div><div class="category">${esc(a.category)}</div></div><div class="rating">★ ${esc(a.rating)}</div></div><div class="desc">${esc(a.description)}</div><div class="meta"><span>${esc(a.size)}</span><span>v${esc(a.version)}</span></div><div class="actions"><button class="download" type="button" data-download="${esc(a.id)}">↓ &nbsp; Download</button><button class="fav ${favorites.has(a.id)?"active":""}" type="button" data-fav="${esc(a.id)}" aria-label="Favorite">${favorites.has(a.id)?"♥":"♡"}</button></div></article>`).join("");document.querySelectorAll("[data-download]").forEach(b=>b.onclick=()=>openDownload(b.dataset.download));document.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{const id=b.dataset.fav;favorites.has(id)?favorites.delete(id):favorites.add(id);render()})}
-function openDownload(id){const a=apps.find(x=>x.id===String(id));if(!a)return;pendingApp=a;$("modalIcon").innerHTML=icon(a.icon);$("modalTitle").textContent="Download "+a.name;if(isDirect(a)&&safeUrl(getUrl(a))){$("modalText").textContent="Direct APK download is configured for this app. Tap Download Anyway to start it.";$("modalNote").textContent="The browser will use the publisher/hosting server's download response."}else{$("modalText").textContent="This entry has a webpage link, not a direct APK file URL.";$("modalNote").textContent="To make this app direct-download, add an authorized APK URL and set downloadType to direct-apk in apps.json."}$("downloadModal").classList.add("show");document.body.style.overflow="hidden"}
+function openDownload(id){
+ const a=apps.find(x=>x.id===String(id));if(!a)return;
+ pendingApp=a;
+ $("modalIcon").innerHTML=icon(a.icon);
+ $("modalTitle").textContent="Download "+a.name;
+ if(isDirect(a)&&safeUrl(getUrl(a))){
+   $("modalText").textContent="Direct APK source is configured. Tap Download Anyway to start the download.";
+   $("modalNote").textContent="The APK is requested directly from the configured source; no app-store page is opened.";
+   $("downloadAnyway").textContent="Download Anyway";
+ }else{
+   $("modalText").textContent="This app uses the official publisher download page. Tap the button to continue to the official download.";
+   $("modalNote").textContent="Only a real direct APK URL is used here. A normal app webpage cannot be converted into an APK download.";
+   $("downloadAnyway").textContent="Open Official Download";
+ }
+ $("downloadModal").classList.add("show");document.body.style.overflow="hidden";
+}
 function closeDownload(){pendingApp=null;$("downloadModal").classList.remove("show");document.body.style.overflow=""}
-function startDownload(a){if(!a)return;const u=getUrl(a);if(!safeUrl(u)){toast("Invalid download URL.");return}if(!isDirect(a)){toast("Direct APK is not configured for this app.");return}const link=document.createElement("a");link.href=u;link.rel="noopener";try{if(new URL(u,location.href).origin===location.origin)link.download=""}catch(e){}document.body.appendChild(link);link.click();link.remove();toast("Download request started.")}
-$("cancelDownload").onclick=closeDownload;$("downloadAnyway").onclick=()=>{const a=pendingApp;closeDownload();startDownload(a)};$("downloadModal").onclick=e=>{if(e.target===$("downloadModal"))closeDownload()};document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDownload()});
+function startDownload(a){
+ if(!a)return;
+ const u=getUrl(a);
+ if(!safeUrl(u)){toast("Invalid official download URL.");return}
+ if(!isDirect(a)){
+   window.location.href=u;
+   return;
+ }
+ const link=document.createElement("a");link.href=u;link.rel="noopener";
+ try{if(new URL(u,location.href).origin===location.origin)link.download=""}catch(e){}
+ document.body.appendChild(link);link.click();link.remove();
+ toast("Download request started.");
+}
+$("cancelDownload").onclick=closeDownload;
+$("downloadAnyway").onclick=()=>{const a=pendingApp;closeDownload();startDownload(a)};
+$("downloadModal").onclick=e=>{if(e.target===$("downloadModal"))closeDownload()};document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDownload()});
 $("search").oninput=render;$("searchBtn").onclick=()=>{$("apps").scrollIntoView({behavior:"smooth"});render()};$("all").onclick=()=>{category="All";$("search").value="";categories();render();$("apps").scrollIntoView({behavior:"smooth"})};$("menu").onclick=()=>$('nav').classList.toggle('open');document.querySelectorAll('.nav a').forEach(a=>a.onclick=()=>$('nav').classList.remove('open'));
-async function load(){try{const r=await fetch("./apps.json",{cache:"no-store"});if(!r.ok)throw Error();const j=await r.json();const raw=Array.isArray(j)?j:j.apps;if(!Array.isArray(raw))throw Error();apps=raw.filter(a=>a&&a.name).map((a,i)=>({...a,id:String(a.id??i+1),category:String(a.category??"Other"),description:String(a.description??"No description available."),rating:String(a.rating??"—"),version:String(a.version??"Latest"),size:String(a.size??"Varies"),downloadUrl:String(a.downloadUrl??"#"),directApkUrl:String(a.directApkUrl??""),downloadType:String(a.downloadType??(a.directApkUrl?"direct-apk":"page"))}));if(!apps.length)throw Error();categories();render()}catch(e){$("list").innerHTML="";$("empty").style.display="block";toast("apps.json could not be loaded. Keep it beside index.html.")}}
+async function load(){try{const r=await fetch("./apps.json",{cache:"no-store"});if(!r.ok)throw Error();const j=await r.json();const raw=Array.isArray(j)?j:j.apps;if(!Array.isArray(raw))throw Error();apps=raw.filter(a=>a&&a.name).map((a,i)=>({...a,id:String(a.id??i+1),category:String(a.category??"Other"),description:String(a.description??"No description available."),rating:String(a.rating??"—"),version:String(a.version??"Latest"),size:String(a.size??"Varies"),downloadUrl:String(a.downloadUrl??"#"),directApkUrl:String(a.directApkUrl??""),uptodownDirectApkUrl:String(a.uptodownDirectApkUrl??""),downloadType:String(a.downloadType??((a.directApkUrl||a.uptodownDirectApkUrl)?"direct-apk":"page"))}));if(!apps.length)throw Error();categories();render()}catch(e){$("list").innerHTML="";$("empty").style.display="block";toast("apps.json could not be loaded. Keep it beside index.html.")}}
 load();
 </script>
 </body>
