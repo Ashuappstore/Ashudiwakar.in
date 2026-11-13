@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#eef6ff">
-<title>Ashu App Store</title>
+<title>Ashu Video Downloader</title>
 <style>
 :root{
   --bg-base:#eef6ff;
@@ -12,9 +12,9 @@
   --text-muted:#5c6e8a;
   --accent:#1476ea;
   --accent-glow:rgba(20,118,234,.28);
-  --glass-bg:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.46));
-  --glass-border:rgba(255,255,255,.92);
-  --glass-shadow:0 20px 50px rgba(24,58,102,.10),inset 0 1.5px 1px rgba(255,255,255,.95),inset 0 -1px 1px rgba(160,198,240,.35);
+  --glass-bg:linear-gradient(135deg,rgba(255,255,255,.82),rgba(255,255,255,.50));
+  --glass-border:rgba(255,255,255,.95);
+  --glass-shadow:0 20px 50px rgba(24,58,102,.10),inset 0 1.5px 1px rgba(255,255,255,.95);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -23,19 +23,20 @@ body{
   font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   color:var(--text-main);
   background:
-    radial-gradient(circle at 8% 8%,rgba(135,206,255,.55),transparent 34%),
-    radial-gradient(circle at 92% 18%,rgba(196,178,255,.48),transparent 36%),
-    radial-gradient(circle at 50% 85%,rgba(153,230,255,.42),transparent 42%),
+    radial-gradient(circle at 8% 10%,rgba(135,206,255,.58),transparent 35%),
+    radial-gradient(circle at 92% 18%,rgba(196,178,255,.50),transparent 38%),
+    radial-gradient(circle at 50% 88%,rgba(153,230,255,.45),transparent 42%),
     var(--bg-base);
   background-attachment:fixed;
   min-height:100vh;
+  padding-bottom:44px;
   overflow-x:hidden;
 }
-button,input,select{font:inherit}
+button,input{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
 
-/* Liquid Glass Core Surface */
+/* Liquid Glass Surface */
 .glass{
   background:var(--glass-bg);
   border:1px solid var(--glass-border);
@@ -46,429 +47,465 @@ a{text-decoration:none;color:inherit}
 
 /* Header */
 .header{
-  width:min(1260px,calc(100% - 24px));
-  height:72px;
-  margin:14px auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 18px;
-  border-radius:24px;
-  position:sticky;
-  top:10px;
-  z-index:100;
+  width:min(980px,calc(100% - 24px));
+  height:70px;margin:14px auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;border-radius:24px;
+  position:sticky;top:10px;z-index:100;
 }
-.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:21px;letter-spacing:-.4px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:20px;letter-spacing:-.4px}
 .logo{
   width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;
   background:linear-gradient(145deg,#68c5ff,#136de3);
   box-shadow:0 8px 20px var(--accent-glow),inset 0 1.5px 1px rgba(255,255,255,.65);
+  font-size:20px;font-weight:900;
 }
 .blue{color:var(--accent)}
-.nav{display:flex;gap:6px}
-.nav a{
-  padding:10px 15px;border-radius:14px;color:var(--text-muted);
-  font-size:13.5px;font-weight:750;transition:.2s;
+.badge{
+  padding:7px 13px;border-radius:15px;background:rgba(255,255,255,.85);
+  border:1px solid #fff;font-size:12px;font-weight:800;color:var(--accent);
+  box-shadow:0 4px 12px rgba(20,118,234,.08);
 }
-.nav a:hover{background:rgba(255,255,255,.85);color:var(--accent);box-shadow:0 4px 14px rgba(20,118,234,.10)}
-.menu{display:none;border:0;background:transparent;font-size:25px;color:var(--text-main)}
 
-/* Hero Section */
+/* Main Container */
+.main{width:min(980px,calc(100% - 24px));margin:16px auto}
+
+/* Hero Section with Floating Orbs */
 .hero{
-  width:min(1260px,calc(100% - 24px));
-  margin:14px auto;
-  padding:52px 34px;
-  border-radius:32px;
-  position:relative;
-  overflow:hidden;
-  min-height:390px;
+  padding:48px 28px;border-radius:32px;text-align:center;
+  position:relative;overflow:hidden;
 }
-.hero-content{position:relative;z-index:2;max-width:660px}
+.hero-inner{position:relative;z-index:2}
 .pill{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:8px 15px;border-radius:22px;
-  background:rgba(255,255,255,.78);border:1px solid #fff;
-  color:var(--accent);font-size:12px;font-weight:800;
-  box-shadow:0 6px 18px rgba(20,118,234,.08);
+  display:inline-block;padding:7px 14px;border-radius:20px;
+  background:rgba(255,255,255,.82);border:1px solid #fff;
+  color:var(--accent);font-size:12px;font-weight:800;margin-bottom:14px;
 }
 .hero h1{
-  font-size:clamp(40px,6vw,64px);
-  line-height:1.02;letter-spacing:-2.4px;margin:18px 0 14px;
+  font-size:clamp(32px,5.5vw,52px);
+  margin:0 0 12px;letter-spacing:-1.6px;line-height:1.08;
 }
-.hero p{color:var(--text-muted);line-height:1.7;font-size:15.5px;max-width:600px}
+.hero p{
+  color:var(--text-muted);font-size:15px;max-width:580px;
+  margin:0 auto 26px;line-height:1.65;
+}
 
-/* Liquid Search Bar */
-.search{
-  height:58px;display:flex;align-items:center;margin-top:24px;padding:6px;
-  border-radius:19px;
-  background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,255,255,.72));
-  border:1.5px solid #fff;
-  box-shadow:0 14px 34px rgba(27,68,118,.12),inset 0 1px 2px #fff;
-  transition:.25s;
-}
-.search:focus-within{
-  box-shadow:0 16px 38px rgba(20,118,234,.18),0 0 0 3px rgba(20,118,234,.16);
-}
-.search span{padding:0 14px;font-size:21px;color:#687c99}
-.search input{flex:1;border:0;outline:0;background:transparent;min-width:0;color:var(--text-main)}
-.search button{
-  border:0;border-radius:14px;height:46px;padding:0 22px;color:#fff;font-weight:800;
-  background:linear-gradient(145deg,#3b9dff,#1267e2);
-  box-shadow:0 8px 20px var(--accent-glow),inset 0 1px 1px rgba(255,255,255,.55);
-  transition:transform .18s,box-shadow .18s;
-}
-.search button:hover{transform:translateY(-1px);box-shadow:0 11px 24px rgba(20,118,234,.38)}
-
-/* Floating 3D Liquid Orbs */
 @keyframes floatOrb{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  50%{transform:translateY(-14px) rotate(4deg)}
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
 }
 .orb{
   position:absolute;border-radius:50%;
-  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.92),rgba(173,221,255,.38) 55%,rgba(120,185,255,.18));
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.92),rgba(173,221,255,.35) 58%,rgba(120,185,255,.15));
   border:1.5px solid rgba(255,255,255,.9);
-  box-shadow:
-    inset 14px 14px 30px rgba(255,255,255,.95),
-    inset -14px -14px 28px rgba(34,115,214,.16),
-    0 24px 55px rgba(38,88,148,.14);
+  box-shadow:inset 12px 12px 26px rgba(255,255,255,.9),0 20px 45px rgba(38,88,148,.12);
   pointer-events:none;
 }
-.o1{width:260px;height:260px;right:125px;top:-45px;animation:floatOrb 7s ease-in-out infinite}
-.o2{width:310px;height:200px;right:-50px;top:125px;border-radius:46% 54% 58% 42%/44% 48% 52% 56%;animation:floatOrb 9s ease-in-out infinite reverse}
-.o3{width:195px;height:195px;right:135px;bottom:-75px;animation:floatOrb 8s ease-in-out infinite 1s}
+.o1{width:190px;height:190px;right:-40px;top:-45px;animation:floatOrb 7s ease-in-out infinite}
+.o2{width:150px;height:150px;left:-45px;bottom:-45px;animation:floatOrb 8.5s ease-in-out infinite reverse}
 
-/* Main Container & Categories */
-.wrap{width:min(1260px,calc(100% - 24px));margin:16px auto}
-.panel{padding:22px;border-radius:28px;margin-bottom:18px}
-.cats{display:flex;flex-wrap:wrap;gap:10px}
-.cat{
-  border:1px solid rgba(255,255,255,.95);
-  background:rgba(255,255,255,.58);
-  color:var(--text-muted);
-  border-radius:16px;padding:10px 16px;
-  font-size:13px;font-weight:750;
-  box-shadow:0 4px 12px rgba(28,64,110,.05),inset 0 1px 0 #fff;
+/* Link Input Bar */
+.input-box{
+  max-width:700px;margin:0 auto;
+  display:flex;align-items:center;gap:8px;padding:6px;
+  border-radius:21px;
+  background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,255,255,.78));
+  border:1.5px solid #fff;
+  box-shadow:0 16px 36px rgba(27,68,118,.13),inset 0 1px 2px #fff;
+  transition:.25s;
+}
+.input-box:focus-within{
+  box-shadow:0 18px 40px rgba(20,118,234,.18),0 0 0 3px rgba(20,118,234,.16);
+}
+.input-box input{
+  flex:1;border:0;outline:0;background:transparent;padding:12px 14px;
+  font-size:14.5px;color:var(--text-main);min-width:0;
+}
+.clear-btn{
+  border:0;background:transparent;color:#899ab2;font-size:18px;padding:0 6px;display:none;
+}
+.paste-btn{
+  border:1px solid #dce8f8;background:#f0f6ff;color:var(--accent);
+  border-radius:14px;padding:11px 15px;font-size:13px;font-weight:800;transition:.18s;
+}
+.paste-btn:hover{background:#e2eeff}
+.fetch-btn{
+  border:0;border-radius:15px;padding:13px 24px;color:#fff;font-weight:800;
+  background:linear-gradient(145deg,#3b9dff,#1267e2);
+  box-shadow:0 8px 20px var(--accent-glow),inset 0 1px 1px rgba(255,255,255,.55);
   transition:.2s;
 }
-.cat:hover{background:rgba(255,255,255,.92);color:var(--accent);transform:translateY(-1px)}
-.cat.active{
-  color:#fff;
-  background:linear-gradient(145deg,#3396ff,#146ce6);
-  border-color:rgba(255,255,255,.6);
-  box-shadow:0 8px 20px var(--accent-glow),inset 0 1px 1px rgba(255,255,255,.5);
-}
+.fetch-btn:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(20,118,234,.36)}
+.fetch-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
 
-/* Section Head & Controls */
-.head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px}
-.head-left{display:flex;align-items:center;gap:10px}
-.head h2{margin:0;font-size:24px;letter-spacing:-.4px}
-.head h2:before{
-  content:"";display:inline-block;width:5px;height:24px;border-radius:6px;
-  background:linear-gradient(180deg,#4da6ff,#146ce6);margin-right:10px;vertical-align:-4px;
+/* Loader */
+.loader{display:none;margin:30px auto;text-align:center;color:var(--accent);font-weight:750}
+.spinner{
+  width:40px;height:40px;border:3.5px solid rgba(20,118,234,.2);
+  border-top-color:var(--accent);border-radius:50%;
+  animation:spin .75s linear infinite;margin:0 auto 10px;
 }
-.count-badge{
-  padding:4px 10px;border-radius:12px;font-size:12px;font-weight:800;
-  background:rgba(255,255,255,.8);border:1px solid #fff;color:var(--accent);
-}
-.head-tools{display:flex;align-items:center;gap:10px}
-.sort-select{
-  padding:8px 12px;border-radius:13px;border:1px solid #fff;
-  background:rgba(255,255,255,.78);color:var(--text-main);
-  font-size:12.5px;font-weight:750;outline:none;cursor:pointer;
-}
-.view{
-  border:1px solid #fff;background:rgba(255,255,255,.75);
-  padding:8px 14px;border-radius:13px;color:var(--accent);
-  font-size:13px;font-weight:800;transition:.2s;
-}
-.view:hover{background:#fff;box-shadow:0 6px 16px rgba(20,118,234,.12)}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* App Cards with Specular Gloss Sweep */
-.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{
-  position:relative;overflow:hidden;
-  padding:18px;border-radius:24px;
-  background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,255,255,.50));
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:inset 0 1.5px 1px #fff,0 14px 32px rgba(32,68,114,.09);
-  transition:transform .24s cubic-bezier(.22,1,.36,1),box-shadow .24s,background .24s;
+/* Result Section */
+.result{display:none;margin-top:20px;padding:24px;border-radius:30px;animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.video-info{
+  display:flex;gap:20px;align-items:center;
+  padding-bottom:20px;border-bottom:1px solid rgba(155,176,199,.28);
 }
-.card::after{
-  content:"";position:absolute;top:0;left:-120%;width:70%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
-  transform:skewX(-22deg);transition:left .65s ease;pointer-events:none;
+.thumb{
+  width:240px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;flex:none;
+  background:#dce8f5;border:1.5px solid #fff;box-shadow:0 12px 26px rgba(24,58,102,.15);
+  position:relative;
 }
-.card:hover::after{left:150%}
-.card:hover{
-  transform:translateY(-4px);
-  background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,255,255,.68));
-  box-shadow:inset 0 1.5px 1px #fff,0 22px 44px rgba(24,68,124,.16);
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.v-details{flex:1;min-width:0}
+.v-title{font-size:18.5px;font-weight:850;margin:0 0 10px;line-height:1.42}
+.v-meta{display:flex;flex-wrap:wrap;gap:9px;font-size:12.5px;color:var(--text-muted);font-weight:700}
+.v-meta span{padding:5px 11px;border-radius:11px;background:rgba(255,255,255,.82);border:1px solid #fff}
+
+/* Filter Tabs inside Result */
+.q-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin:20px 0 14px}
+.q-heading{font-size:16px;font-weight:850}
+.tabs{display:flex;gap:7px}
+.tab{
+  border:1px solid #fff;background:rgba(255,255,255,.68);color:var(--text-muted);
+  padding:7px 13px;border-radius:12px;font-size:12px;font-weight:800;transition:.18s;
 }
-.top{display:flex;gap:13px;align-items:flex-start}
-.icon{
-  width:66px;height:66px;flex:none;border-radius:19px;overflow:hidden;
-  display:grid;place-items:center;font-size:29px;
-  background:linear-gradient(145deg,#ffffff,#cfe9ff);
+.tab.active{background:var(--accent);color:#fff;box-shadow:0 6px 14px var(--accent-glow)}
+
+/* Quality Cards Grid */
+.formats{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
+.f-card{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 17px;border-radius:20px;
+  background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(255,255,255,.58));
   border:1px solid #fff;
-  box-shadow:0 10px 22px rgba(35,98,168,.14),inset 0 1px 1px #fff;
+  box-shadow:0 10px 24px rgba(32,68,114,.08),inset 0 1px 0 #fff;
+  transition:transform .2s,box-shadow .2s;
 }
-.icon img{width:100%;height:100%;object-fit:cover}
-.info{min-width:0;flex:1}
-.name{font-weight:850;font-size:16.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.category{
-  display:inline-block;margin-top:5px;padding:3px 9px;border-radius:9px;
-  background:rgba(20,118,234,.09);color:var(--accent);font-size:11.5px;font-weight:750;
-}
-.rating{
-  padding:6px 9px;border-radius:11px;
-  background:rgba(255,255,255,.92);border:1px solid #fff;
-  box-shadow:0 4px 10px rgba(0,0,0,.04);
-  font-size:11.5px;font-weight:800;color:#d98200;
-}
-.desc{min-height:42px;margin-top:13px;color:var(--text-muted);font-size:13px;line-height:1.55}
-.meta{
-  display:flex;justify-content:space-between;
-  color:#798ba3;font-size:11.5px;font-weight:600;
-  margin-top:11px;padding-top:9px;border-top:1px solid rgba(155,176,199,.22);
-}
-.actions{display:flex;gap:9px;margin-top:13px}
-.download{
-  flex:1;border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:11px;
-  background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(235,245,255,.85));
-  color:var(--accent);font-weight:800;font-size:13.5px;
-  box-shadow:0 6px 16px rgba(20,118,234,.10),inset 0 1px 0 #fff;
-  transition:.2s;
-}
-.download:hover{
+.f-card:hover{transform:translateY(-2px);box-shadow:0 15px 30px rgba(32,68,114,.14)}
+.f-left{display:flex;flex-direction:column;gap:4px}
+.f-res{font-weight:850;font-size:15.5px;display:flex;align-items:center;gap:7px}
+.tag{font-size:10.5px;padding:3px 8px;border-radius:8px;background:#e3f0ff;color:var(--accent);font-weight:800}
+.tag.hd{background:#e6f9ee;color:#118d4e}
+.tag.audio{background:#fff0f4;color:#e03e6b}
+.f-size{font-size:12px;color:var(--text-muted);font-weight:650}
+.dl-btn{
+  border:0;border-radius:13px;padding:10px 16px;
   background:linear-gradient(145deg,#3396ff,#146ce6);
-  color:#fff;box-shadow:0 8px 20px var(--accent-glow);
+  color:#fff;font-size:13px;font-weight:800;
+  box-shadow:0 6px 16px var(--accent-glow);
+  transition:.18s;
 }
-.fav{
-  width:44px;border:1px solid #fff;border-radius:14px;
-  background:rgba(255,255,255,.8);color:#68778e;font-size:18px;
-  box-shadow:0 4px 12px rgba(0,0,0,.04);transition:.2s;
-}
-.fav:hover{background:#fff;transform:scale(1.05)}
-.fav.active{color:#ee4c78;background:#fff0f4;border-color:#ffd1de}
-.empty{display:none;text-align:center;padding:44px;color:var(--text-muted);font-weight:600}
+.dl-btn:hover{transform:scale(1.03);filter:brightness(1.05)}
 
-/* Features & Footer */
-.features{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-.feature{padding:10px 18px;border-right:1px solid rgba(155,176,199,.28)}
-.feature:last-child{border:0}
-.fi{
-  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
-  background:rgba(255,255,255,.85);border:1px solid #fff;
-  font-size:19px;color:var(--accent);margin-bottom:8px;
-  box-shadow:0 6px 14px rgba(20,118,234,.10);
+/* Steps Guide Section */
+.steps{
+  margin-top:20px;padding:22px;border-radius:28px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
 }
-.feature b{font-size:13.5px}
-.feature p{margin:4px 0 0;color:var(--text-muted);font-size:12px}
+.step{
+  padding:16px;border-radius:20px;
+  background:rgba(255,255,255,.56);border:1px solid rgba(255,255,255,.9);
+}
+.step-num{
+  width:32px;height:32px;border-radius:10px;display:grid;place-items:center;
+  background:var(--accent);color:#fff;font-weight:850;font-size:14px;margin-bottom:10px;
+}
+.step b{font-size:14.5px;display:block;margin-bottom:4px}
+.step p{margin:0;font-size:12.5px;color:var(--text-muted);line-height:1.55}
+
+/* Footer */
 .footer{
-  width:min(1260px,calc(100% - 24px));
-  margin:16px auto 28px;padding:26px;border-radius:28px;
-  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px;
+  width:min(980px,calc(100% - 24px));margin:18px auto 0;padding:18px 22px;
+  border-radius:22px;text-align:center;font-size:12.5px;color:var(--text-muted);
 }
-.footer b{font-size:17px}
-.footer p,.footer a{font-size:12.5px;color:var(--text-muted);line-height:1.6}
-.footer h4{margin:0 0 8px;font-size:13.5px}
-.footer a{display:block;margin:5px 0;transition:.15s}
-.footer a:hover{color:var(--accent)}
-.copy{grid-column:1/-1;border-top:1px solid rgba(155,176,199,.28);text-align:center;padding-top:14px;font-size:12px;color:var(--text-muted)}
 
-/* Toast & Modal */
+/* Toast */
 .toast{
-  position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:300;
-  padding:12px 18px;border-radius:16px;
-  background:rgba(15,29,56,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border:1px solid rgba(255,255,255,.2);color:#fff;font-size:12.5px;font-weight:600;
-  box-shadow:0 14px 30px rgba(0,0,0,.22);transition:.25s;
+  position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  padding:12px 20px;border-radius:16px;background:rgba(15,29,56,.92);color:#fff;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  font-size:13px;font-weight:650;box-shadow:0 14px 30px rgba(0,0,0,.22);
+  transition:.25s;z-index:200;
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.modal-bg{
-  position:fixed;inset:0;background:rgba(14,32,58,.42);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  display:none;place-items:center;padding:20px;z-index:200;
-}
-.modal-bg.show{display:grid}
-.modal{
-  width:min(460px,100%);padding:26px;border-radius:28px;
-  background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,255,255,.76));
-}
-.modal-icon{
-  width:66px;height:66px;border-radius:18px;background:#edf5fc;border:1px solid #fff;
-  display:grid;place-items:center;overflow:hidden;font-size:28px;
-  box-shadow:0 10px 22px rgba(20,118,234,.14);
-}
-.modal-icon img{width:100%;height:100%;object-fit:cover}
-.modal h3{margin:14px 0 7px;font-size:23px}
-.modal p{color:var(--text-muted);line-height:1.55;font-size:14px}
-.modal-actions{display:flex;gap:10px;margin-top:20px}
-.modal-actions button{flex:1;border:0;border-radius:14px;padding:13px;font-weight:800;cursor:pointer;transition:.2s}
-.cancel{background:rgba(232,239,247,.9);color:#4c6079}
-.cancel:hover{background:#e1eaf4}
-.anyway{
-  background:linear-gradient(145deg,#3396ff,#146ce6);color:#fff;
-  box-shadow:0 8px 20px var(--accent-glow);
-}
-.anyway:hover{transform:translateY(-1px)}
-.modal-note{font-size:12px;margin-bottom:0;margin-top:14px;opacity:.85}
-.status{display:none}
 
-/* Responsive */
-@media(max-width:950px){
-  .apps{grid-template-columns:repeat(2,1fr)}
-  .features{grid-template-columns:repeat(2,1fr)}
-  .feature:nth-child(2){border-right:0}
-  .hero-content{max-width:78%}
-}
-@media(max-width:680px){
-  .header{height:64px}
-  .brand{font-size:17.5px}
-  .logo{width:38px;height:38px}
-  .nav{display:none}
-  .menu{display:block}
-  .nav.open{
-    display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;padding:12px;
-    background:rgba(255,255,255,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-    border:1px solid #fff;border-radius:20px;box-shadow:0 20px 44px rgba(32,68,114,.18);
-  }
-  .hero{min-height:490px;padding:34px 20px}
-  .hero-content{max-width:100%}
-  .hero h1{font-size:40px}
-  .hero p{font-size:14px}
-  .o1{width:175px;height:175px;right:65px;top:auto;bottom:42px}
-  .o2{width:190px;height:125px;right:-35px;top:auto;bottom:18px}
-  .o3{display:none}
-  .apps{grid-template-columns:1fr}
-  .features{grid-template-columns:1fr}
-  .feature{border-right:0;border-bottom:1px solid rgba(155,176,199,.25);padding:14px 0}
-  .footer{grid-template-columns:1fr 1fr}
-  .copy{grid-column:1/-1}
-}
-@media(max-width:560px){.modal-actions{flex-direction:column}}
-@media(max-width:430px){
-  .footer{grid-template-columns:1fr}
-  .search button{font-size:0;width:48px;padding:0}
-  .search button:after{content:"⌕";font-size:20px}
+@media(max-width:700px){
+  .steps{grid-template-columns:1fr}
+  .input-box{flex-wrap:wrap}
+  .input-box input{width:100%}
+  .paste-btn,.fetch-btn{flex:1}
+  .video-info{flex-direction:column;align-items:flex-start}
+  .thumb{width:100%}
 }
 </style>
 </head>
 <body>
+
 <header class="header glass">
-  <div class="brand"><div class="logo">▣</div><span><span class="blue">Ashu</span> App Store</span></div>
-  <nav class="nav" id="nav"><a href="#home">Home</a><a href="#categories">Categories</a><a href="#apps">Apps</a><a href="#about">About</a></nav>
-  <button class="menu" id="menu" aria-label="Menu">☰</button>
+  <div class="brand"><div class="logo">↓</div><span><span class="blue">Ashu</span> Video Saver</span></div>
+  <span class="badge">1080p • 720p • MP3</span>
 </header>
 
-<section class="hero glass" id="home">
-  <div class="hero-content">
-    <span class="pill">✦ Liquid Glass Edition</span>
-    <h1><span class="blue">Ashu</span> App Store</h1>
-    <p>Discover apps, games, tools, social platforms and AI services in a clean, fast liquid-glass interface.</p>
-    <div class="search"><span>⌕</span><input id="search" type="search" placeholder="Search apps, tools, games..." autocomplete="off"><button id="searchBtn">Search</button></div>
-  </div>
-  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-</section>
+<main class="main">
+  <section class="hero glass">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="hero-inner">
+      <span class="pill">✦ Fast Liquid-Glass Downloader</span>
+      <h1>YouTube Video to <span class="blue">Gallery</span></h1>
+      <p>YouTube वीडियो या Shorts का लिंक कॉपी करके नीचे पेस्ट करें। सारी उपलब्ध क्वालिटी (HD MP4 और MP3) तुरंत खुल जाएंगी।</p>
 
-<main class="wrap">
-  <section class="panel glass" id="categories"><div class="cats" id="cats"></div></section>
-  <section class="panel glass" id="apps">
-    <div class="head">
-      <div class="head-left">
-        <h2 id="sectionTitle">Popular Apps</h2>
-        <span class="count-badge" id="appCount">0</span>
-      </div>
-      <div class="head-tools">
-        <select class="sort-select" id="sortBy" aria-label="Sort apps">
-          <option value="default">Sort: Featured</option>
-          <option value="rating">Sort: Top Rated</option>
-          <option value="name">Sort: A – Z</option>
-        </select>
-        <button class="view" id="all">View All →</button>
+      <div class="input-box">
+        <input id="videoUrl" type="url" placeholder="यहाँ YouTube लिंक पेस्ट करें (https://youtu.be/...)" autocomplete="off">
+        <button class="clear-btn" id="clearBtn" type="button" title="Clear">✕</button>
+        <button class="paste-btn" id="pasteBtn" type="button">📋 Paste</button>
+        <button class="fetch-btn" id="fetchBtn" type="button">Get Video</button>
       </div>
     </div>
-    <div class="apps" id="list"></div>
-    <div class="empty" id="empty">No apps found matching your filter.</div>
   </section>
-  <section class="panel glass" id="about">
-    <div class="features">
-      <div class="feature"><div class="fi">◇</div><b>Liquid Glass UI</b><p>Frosted translucency with smooth specular light.</p></div>
-      <div class="feature"><div class="fi">↓</div><b>Individual Links</b><p>Direct APK & official publisher links.</p></div>
-      <div class="feature"><div class="fi">♥</div><b>Saved Favorites</b><p>Bookmark your top apps right in browser.</p></div>
-      <div class="feature"><div class="fi">✓</div><b>Responsive</b><p>Adaptive layout across mobile and desktop.</p></div>
+
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+    <div>वीडियो की जानकारी और क्वालिटी लोड हो रही हैं...</div>
+  </div>
+
+  <section class="result glass" id="result">
+    <div class="video-info">
+      <div class="thumb"><img id="vThumb" src="" alt="Video Thumbnail"></div>
+      <div class="v-details">
+        <h2 class="v-title" id="vTitle">Video Title</h2>
+        <div class="v-meta">
+          <span id="vChannel">📺 Channel</span>
+          <span id="vId">🆔 Video ID</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-bar">
+      <div class="q-heading">📥 डाउनलोड क्वालिटी चुनें:</div>
+      <div class="tabs">
+        <button class="tab active" data-filter="all" type="button">All</button>
+        <button class="tab" data-filter="video" type="button">Video (MP4)</button>
+        <button class="tab" data-filter="audio" type="button">Audio (MP3)</button>
+      </div>
+    </div>
+
+    <div class="formats" id="formats"></div>
+  </section>
+
+  <section class="steps glass">
+    <div class="step">
+      <div class="step-num">1</div>
+      <b>लिंक कॉपी करें</b>
+      <p>YouTube ऐप खोलें, वीडियो के Share बटन पर दबाएं और Copy Link चुनें।</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <b>यहाँ पेस्ट करें</b>
+      <p>ऊपर बॉक्स में Paste बटन दबाएं और Get Video पर क्लिक करें।</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <b>क्वालिटी चुनकर सेव करें</b>
+      <p>1080p, 720p, 480p या MP3 में से अपनी पसंद चुनें और डाउनलोड करें।</p>
     </div>
   </section>
 </main>
 
 <footer class="footer glass">
-  <div><b><span class="blue">Ashu</span> App Store</b><p>A simple destination for discovering useful apps.</p></div>
-  <div><h4>Explore</h4><a href="#home">Home</a><a href="#categories">Categories</a><a href="#apps">Apps</a></div>
-  <div><h4>Store</h4><a href="#about">About</a><a href="#apps">Popular Apps</a></div>
-  <div><h4>Contact</h4><a href="mailto:contact@example.com">Email</a></div>
-  <div class="copy">© 2026 Ashu App Store</div>
+  © 2026 <b><span class="blue">Ashu</span> Video Saver</b> • Personal &amp; Educational Use Only
 </footer>
 
-<div class="status" id="status"></div>
-<div class="modal-bg" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
- <div class="modal glass">
-  <div class="modal-icon" id="modalIcon">▣</div>
-  <h3 id="modalTitle">Download App</h3>
-  <p id="modalText"></p>
-  <div class="modal-actions"><button class="cancel" id="cancelDownload" type="button">Cancel</button><button class="anyway" id="downloadAnyway" type="button">Download Anyway</button></div>
-  <p class="modal-note" id="modalNote"></p>
- </div>
-</div>
 <div class="toast" id="toast"></div>
 
 <script>
 "use strict";
-let apps=[],category="All",pendingApp=null;
-const FAV_KEY="ashu_store_favs";
-let favorites=new Set(JSON.parse(localStorage.getItem(FAV_KEY)||"[]"));
-const saveFavs=()=>{try{localStorage.setItem(FAV_KEY,JSON.stringify([...favorites]))}catch(e){}};
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const safeUrl=s=>/^(https?:\/\/|\/|\.\/|\.\.\/)/i.test(String(s||""));
-const getUrl=a=>String(a?.directApkUrl||a?.uptodownDirectApkUrl||a?.downloadUrl||"");
-const isDirect=a=>a&&(a.downloadType==="direct-apk"||!!a.directApkUrl||!!a.uptodownDirectApkUrl);
-function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2800)}
-function icon(v){return safeUrl(v)?'<img src="'+esc(v)+'" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.parentElement.textContent=\'▣\'">':esc(v||"▣")}
 
-function categories(){
-  const all=["All","Favorites",...new Set(apps.map(a=>a.category).filter(Boolean))];
-  $("cats").innerHTML=all.map(c=>{
-    const prefix=c==="All"?"▦ ":c==="Favorites"?"♥ ":"• ";
-    return '<button class="cat '+(c===category?"active":"")+'" data-cat="'+esc(c)+'">'+prefix+esc(c)+"</button>";
-  }).join("");
-  document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{
-    category=b.dataset.cat;
-    $("sectionTitle").textContent=category==="All"?"Popular Apps":category==="Favorites"?"Saved Favorites":category;
-    categories();
-    render();
-  });
+// यदि आपके पास अपना बैकएंड सर्वर (जैसे http://localhost:3000) चालू है तो यहाँ डालें, वरना खाली "" रहने दें
+const CUSTOM_API_URL = "";
+
+const $ = id => document.getElementById(id);
+let currentVideo = null;
+let activeFilter = "all";
+
+function toast(msg) {
+  const t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => t.classList.remove("show"), 3200);
 }
 
-function render(){
-  const q=$("search").value.trim().toLowerCase();
-  const sort=$("sortBy").value;
-  let shown=apps.filter(a=>{
-    const matchCat=category==="All"?true:category==="Favorites"?favorites.has(a.id):a.category===category;
-    const matchQ=!q||(a.name+" "+a.category+" "+a.description).toLowerCase().includes(q);
-    return matchCat&&matchQ;
-  });
-  if(sort==="rating"){
-    shown=[...shown].sort((a,b)=>(parseFloat(b.rating)||0)-(parseFloat(a.rating)||0));
-  }else if(sort==="name"){
-    shown=[...shown].sort((a,b)=>a.name.localeCompare(b.name));
+// YouTube के किसी भी तरह के लिंक (watch, youtu.be, shorts, embed) से Video ID निकालना
+function extractVideoId(url) {
+  const reg = /(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = String(url || "").match(reg);
+  return match ? match[1] : null;
+}
+
+// Input Clear Button कंट्रोल
+$("videoUrl").addEventListener("input", () => {
+  $("clearBtn").style.display = $("videoUrl").value ? "block" : "none";
+});
+
+$("clearBtn").onclick = () => {
+  $("videoUrl").value = "";
+  $("clearBtn").style.display = "none";
+  $("result").style.display = "none";
+  $("videoUrl").focus();
+};
+
+// Clipboard Paste बटन
+$("pasteBtn").onclick = async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text) {
+      $("videoUrl").value = text.trim();
+      $("clearBtn").style.display = "block";
+      toast("लिंक पेस्ट हो गया!");
+      $("fetchBtn").click();
+    } else {
+      toast("क्लिपबोर्ड खाली है");
+    }
+  } catch (e) {
+    toast("कृपया बॉक्स में उंगली दबाकर Paste करें");
   }
-  $("appCount").textContent=shown.length;
-  $("empty").style.display=shown.length?"none":"block";
-  $("list").innerHTML=shown.map(a=>`
-    <article class="card">
-      <div class="top">
-        <div class="icon">${icon(a.icon)}</div>
-        <div class="info">
-          <div class="name">${esc(a.name)}</div>
-          <div c
+};
+
+// Enter दबाने पर भी सर्च हो
+$("videoUrl").addEventListener("keydown", e => {
+  if (e.key === "Enter") $("fetchBtn").click();
+});
+
+// मुख्य Fetch लॉजिक
+$("fetchBtn").onclick = async () => {
+  const rawUrl = $("videoUrl").value.trim();
+  if (!rawUrl) {
+    toast("कृपया पहले YouTube वीडियो का लिंक डालें!");
+    return;
+  }
+
+  const videoId = extractVideoId(rawUrl);
+  if (!videoId) {
+    toast("सही YouTube लिंक डालें (जैसे youtu.be/... या youtube.com/watch?v=...)");
+    return;
+  }
+
+  $("fetchBtn").disabled = true;
+  $("result").style.display = "none";
+  $("loader").style.display = "block";
+
+  try {
+    // 1. अगर Custom Backend Server सेट है तो उससे डेटा लाएं
+    if (CUSTOM_API_URL) {
+      const res = await fetch(`${CUSTOM_API_URL}/api/info?url=${encodeURIComponent(rawUrl)}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Server Error");
+      currentVideo = {
+        id: videoId,
+        url: rawUrl,
+        title: data.title,
+        channel: data.channel,
+        thumbnail: data.thumbnail,
+        formats: data.formats,
+        isServer: true
+      };
+    } else {
+      // 2. बिना सर्वर के YouTube oEmbed से असली Title और Thumbnail निकालें
+      const oembedRes = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
+      let title = "YouTube Video (" + videoId + ")";
+      let channel = "YouTube Creator";
+      if (oembedRes.ok) {
+        const meta = await oembedRes.json();
+        title = meta.title || title;
+        channel = meta.author_name || channel;
+      }
+
+      currentVideo = {
+        id: videoId,
+        url: `https://www.youtube.com/watch?v=${videoId}`,
+        title,
+        channel,
+        thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+        isServer: false,
+        formats: [
+          { quality: "1080p Full HD", badge: "HD", ext: "mp4", type: "video", desc: "High Definition • MP4 + Audio", itag: "137" },
+          { quality: "720p HD", badge: "HD", ext: "mp4", type: "video", desc: "Standard HD • Fast Download", itag: "22" },
+          { quality: "480p SD", badge: "MP4", ext: "mp4", type: "video", desc: "Data Saver • Balanced Quality", itag: "135" },
+          { quality: "360p Normal", badge: "MP4", ext: "mp4", type: "video", desc: "Small File Size • Mobile Friendly", itag: "18" },
+          { quality: "MP3 Audio (320kbps)", badge: "AUDIO", ext: "mp3", type: "audio", desc: "High Quality Music / Song", itag: "140" },
+          { quality: "M4A Audio (128kbps)", badge: "AUDIO", ext: "m4a", type: "audio", desc: "Lightweight Audio File", itag: "139" }
+        ]
+      };
+    }
+
+    $("vThumb").src = currentVideo.thumbnail;
+    $("vTitle").textContent = currentVideo.title;
+    $("vChannel").textContent = "📺 " + currentVideo.channel;
+    $("vId").textContent = "🆔 " + currentVideo.id;
+
+    renderFormats();
+    $("loader").style.display = "none";
+    $("result").style.display = "block";
+    $("result").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  } catch (err) {
+    $("loader").style.display = "none";
+    toast(err.message || "वीडियो लोड करने में समस्या आई।");
+  } finally {
+    $("fetchBtn").disabled = false;
+  }
+};
+
+// Filter Tabs (All / Video / Audio)
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter;
+    renderFormats();
+  };
+});
+
+function renderFormats() {
+  if (!currentVideo) return;
+  const list = currentVideo.formats.filter(f => activeFilter === "all" || f.type === activeFilter);
+
+  $("formats").innerHTML = list.map((f, idx) => {
+    const tagClass = f.type === "audio" ? "audio" : (f.badge === "HD" ? "hd" : "");
+    return `
+      <div class="f-card">
+        <div class="f-left">
+          <div class="f-res">${f.quality} <span class="tag ${tagClass}">${f.badge || f.ext.toUpperCase()}</span></div>
+          <div class="f-size">${f.desc || f.size || "Ready to download"}</div>
+        </div>
+        <button class="dl-btn" type="button" onclick="triggerDownload(${idx})">↓ Download</button>
+      </div>
+    `;
+  }).join("");
+}
+
+window.triggerDownload = function(index) {
+  if (!currentVideo) return;
+  const list = currentVideo.formats.filter(f => activeFilter === "all" || f.type === activeFilter);
+  const item = list[index];
+  if (!item) return;
+
+  if (currentVideo.isServer && CUSTOM_API_URL) {
+    toast("डाउनलोड शुरू हो रहा है...");
+    window.location.href = `${CUSTOM_API_URL}/api/download?url=${encodeURIComponent(currentVideo.url)}&formatId=${encodeURIComponent(item.formatId)}&ext=${encodeURIComponent(item.ext)}`;
+    return;
+  }
+
+  // Direct Web Downloader Bridge (बिना बैकएंड के सीधे डाउनलोड पेज पर भेजने के लिए)
+  toast(`${item.quality} (${item.ext.toUpperCase()}) के लिए डाउनलोड खुल रहा है...`);
+  const targetUrl = `https://ssyoutube.com/watch?v=${currentVideo.id}`;
+  window.open(targetUrl, "_blank", "noopener");
+};
+</script>
+</body>
+</html>
