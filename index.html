@@ -16,14 +16,14 @@
   --accent:#116ee2;
   --accent-light:#3c96ff;
   --accent-glow:rgba(17,110,226,.22);
-  --frost-surface:rgba(255,255,255,.64);
-  --frost-card:rgba(255,255,255,.74);
-  --frost-input:rgba(255,255,255,.88);
-  --frost-border:rgba(255,255,255,.92);
+  --frost-surface:rgba(255,255,255,.68);
+  --frost-card:rgba(255,255,255,.78);
+  --frost-input:rgba(255,255,255,.90);
+  --frost-border:rgba(255,255,255,.94);
   --frost-inner:inset 0 1px 0 rgba(255,255,255,.95);
   --frost-shadow:0 16px 38px rgba(20,52,92,.08);
-  --pill-bg:rgba(255,255,255,.80);
-  --step-bg:rgba(255,255,255,.58);
+  --pill-bg:rgba(255,255,255,.82);
+  --step-bg:rgba(255,255,255,.62);
   --divider:rgba(155,176,199,.25);
 }
 
@@ -37,15 +37,15 @@ html[data-theme="dark"]{
   --accent:#4da1ff;
   --accent-light:#70b5ff;
   --accent-glow:rgba(77,161,255,.28);
-  --frost-surface:rgba(18,29,48,.68);
-  --frost-card:rgba(24,38,62,.74);
-  --frost-input:rgba(15,25,42,.86);
-  --frost-border:rgba(255,255,255,.14);
+  --frost-surface:rgba(18,29,48,.74);
+  --frost-card:rgba(24,38,62,.78);
+  --frost-input:rgba(15,25,42,.88);
+  --frost-border:rgba(255,255,255,.15);
   --frost-inner:inset 0 1px 0 rgba(255,255,255,.14);
   --frost-shadow:0 20px 46px rgba(0,0,0,.45);
-  --pill-bg:rgba(28,44,72,.82);
-  --step-bg:rgba(22,35,58,.62);
-  --divider:rgba(255,255,255,.10);
+  --pill-bg:rgba(28,44,72,.85);
+  --step-bg:rgba(22,35,58,.66);
+  --divider:rgba(255,255,255,.12);
 }
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -99,14 +99,14 @@ button{cursor:pointer}
   border:1px solid var(--frost-border);
   font-size:11.5px;font-weight:750;color:var(--text-muted);
 }
-.dot{width:8px;height:8px;border-radius:50%;background:#9aa8be;flex:none}
+.dot{width:8px;height:8px;border-radius:50%;background:#f04438;flex:none}
 .dot.online{background:#12b76a;box-shadow:0 0 8px rgba(18,183,106,.75)}
 .dot.offline{background:#f04438;box-shadow:0 0 8px rgba(240,68,56,.65)}
 
 .theme-btn{
   width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
   background:var(--pill-bg);border:1px solid var(--frost-border);
-  color:var(--text-main);font-size:17px;position:relative;z-index:5;
+  color:var(--text-main);font-size:17px;
 }
 .theme-btn:active{transform:scale(.92)}
 
@@ -153,7 +153,7 @@ button{cursor:pointer}
   font-size:14.5px;color:var(--text-main);min-width:0;
 }
 .input-box input::placeholder{color:var(--text-muted);opacity:.78}
-.clear-btn{border:0;background:transparent;color:var(--text-muted);font-size:18px;padding:0 8px;display:none}
+.clear-btn{border:0;background:transparent;color:var(--text-muted);font-size:18px;padding:0 8px}
 .paste-btn{
   border:1px solid var(--frost-border);background:var(--pill-bg);color:var(--accent);
   border-radius:14px;padding:11px 15px;font-size:13px;font-weight:800;
@@ -290,11 +290,11 @@ button{cursor:pointer}
 <header class="header frost">
   <div class="brand"><div class="logo">↓</div><span>Saved by <span class="blue">Ashu</span></span></div>
   <div class="header-right">
-    <div class="status-pill" id="serverStatus">
-      <span class="dot" id="statusDot"></span>
-      <span id="statusText">Checking...</span>
+    <div class="status-pill" id="serverStatus" onclick="checkServerHealth()">
+      <span class="dot offline" id="statusDot"></span>
+      <span id="statusText">Server Offline</span>
     </div>
-    <button class="theme-btn" id="themeToggle" type="button">🌙</button>
+    <button class="theme-btn" id="themeToggle" type="button" onclick="toggleThemeMode()">🌙</button>
   </div>
 </header>
 
@@ -308,10 +308,10 @@ button{cursor:pointer}
       <p>YouTube वीडियो या Shorts का लिंक कॉपी करके नीचे पेस्ट करें। असली उपलब्ध क्वालिटी और अनुमानित फाइल साइज़ तुरंत खुल जाएंगे।</p>
 
       <div class="input-box">
-        <input id="videoUrl" type="url" placeholder="यहाँ YouTube लिंक पेस्ट करें (https://youtu.be/...)" autocomplete="off">
-        <button class="clear-btn" id="clearBtn" type="button">✕</button>
-        <button class="paste-btn" id="pasteBtn" type="button">📋 Paste</button>
-        <button class="fetch-btn" id="fetchBtn" type="button">Get Video</button>
+        <input id="videoUrl" type="url" placeholder="यहाँ YouTube लिंक पेस्ट करें (https://youtu.be/...)" autocomplete="off" onkeydown="if(event.key==='Enter') handleGetVideo()">
+        <button class="clear-btn" id="clearBtn" type="button" onclick="clearInputBox()">✕</button>
+        <button class="paste-btn" id="pasteBtn" type="button" onclick="pasteFromClipboard()">📋 Paste</button>
+        <button class="fetch-btn" id="fetchBtn" type="button" onclick="handleGetVideo()">Get Video</button>
       </div>
     </div>
   </section>
@@ -348,9 +348,9 @@ button{cursor:pointer}
     <div class="q-bar">
       <div class="q-heading">📥 उपलब्ध क्वालिटी चुनें:</div>
       <div class="tabs">
-        <button class="tab active" data-filter="all" type="button">All</button>
-        <button class="tab" data-filter="video" type="button">Video (MP4)</button>
-        <button class="tab" data-filter="audio" type="button">Audio (MP3)</button>
+        <button class="tab active" type="button" onclick="switchTab(this,'all')">All</button>
+        <button class="tab" type="button" onclick="switchTab(this,'video')">Video (MP4)</button>
+        <button class="tab" type="button" onclick="switchTab(this,'audio')">Audio (MP3)</button>
       </div>
     </div>
 
@@ -383,63 +383,70 @@ button{cursor:pointer}
 <div class="toast" id="toast"></div>
 
 <script>
-let MY_BACKEND_SERVER = "";
-let currentVideo = null;
-let activeFilter = "all";
+var MY_BACKEND_SERVER = "";
+var currentVideo = null;
+var activeFilter = "all";
 
 function el(id) {
   return document.getElementById(id);
 }
 
 function showToast(msg) {
-  const t = el("toast");
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(window.__toastTimer);
-  window.__toastTimer = setTimeout(function() {
-    t.classList.remove("show");
-  }, 3200);
+  try {
+    var t = el("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(function() {
+      t.classList.remove("show");
+    }, 3200);
+  } catch (e) {}
 }
 
 function applyTheme(theme) {
-  if (theme === "dark") {
-    document.documentElement.setAttribute("data-theme", "dark");
-    el("themeToggle").textContent = "☀️";
-    el("themeMeta").setAttribute("content", "#09111e");
-  } else {
-    document.documentElement.removeAttribute("data-theme");
-    el("themeToggle").textContent = "🌙";
-    el("themeMeta").setAttribute("content", "#eaf2fb");
-  }
+  try {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      el("themeToggle").textContent = "☀️";
+      el("themeMeta").setAttribute("content", "#09111e");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      el("themeToggle").textContent = "🌙";
+      el("themeMeta").setAttribute("content", "#eaf2fb");
+    }
+  } catch (e) {}
 }
 
-applyTheme(localStorage.getItem("ashu_theme") || "light");
-
-el("themeToggle").addEventListener("click", function() {
-  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  const next = isDark ? "light" : "dark";
-  localStorage.setItem("ashu_theme", next);
+function toggleThemeMode() {
+  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  var next = isDark ? "light" : "dark";
+  try { localStorage.setItem("ashu_theme", next); } catch (e) {}
   applyTheme(next);
-});
+}
+
+try {
+  applyTheme(localStorage.getItem("ashu_theme") || "light");
+} catch (e) {}
 
 function setServerBadge(online) {
-  const dot = el("statusDot");
-  const txt = el("statusText");
-  if (online) {
-    dot.className = "dot online";
-    txt.textContent = "Server Online";
-  } else {
-    dot.className = "dot offline";
-    txt.textContent = "Server Offline";
-  }
+  try {
+    var dot = el("statusDot");
+    var txt = el("statusText");
+    if (online) {
+      dot.className = "dot online";
+      txt.textContent = "Server Online";
+    } else {
+      dot.className = "dot offline";
+      txt.textContent = "Server Offline";
+    }
+  } catch (e) {}
 }
 
 async function loadServerUrl() {
   try {
-    const res = await fetch("./server-url.json?t=" + Date.now(), { cache: "no-store" });
+    var res = await fetch("./server-url.json?t=" + Date.now(), { cache: "no-store" });
     if (res.ok) {
-      const data = await res.json();
+      var data = await res.json();
       if (data && data.url) {
         MY_BACKEND_SERVER = String(data.url).trim();
       }
@@ -454,11 +461,11 @@ async function checkServerHealth() {
     return false;
   }
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(function() { controller.abort(); }, 2500);
-    const ping = await fetch(MY_BACKEND_SERVER + "/api/info", { signal: controller.signal });
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, 3000);
+    var ping = await fetch(MY_BACKEND_SERVER + "/api/info", { signal: controller.signal });
     clearTimeout(timer);
-    const alive = (ping.status === 400 || ping.ok);
+    var alive = (ping.status === 400 || ping.ok);
     setServerBadge(alive);
     return alive;
   } catch (e) {
@@ -467,48 +474,57 @@ async function checkServerHealth() {
   }
 }
 
-function extractVideoId(url) {
-  const reg = /(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = String(url || "").match(reg);
-  return match ? match[1] : null;
+function extractVideoId(raw) {
+  try {
+    var text = String(raw || "").trim();
+    if (!text) return null;
+    if (text.length === 11 && text.indexOf("http") === -1) return text;
+    if (text.indexOf("http") !== 0) text = "https://" + text;
+    var u = new URL(text);
+    var host = u.hostname.replace("www.", "");
+    if (host === "youtu.be") {
+      var id1 = u.pathname.split("/").filter(Boolean)[0];
+      return id1 ? id1.slice(0, 11) : null;
+    }
+    if (host.indexOf("youtube.com") !== -1) {
+      var vParam = u.searchParams.get("v");
+      if (vParam) return vParam.slice(0, 11);
+      var parts = u.pathname.split("/").filter(Boolean);
+      if (parts.length >= 2 && (parts[0] === "shorts" || parts[0] === "embed" || parts[0] === "v")) {
+        return parts[1].slice(0, 11);
+      }
+    }
+  } catch (e) {}
+  return null;
 }
 
 function parseDurationSeconds(durStr) {
   if (!durStr || typeof durStr !== "string" || durStr.indexOf(":") === -1) return 180;
-  const parts = durStr.split(":").map(Number);
+  var parts = durStr.split(":").map(Number);
   if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
   if (parts.length === 2) return parts[0] * 60 + parts[1];
   return 180;
 }
 
 function estimateSizeMB(seconds, res) {
-  const sec = Math.max(15, seconds || 180);
-  const rates = { "1080": 0.30, "720": 0.16, "480": 0.085, "360": 0.05, "audio": 0.02 };
-  const mb = sec * (rates[res] || 0.10);
+  var sec = Math.max(15, seconds || 180);
+  var rates = { "1080": 0.30, "720": 0.16, "480": 0.085, "360": 0.05, "audio": 0.02 };
+  var mb = sec * (rates[res] || 0.10);
   return mb < 1 ? Math.round(mb * 1024) + " KB" : "~" + mb.toFixed(1) + " MB";
 }
 
-function toggleClearBtn() {
-  el("clearBtn").style.display = el("videoUrl").value ? "block" : "none";
-}
-toggleClearBtn();
-
-el("videoUrl").addEventListener("input", toggleClearBtn);
-
-el("clearBtn").addEventListener("click", function() {
+function clearInputBox() {
   el("videoUrl").value = "";
-  toggleClearBtn();
   el("result").style.display = "none";
   el("dlProgress").style.display = "none";
   el("videoUrl").focus();
-});
+}
 
-el("pasteBtn").addEventListener("click", async function() {
+async function pasteFromClipboard() {
   try {
-    const text = await navigator.clipboard.readText();
+    var text = await navigator.clipboard.readText();
     if (text) {
       el("videoUrl").value = text.trim();
-      toggleClearBtn();
       showToast("लिंक पेस्ट हो गया!");
       handleGetVideo();
     } else {
@@ -517,20 +533,16 @@ el("pasteBtn").addEventListener("click", async function() {
   } catch (e) {
     showToast("कृपया बॉक्स में उंगली दबाकर Paste करें");
   }
-});
-
-el("videoUrl").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") handleGetVideo();
-});
+}
 
 async function handleGetVideo() {
-  const rawUrl = el("videoUrl").value.trim();
+  var rawUrl = el("videoUrl").value.trim();
   if (!rawUrl) {
     showToast("कृपया पहले YouTube वीडियो का लिंक डालें!");
     return;
   }
 
-  const videoId = extractVideoId(rawUrl);
+  var videoId = extractVideoId(rawUrl);
   if (!videoId) {
     showToast("सही YouTube लिंक डालें (जैसे youtu.be/... या youtube.com/watch?v=...)");
     return;
@@ -542,41 +554,22 @@ async function handleGetVideo() {
   el("loader").style.display = "block";
 
   try {
-    const cleanWatchUrl = "https://www.youtube.com/watch?v=" + videoId;
-    let title = "YouTube Video (" + videoId + ")";
-    let channel = "YouTube Creator";
-    let duration = "HD";
-    let rawFormats = null;
+    var cleanWatchUrl = "https://www.youtube.com/watch?v=" + videoId;
+    var title = "YouTube Video (" + videoId + ")";
+    var channel = "YouTube Creator";
+    var duration = "HD";
+    var rawFormats = null;
 
-    const oembedPromise = fetch("https://www.youtube.com/oembed?url=" + encodeURIComponent(cleanWatchUrl) + "&format=json")
+    var oembedPromise = fetch("https://www.youtube.com/oembed?url=" + encodeURIComponent(cleanWatchUrl) + "&format=json")
       .then(function(r) { return r.ok ? r.json() : null; })
       .catch(function() { return null; });
 
-    const serverInfoPromise = (async function() {
-      const online = await checkServerHealth();
+    var serverInfoPromise = (async function() {
+      var online = await checkServerHealth();
       if (!online || !MY_BACKEND_SERVER) return null;
-      const ctrl = new AbortController();
-      const t = setTimeout(function() { ctrl.abort(); }, 6000);
+      var ctrl = new AbortController();
+      var t = setTimeout(function() { ctrl.abort(); }, 6000);
       try {
-        const res = await fetch(MY_BACKEND_SERVER + "/api/info?url=" + encodeURIComponent(cleanWatchUrl), { signal: ctrl.signal });
+        var res = await fetch(MY_BACKEND_SERVER + "/api/info?url=" + encodeURIComponent(cleanWatchUrl), { signal: ctrl.signal });
         clearTimeout(t);
-        return res.ok ? await res.json() : null;
-      } catch (e) {
-        clearTimeout(t);
-        return null;
-      }
-    })();
-
-    const results = await Promise.all([oembedPromise, serverInfoPromise]);
-    const meta = results[0];
-    const info = results[1];
-
-    if (meta) {
-      title = meta.title || title;
-      channel = meta.author_name || channel;
-    }
-    if (info) {
-      title = info.title || title;
-      channel = info.channel || channel;
-      duration = info.duration || duration;
-      if (Array.isArray(info.formats) && info.formats.le
+        return res.ok ? await res.json() : nul
