@@ -16,35 +16,35 @@
   --accent:#116ee2;
   --accent-light:#3c96ff;
   --accent-glow:rgba(17,110,226,.22);
-  --frost-surface:rgba(255,255,255,.68);
-  --frost-card:rgba(255,255,255,.78);
-  --frost-input:rgba(255,255,255,.90);
-  --frost-border:rgba(255,255,255,.94);
+  --frost-surface:rgba(255,255,255,.72);
+  --frost-card:rgba(255,255,255,.82);
+  --frost-input:rgba(255,255,255,.94);
+  --frost-border:rgba(255,255,255,.95);
   --frost-inner:inset 0 1px 0 rgba(255,255,255,.95);
   --frost-shadow:0 16px 38px rgba(20,52,92,.08);
-  --pill-bg:rgba(255,255,255,.82);
-  --step-bg:rgba(255,255,255,.62);
+  --pill-bg:rgba(255,255,255,.86);
+  --step-bg:rgba(255,255,255,.66);
   --divider:rgba(155,176,199,.25);
 }
 
-html[data-theme="dark"]{
+html.dark-mode, body.dark-mode{
   --bg-base:#09111e;
-  --bg-grad1:rgba(20,90,185,.36);
-  --bg-grad2:rgba(95,62,185,.30);
-  --bg-grad3:rgba(14,135,175,.26);
+  --bg-grad1:rgba(20,90,185,.38);
+  --bg-grad2:rgba(95,62,185,.32);
+  --bg-grad3:rgba(14,135,175,.28);
   --text-main:#eef4fc;
   --text-muted:#94a7c4;
   --accent:#4da1ff;
   --accent-light:#70b5ff;
   --accent-glow:rgba(77,161,255,.28);
-  --frost-surface:rgba(18,29,48,.74);
-  --frost-card:rgba(24,38,62,.78);
-  --frost-input:rgba(15,25,42,.88);
-  --frost-border:rgba(255,255,255,.15);
+  --frost-surface:rgba(18,29,48,.78);
+  --frost-card:rgba(24,38,62,.82);
+  --frost-input:rgba(15,25,42,.92);
+  --frost-border:rgba(255,255,255,.16);
   --frost-inner:inset 0 1px 0 rgba(255,255,255,.14);
-  --frost-shadow:0 20px 46px rgba(0,0,0,.45);
-  --pill-bg:rgba(28,44,72,.85);
-  --step-bg:rgba(22,35,58,.66);
+  --frost-shadow:0 20px 46px rgba(0,0,0,.48);
+  --pill-bg:rgba(28,44,72,.88);
+  --step-bg:rgba(22,35,58,.70);
   --divider:rgba(255,255,255,.12);
 }
 
@@ -65,7 +65,7 @@ body{
   transition:background .25s ease,color .2s ease;
 }
 button,input{font:inherit}
-button{cursor:pointer}
+button{cursor:pointer;touch-action:manipulation}
 
 .frost{
   background:var(--frost-surface);
@@ -80,7 +80,7 @@ button{cursor:pointer}
   height:68px;margin:14px auto;
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:0 16px;border-radius:22px;
-  position:sticky;top:10px;z-index:100;
+  position:sticky;top:10px;z-index:200;
 }
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.4px;min-width:0}
 .logo{
@@ -91,32 +91,33 @@ button{cursor:pointer}
 }
 .blue{color:var(--accent)}
 
-.header-right{display:flex;align-items:center;gap:8px;flex:none}
+.header-right{display:flex;align-items:center;gap:8px;flex:none;position:relative;z-index:210}
 .status-pill{
   display:inline-flex;align-items:center;gap:6px;
   padding:6px 11px;border-radius:13px;
   background:var(--pill-bg);
   border:1px solid var(--frost-border);
   font-size:11.5px;font-weight:750;color:var(--text-muted);
+  cursor:pointer;
 }
-.dot{width:8px;height:8px;border-radius:50%;background:#f04438;flex:none}
-.dot.online{background:#12b76a;box-shadow:0 0 8px rgba(18,183,106,.75)}
-.dot.offline{background:#f04438;box-shadow:0 0 8px rgba(240,68,56,.65)}
+.dot{width:8px;height:8px;border-radius:50%;background:#9aa8be;flex:none}
+.dot.online{background:#12b76a;box-shadow:0 0 8px rgba(18,183,106,.85)}
+.dot.offline{background:#f04438;box-shadow:0 0 8px rgba(240,68,56,.75)}
 
 .theme-btn{
-  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
   background:var(--pill-bg);border:1px solid var(--frost-border);
-  color:var(--text-main);font-size:17px;
+  color:var(--text-main);font-size:18px;position:relative;z-index:220;
 }
 .theme-btn:active{transform:scale(.92)}
 
-.main{width:min(960px,calc(100% - 24px));margin:16px auto}
+.main{width:min(960px,calc(100% - 24px));margin:16px auto;position:relative;z-index:10}
 
 .hero{
   padding:42px 24px;border-radius:30px;text-align:center;
   position:relative;overflow:hidden;
 }
-.hero-inner{position:relative;z-index:2}
+.hero-inner{position:relative;z-index:20}
 .pill{
   display:inline-flex;align-items:center;gap:6px;
   padding:6px 14px;border-radius:20px;
@@ -141,7 +142,7 @@ button{cursor:pointer}
 .g2{width:155px;height:155px;left:-45px;bottom:-50px}
 
 .input-box{
-  max-width:690px;margin:0 auto;position:relative;z-index:3;
+  max-width:690px;margin:0 auto;position:relative;z-index:50;
   display:flex;align-items:center;gap:8px;padding:6px;
   border-radius:20px;
   background:var(--frost-input);
@@ -153,7 +154,7 @@ button{cursor:pointer}
   font-size:14.5px;color:var(--text-main);min-width:0;
 }
 .input-box input::placeholder{color:var(--text-muted);opacity:.78}
-.clear-btn{border:0;background:transparent;color:var(--text-muted);font-size:18px;padding:0 8px}
+.clear-btn{border:0;background:transparent;color:var(--text-muted);font-size:18px;padding:6px 10px}
 .paste-btn{
   border:1px solid var(--frost-border);background:var(--pill-bg);color:var(--accent);
   border-radius:14px;padding:11px 15px;font-size:13px;font-weight:800;
@@ -269,8 +270,8 @@ button{cursor:pointer}
 .toast{
   position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;
   padding:11px 19px;border-radius:15px;
-  background:rgba(12,25,44,.92);color:#fff;font-size:13px;font-weight:650;
-  transition:opacity .2s ease,transform .2s ease;z-index:400;
+  background:rgba(12,25,44,.94);color:#fff;font-size:13px;font-weight:650;
+  transition:opacity .2s ease,transform .2s ease;z-index:999;
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
@@ -290,10 +291,10 @@ button{cursor:pointer}
 <header class="header frost">
   <div class="brand"><div class="logo">↓</div><span>Saved by <span class="blue">Ashu</span></span></div>
   <div class="header-right">
-    <div class="status-pill" id="serverStatus" onclick="checkServerHealth()">
-      <span class="dot offline" id="statusDot"></span>
-      <span id="statusText">Server Offline</span>
-    </div>
+    <button class="status-pill" id="serverStatus" type="button" onclick="checkServerHealth(true)">
+      <span class="dot" id="statusDot"></span>
+      <span id="statusText">Checking...</span>
+    </button>
     <button class="theme-btn" id="themeToggle" type="button" onclick="toggleThemeMode()">🌙</button>
   </div>
 </header>
@@ -308,7 +309,7 @@ button{cursor:pointer}
       <p>YouTube वीडियो या Shorts का लिंक कॉपी करके नीचे पेस्ट करें। असली उपलब्ध क्वालिटी और अनुमानित फाइल साइज़ तुरंत खुल जाएंगे।</p>
 
       <div class="input-box">
-        <input id="videoUrl" type="url" placeholder="यहाँ YouTube लिंक पेस्ट करें (https://youtu.be/...)" autocomplete="off" onkeydown="if(event.key==='Enter') handleGetVideo()">
+        <input id="videoUrl" type="text" placeholder="यहाँ YouTube लिंक पेस्ट करें (https://youtu.be/...)" autocomplete="off" onkeydown="if(event.key==='Enter') handleGetVideo()">
         <button class="clear-btn" id="clearBtn" type="button" onclick="clearInputBox()">✕</button>
         <button class="paste-btn" id="pasteBtn" type="button" onclick="pasteFromClipboard()">📋 Paste</button>
         <button class="fetch-btn" id="fetchBtn" type="button" onclick="handleGetVideo()">Get Video</button>
@@ -405,12 +406,16 @@ function showToast(msg) {
 
 function applyTheme(theme) {
   try {
+    var root = document.documentElement;
+    var body = document.body;
     if (theme === "dark") {
-      document.documentElement.setAttribute("data-theme", "dark");
+      root.classList.add("dark-mode");
+      body.classList.add("dark-mode");
       el("themeToggle").textContent = "☀️";
       el("themeMeta").setAttribute("content", "#09111e");
     } else {
-      document.documentElement.removeAttribute("data-theme");
+      root.classList.remove("dark-mode");
+      body.classList.remove("dark-mode");
       el("themeToggle").textContent = "🌙";
       el("themeMeta").setAttribute("content", "#eaf2fb");
     }
@@ -418,10 +423,11 @@ function applyTheme(theme) {
 }
 
 function toggleThemeMode() {
-  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  var isDark = document.documentElement.classList.contains("dark-mode");
   var next = isDark ? "light" : "dark";
   try { localStorage.setItem("ashu_theme", next); } catch (e) {}
   applyTheme(next);
+  showToast(next === "dark" ? "🌙 Dark Mode चालू" : "☀️ Light Mode चालू");
 }
 
 try {
@@ -454,22 +460,25 @@ async function loadServerUrl() {
   } catch (e) {}
 }
 
-async function checkServerHealth() {
+async function checkServerHealth(manual) {
+  if (manual) el("statusText").textContent = "Checking...";
   await loadServerUrl();
   if (!MY_BACKEND_SERVER) {
     setServerBadge(false);
+    if (manual) showToast("⚠️ server-url.json में लिंक नहीं मिला");
     return false;
   }
   try {
     var controller = new AbortController();
-    var timer = setTimeout(function() { controller.abort(); }, 3000);
-    var ping = await fetch(MY_BACKEND_SERVER + "/api/info", { signal: controller.signal });
+    var timer = setTimeout(function() { controller.abort(); }, 3500);
+    await fetch(MY_BACKEND_SERVER + "/api/info", { mode: "no-cors", signal: controller.signal });
     clearTimeout(timer);
-    var alive = (ping.status === 400 || ping.ok);
-    setServerBadge(alive);
-    return alive;
+    setServerBadge(true);
+    if (manual) showToast("✅ Termux Server Online है!");
+    return true;
   } catch (e) {
     setServerBadge(false);
+    if (manual) showToast("⚠️ Termux Server अभी बंद है");
     return false;
   }
 }
@@ -481,7 +490,7 @@ function extractVideoId(raw) {
     if (text.length === 11 && text.indexOf("http") === -1) return text;
     if (text.indexOf("http") !== 0) text = "https://" + text;
     var u = new URL(text);
-    var host = u.hostname.replace("www.", "");
+    var host = u.hostname.replace("www.", "").replace("m.", "");
     if (host === "youtu.be") {
       var id1 = u.pathname.split("/").filter(Boolean)[0];
       return id1 ? id1.slice(0, 11) : null;
@@ -490,7 +499,7 @@ function extractVideoId(raw) {
       var vParam = u.searchParams.get("v");
       if (vParam) return vParam.slice(0, 11);
       var parts = u.pathname.split("/").filter(Boolean);
-      if (parts.length >= 2 && (parts[0] === "shorts" || parts[0] === "embed" || parts[0] === "v")) {
+      if (parts.length >= 2 && (parts[0] === "shorts" || parts[0] === "embed" || parts[0] === "v" || parts[0] === "live")) {
         return parts[1].slice(0, 11);
       }
     }
@@ -558,18 +567,7 @@ async function handleGetVideo() {
     var title = "YouTube Video (" + videoId + ")";
     var channel = "YouTube Creator";
     var duration = "HD";
-    var rawFormats = null;
 
-    var oembedPromise = fetch("https://www.youtube.com/oembed?url=" + encodeURIComponent(cleanWatchUrl) + "&format=json")
-      .then(function(r) { return r.ok ? r.json() : null; })
-      .catch(function() { return null; });
-
-    var serverInfoPromise = (async function() {
-      var online = await checkServerHealth();
-      if (!online || !MY_BACKEND_SERVER) return null;
-      var ctrl = new AbortController();
-      var t = setTimeout(function() { ctrl.abort(); }, 6000);
-      try {
-        var res = await fetch(MY_BACKEND_SERVER + "/api/info?url=" + encodeURIComponent(cleanWatchUrl), { signal: ctrl.signal });
-        clearTimeout(t);
-        return res.ok ? await res.json() : nul
+    try {
+      var oembedRes = await fetch("https://www.youtube.com/oembed?url=" + encodeURIComponent(cleanWatchUrl) + "&format=json");
+   
