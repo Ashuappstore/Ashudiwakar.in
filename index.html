@@ -124,6 +124,53 @@ button{cursor:pointer}
 .v-meta{display:flex;flex-wrap:wrap;gap:8px;font-size:12.5px;color:var(--text-muted);font-weight:700}
 .v-meta span{padding:5px 11px;border-radius:10px;background:rgba(255,255,255,.85);border:1px solid #fff}
 
+/* Live Download Status Card */
+.status-card{
+  display:none;
+  margin-top:16px;
+  padding:16px 18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.86);
+  border:1.5px solid #fff;
+  box-shadow:0 10px 26px rgba(17,110,226,.10);
+}
+.sc-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+  font-size:13.5px;
+  font-weight:800;
+}
+.sc-pct{
+  color:var(--accent);
+  background:#e6f1ff;
+  padding:3px 9px;
+  border-radius:9px;
+  font-size:12px;
+}
+.sc-bar{
+  width:100%;
+  height:9px;
+  border-radius:99px;
+  background:#dce9fa;
+  overflow:hidden;
+}
+.sc-fill{
+  height:100%;
+  width:0%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#3c96ff,#116ee2,#10b981);
+  transition:width .35s ease;
+}
+.sc-sub{
+  margin-top:8px;
+  font-size:12px;
+  color:var(--text-muted);
+  font-weight:650;
+}
+
 .q-heading{font-size:15.5px;font-weight:800;margin:18px 0 14px}
 
 .formats{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:12px}
@@ -141,10 +188,17 @@ button{cursor:pointer}
 .tag.audio{background:#ffedf2;color:#dc3865}
 .f-size{font-size:12px;color:var(--text-muted);font-weight:650}
 .dl-btn{
-  border:0;border-radius:12px;padding:10px 15px;
+  border:0;border-radius:12px;padding:10px 15px;min-width:116px;
   background:linear-gradient(145deg,var(--accent-light),#116ee2);
   color:#fff;font-size:13px;font-weight:800;
   box-shadow:0 6px 14px var(--accent-glow);
+  transition:opacity .2s ease,background .2s ease;
+}
+.dl-btn.busy{
+  background:linear-gradient(145deg,#64748b,#475569);
+  box-shadow:none;
+  cursor:not-allowed;
+  opacity:.9;
 }
 
 .steps{
@@ -218,6 +272,15 @@ button{cursor:pointer}
       </div>
     </div>
 
+    <div class="status-card" id="statusCard">
+      <div class="sc-top">
+        <span id="scTitle">⏳ फाइल तैयार की जा रही है...</span>
+        <span class="sc-pct" id="scPct">0%</span>
+      </div>
+      <div class="sc-bar"><div class="sc-fill" id="scFill"></div></div>
+      <div class="sc-sub" id="scSub">YouTube से हाई-स्पीड स्ट्रीम निकाली जा रही है...</div>
+    </div>
+
     <div class="q-heading">📥 डाउनलोड क्वालिटी चुनें:</div>
     <div class="formats" id="formats"></div>
   </section>
@@ -250,6 +313,7 @@ button{cursor:pointer}
 <script>
 var MY_BACKEND_SERVER = "";
 var currentVideoUrl = "";
+var isPreparing = false;
 
 var QUALITY_LIST = [
   { quality: "1080p Full HD", badge: "HD", cls: "hd", ext: "mp4", desc: "Gallery Ready • H.264 MP4", res: "1080" },
@@ -300,6 +364,9 @@ function getYouTubeId(input) {
 function clearBox() {
   document.getElementById("videoUrl").value = "";
   document.getElementById("result").style.display = "none";
+  document.getElementById("statusCard").style.display = "none";
+  clearInterval(window.__prog);
+  isPreparing = false;
 }
 
 async function pasteLink() {
@@ -324,6 +391,10 @@ function getVideoNow() {
     return;
   }
 
+  clearInterval(window.__prog);
+  isPreparing = false;
+  document.getElementById("statusCard").style.display = "none";
+
   currentVideoUrl = "https://www.youtube.com/watch?v=" + vid;
   document.getElementById("vThumb").src = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
   document.getElementById("vTitle").textContent = "YouTube Video (" + vid + ")";
@@ -338,7 +409,7 @@ function getVideoNow() {
         '<div class="f-res">' + q.quality + ' <span class="tag ' + q.cls + '">' + q.badge + '</span></div>' +
         '<div class="f-size">' + q.desc + '</div>' +
       '</div>' +
-      '<button class="dl-btn" type="button" onclick="startDownload(' + i + ')">↓ Download</button>' +
+      '<button class="dl-btn" id="dlBtn_' + i + '" type="button" onclick="startDownload(' + i + ')">↓ Download</button>' +
     '</div>';
   }
   document.getElementById("formats").innerHTML = html;
@@ -353,14 +424,77 @@ function getVideoNow() {
     .catch(function() {});
 }
 
+function setButtonsLocked(activeIdx, locked) {
+  for (var i = 0; i < QUALITY_LIST.length; i++) {
+    var b = document.getElementById("dlBtn_" + i);
+    if (!b) continue;
+    if (locked) {
+      b.disabled = true;
+      b.classList.add("busy");
+      b.textContent = (i === activeIdx) ? "⏳ Preparing..." : "Wait...";
+    } else {
+      b.disabled = false;
+      b.classList.remove("busy");
+      b.textContent = "↓ Download";
+    }
+  }
+}
+
+function showLiveStatus(qualityName, activeIdx) {
+  var card = document.getElementById("statusCard");
+  var title = document.getElementById("scTitle");
+  var pct = document.getElementById("scPct");
+  var fill = document.getElementById("scFill");
+  var sub = document.getElementById("scSub");
+
+  clearInterval(window.__prog);
+  isPreparing = true;
+  setButtonsLocked(activeIdx, true);
+
+  card.style.display = "block";
+  var p = 12;
+  fill.style.width = p + "%";
+  pct.textContent = p + "%";
+  title.textContent = "⏳ " + qualityName + " तैयार हो रहा है...";
+  sub.textContent = "स्टेप 1/3: YouTube से हाई-स्पीड स्ट्रीम निकाली जा रही है...";
+
+  window.__prog = setInterval(function() {
+    if (p < 90) {
+      p += 11;
+      if (p > 90) p = 90;
+      fill.style.width = p + "%";
+      pct.textContent = p + "%";
+      if (p >= 40 && p < 75) {
+        sub.textContent = "स्टेप 2/3: FFmpeg वीडियो और ऑडियो को H.264 MP4 में जोड़ रहा है...";
+      } else if (p >= 75) {
+        sub.textContent = "स्टेप 3/3: फाइल तैयार है, ब्राउज़र डाउनलोड शुरू हो रहा है...";
+      }
+    }
+  }, 750);
+
+  setTimeout(function() {
+    clearInterval(window.__prog);
+    fill.style.width = "100%";
+    pct.textContent = "100%";
+    title.textContent = "✅ " + qualityName + " डाउनलोड के लिए भेज दिया गया है!";
+    sub.textContent = "ऊपर ब्राउज़र नोटिफिकेशन में डाउनलोड प्रगति देखें।";
+    isPreparing = false;
+    setButtonsLocked(-1, false);
+  }, 8000);
+}
+
 async function startDownload(idx) {
+  if (isPreparing) {
+    toast("कृपया प्रतीक्षा करें, पिछला वीडियो तैयार हो रहा है...");
+    return;
+  }
   await loadServerUrl();
   if (!MY_BACKEND_SERVER) {
     toast("सर्वर बंद है! पहले Termux में start चलाएं।");
     return;
   }
   var q = QUALITY_LIST[idx];
-  toast(q.quality + " डाउनलोड हो रहा है (5-8 सेकंड रुकें)...");
+  showLiveStatus(q.quality, idx);
   window.location.href = MY_BACKEND_SERVER + "/api/download?url=" + encodeURIComponent(currentVideoUrl) + "&res=" + q.res + "&ext=" + q.ext;
 }
 </script>
