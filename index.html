@@ -301,8 +301,18 @@ a{text-decoration:none;color:inherit}
 <script>
 "use strict";
 
-// आपका Cloudflare Tunnel पब्लिक सर्वर लिंक यहाँ जुड़ा हुआ है
-const MY_BACKEND_SERVER = "https://delegation-atlantic-alternatively-older.trycloudflare.com";
+let MY_BACKEND_SERVER = "";
+
+async function loadServerUrl() {
+  try {
+    const res = await fetch("./server-url.json?t=" + Date.now(), { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.url) MY_BACKEND_SERVER = data.url.trim();
+    }
+  } catch (e) {}
+}
+loadServerUrl();
 
 const $ = id => document.getElementById(id);
 let currentVideo = null;
@@ -371,6 +381,7 @@ $("fetchBtn").onclick = async () => {
   $("loader").style.display = "block";
 
   try {
+    await loadServerUrl();
     const cleanWatchUrl = `https://www.youtube.com/watch?v=${videoId}`;
     const oembedRes = await fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(cleanWatchUrl)}&format=json`);
     let title = "YouTube Video (" + videoId + ")";
@@ -440,8 +451,14 @@ function renderFormats() {
   }).join("");
 }
 
-window.downloadDirect = function(index) {
+window.downloadDirect = async function(index) {
   if (!currentVideo) return;
+  await loadServerUrl();
+  if (!MY_BACKEND_SERVER) {
+    toast("सर्वर अभी बंद है! कृपया पहले Termux में start चलाएं।");
+    return;
+  }
+
   const list = currentVideo.formats.filter(f => activeFilter === "all" || f.type === activeFilter);
   const item = list[index];
   if (!item) return;
@@ -452,4 +469,5 @@ window.downloadDirect = function(index) {
 };
 </script>
 </body>
-</html>
+  </html>
+  
