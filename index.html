@@ -295,7 +295,7 @@ button{cursor:pointer}
         <span class="sc-pct" id="scPct">0%</span>
       </div>
       <div class="sc-bar"><div class="sc-fill" id="scFill"></div></div>
-      <div class="sc-sub" id="scSub">YouTube से हाई-स्पीड स्ट्रीम निकाली जा रही है...</div>
+      <div class="sc-sub" id="scSub">हाई-स्पीड डाउनलोड लिंक तैयार किया जा रहा है...</div>
     </div>
 
     <div class="q-heading">📥 डाउनलोड क्वालिटी चुनें:</div>
@@ -328,9 +328,8 @@ button{cursor:pointer}
 <div class="toast" id="toast"></div>
 
 <script>
-var DEFAULT_SERVER = "https://saved-by-ashu-server.onrender.com";
-var MY_BACKEND_SERVER = DEFAULT_SERVER;
 var currentVideoUrl = "";
+var currentVideoId = "";
 var isPreparing = false;
 
 var QUALITY_LIST = [
@@ -341,6 +340,12 @@ var QUALITY_LIST = [
   { quality: "MP3 Audio (High)", badge: "AUDIO", cls: "audio", ext: "mp3", desc: "Original Audio / Song", res: "audio" }
 ];
 
+var COBALT_NODES = [
+  "https://cobalt-api.kwiatekmiki.com/",
+  "https://cobalt-backend.canine.tools/",
+  "https://api.cobalt.tools/"
+];
+
 function toast(msg) {
   var t = document.getElementById("toast");
   t.textContent = msg;
@@ -348,25 +353,6 @@ function toast(msg) {
   clearTimeout(window.__t);
   window.__t = setTimeout(function() { t.classList.remove("show"); }, 3500);
 }
-
-async function loadServerUrl() {
-  try {
-    var r = await fetch("./server-url.json?t=" + Date.now(), { cache: "no-store" });
-    if (r.ok) {
-      var d = await r.json();
-      if (d && d.url) {
-        MY_BACKEND_SERVER = d.url.trim().replace(/\/+$/, "");
-        return;
-      }
-    }
-  } catch (e) {}
-  MY_BACKEND_SERVER = DEFAULT_SERVER;
-}
-
-(async function initServer() {
-  await loadServerUrl();
-  fetch(MY_BACKEND_SERVER + "/").catch(function() {});
-})();
 
 function getYouTubeId(input) {
   var s = String(input || "").trim();
@@ -421,6 +407,7 @@ function getVideoNow() {
   isPreparing = false;
   document.getElementById("statusCard").style.display = "none";
 
+  currentVideoId = vid;
   currentVideoUrl = "https://www.youtube.com/watch?v=" + vid;
   document.getElementById("vThumb").src = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
   document.getElementById("vTitle").textContent = "YouTube Video (" + vid + ")";
@@ -466,13 +453,45 @@ function setButtonsLocked(activeIdx, locked) {
   }
 }
 
+async function tryCobaltDirect(videoUrl, q) {
+  var payload = {
+    url: videoUrl,
+    videoQuality: q.ext === "mp3" ? "720" : q.res,
+    audioFormat: "mp3",
+    downloadMode: q.ext === "mp3" ? "audio" : "auto",
+    filenameStyle: "basic"
+  };
+
+  for (var i = 0; i < COBALT_NODES.length; i++) {
+    try {
+      var controller = new AbortController();
+      var timer = setTimeout(function() { controller.abort(); }, 7000);
+      var res = await fetch(COBALT_NODES[i], {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      if (!res.ok) continue;
+      var data = await res.json();
+      if (data && (data.status === "tunnel" || data.status === "redirect") && data.url) {
+        return data.url;
+      }
+    } catch (e) {}
+  }
+  return "";
+}
+
 async function startDownload(idx) {
   if (isPreparing) {
     toast("कृपया प्रतीक्षा करें, पिछला वीडियो तैयार हो रहा है...");
     return;
   }
 
-  await loadServerUrl();
   var q = QUALITY_LIST[idx];
   var card = document.getElementById("statusCard");
   var title = document.getElementById("scTitle");
@@ -485,70 +504,42 @@ async function startDownload(idx) {
   setButtonsLocked(idx, true);
 
   card.style.display = "block";
-  var p = 10;
+  var p = 18;
   fill.style.width = p + "%";
   pct.textContent = p + "%";
   title.textContent = "⏳ " + q.quality + " तैयार हो रहा है...";
-  sub.textContent = "स्टेप 1/3: क्लाउड सर्वर से YouTube स्ट्रीम निकाली जा रही है...";
+  sub.textContent = "क्लाउड API नोड्स से डायरेक्ट स्ट्रीम खोजी जा रही है...";
 
   window.__prog = setInterval(function() {
-    if (p < 92) {
-      p += 7;
-      if (p > 92) p = 92;
+    if (p < 88) {
+      p += 14;
+      if (p > 88) p = 88;
       fill.style.width = p + "%";
       pct.textContent = p + "%";
-      if (p >= 35 && p < 70) {
-        sub.textContent = "स्टेप 2/3: FFmpeg वीडियो और ऑडियो को प्रोसेस कर रहा है...";
-      } else if (p >= 70) {
-        sub.textContent = "स्टेप 3/3: फाइल पैक हो रही है, कृपया कुछ सेकंड प्रतीक्षा करें...";
-      }
     }
-  }, 1200);
+  }, 800);
 
-  var apiUrl = MY_BACKEND_SERVER + "/api/download?url=" + encodeURIComponent(currentVideoUrl) + "&res=" + q.res + "&ext=" + q.ext;
+  var directLink = await tryCobaltDirect(currentVideoUrl, q);
 
-  try {
-    var resp = await fetch(apiUrl);
-    if (!resp.ok) {
-      var errTxt = "सर्वर से फाइल नहीं मिल पाई";
-      try {
-        var errJson = await resp.json();
-        if (errJson && errJson.detail) errTxt = errJson.detail;
-      } catch (e) {}
-      throw new Error(errTxt);
-    }
+  clearInterval(window.__prog);
+  fill.style.width = "100%";
+  pct.textContent = "100%";
 
-    var blob = await resp.blob();
-    var blobUrl = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = blobUrl;
-    var cleanTitle = (document.getElementById("vTitle").textContent || "Saved_by_Ashu")
-      .replace(/[^a-zA-Z0-9\u0900-\u097F _-]/g, "")
-      .trim()
-      .slice(0, 50) || "Saved_by_Ashu";
-    a.download = cleanTitle + (q.ext === "mp3" ? ".mp3" : "_" + q.res + "p.mp4");
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 15000);
-
-    clearInterval(window.__prog);
-    fill.style.width = "100%";
-    pct.textContent = "100%";
+  if (directLink) {
     title.textContent = "✅ " + q.quality + " डाउनलोड शुरू हो गया है!";
-    sub.textContent = "फाइल सीधे आपके फोन के Downloads फोल्डर में सेव हो रही है।";
-    toast("✅ डाउनलोड शुरू हो गया!");
-  } catch (err) {
-    clearInterval(window.__prog);
-    fill.style.width = "0%";
-    pct.textContent = "Error";
-    title.textContent = "❌ डाउनलोड में समस्या आई";
-    sub.textContent = "कारण: " + (err.message || "सर्वर रीस्टार्ट हो रहा है, 1 मिनट बाद दोबारा प्रयास करें।");
-    toast("सर्वर अभी तैयार हो रहा है या लिंक सपोर्टेड नहीं है, कृपया पुनः प्रयास करें।");
-  } finally {
-    isPreparing = false;
-    setButtonsLocked(-1, false);
+    sub.textContent = "फाइल सीधे आपके फोन में सेव हो रही है।";
+    toast("✅ डायरेक्ट डाउनलोड शुरू हो गया!");
+    window.location.href = directLink;
+  } else {
+    title.textContent = "✅ " + q.quality + " डाउनलोडर तैयार है!";
+    sub.textContent = "पब्लिक API व्यस्त होने के कारण डायरेक्ट सेवर खोला जा रहा है...";
+    toast("✅ सेवर पेज खुल रहा है, वहाँ Download दबाएं!");
+    var fallbackUrl = "https://ssyoutube.com/watch?v=" + currentVideoId;
+    window.open(fallbackUrl, "_blank");
   }
+
+  isPreparing = false;
+  setButtonsLocked(-1, false);
 }
 </script>
 </body>
