@@ -186,11 +186,13 @@ button{cursor:pointer}
   background:linear-gradient(145deg,var(--accent-light),#116ee2);
   color:#fff;font-size:13px;font-weight:800;
   box-shadow:0 6px 14px var(--accent-glow);
+  transition:opacity .2s ease,background .2s ease;
 }
 .dl-btn.busy{
   background:linear-gradient(145deg,#64748b,#475569);
   box-shadow:none;
   cursor:not-allowed;
+  opacity:.9;
 }
 .steps{
   margin-top:18px;padding:20px;border-radius:26px;
@@ -214,7 +216,7 @@ button{cursor:pointer}
   position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;
   padding:11px 19px;border-radius:15px;
   background:rgba(12,25,44,.92);color:#fff;font-size:13px;font-weight:650;
-  transition:.2s;z-index:999;text-align:center;max-width:90vw;
+  transition:.2s;z-index:999;
 }
 .toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:700px){
@@ -266,7 +268,7 @@ button{cursor:pointer}
         <span class="sc-pct" id="scPct">0%</span>
       </div>
       <div class="sc-bar"><div class="sc-fill" id="scFill"></div></div>
-      <div class="sc-sub" id="scSub">हाई-स्पीड डाउनलोड लिंक तैयार किया जा रहा है...</div>
+      <div class="sc-sub" id="scSub">YouTube से हाई-स्पीड स्ट्रीम निकाली जा रही है...</div>
     </div>
 
     <div class="q-heading">📥 डाउनलोड क्वालिटी चुनें:</div>
@@ -299,8 +301,8 @@ button{cursor:pointer}
 <div class="toast" id="toast"></div>
 
 <script>
+var MY_BACKEND_SERVER = "http://127.0.0.1:8000";
 var currentVideoUrl = "";
-var currentVideoId = "";
 var isPreparing = false;
 
 var QUALITY_LIST = [
@@ -311,19 +313,28 @@ var QUALITY_LIST = [
   { quality: "MP3 Audio (High)", badge: "AUDIO", cls: "audio", ext: "mp3", desc: "Original Audio / Song", res: "audio" }
 ];
 
-var COBALT_NODES = [
-  "https://cobalt-api.kwiatekmiki.com/",
-  "https://cobalt-backend.canine.tools/",
-  "https://api.cobalt.tools/"
-];
-
 function toast(msg) {
   var t = document.getElementById("toast");
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(window.__t);
-  window.__t = setTimeout(function() { t.classList.remove("show"); }, 3500);
+  window.__t = setTimeout(function() { t.classList.remove("show"); }, 3000);
 }
+
+async function loadServerUrl() {
+  try {
+    var r = await fetch("./server-url.json?t=" + Date.now(), { cache: "no-store" });
+    if (r.ok) {
+      var d = await r.json();
+      if (d && d.url && d.url.indexOf("onrender.com") === -1) {
+        MY_BACKEND_SERVER = d.url.trim().replace(/\/+$/, "");
+        return;
+      }
+    }
+  } catch (e) {}
+  MY_BACKEND_SERVER = "http://127.0.0.1:8000";
+}
+loadServerUrl();
 
 function getYouTubeId(input) {
   var s = String(input || "").trim();
@@ -370,7 +381,6 @@ function getVideoNow() {
   isPreparing = false;
   document.getElementById("statusCard").style.display = "none";
 
-  currentVideoId = vid;
   currentVideoUrl = "https://www.youtube.com/watch?v=" + vid;
   document.getElementById("vThumb").src = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
   document.getElementById("vTitle").textContent = "YouTube Video (" + vid + ")";
@@ -416,40 +426,7 @@ function setButtonsLocked(activeIdx, locked) {
   }
 }
 
-async function tryCobaltDirect(videoUrl, q) {
-  var payload = {
-    url: videoUrl,
-    videoQuality: q.ext === "mp3" ? "720" : q.res,
-    audioFormat: "mp3",
-    downloadMode: q.ext === "mp3" ? "audio" : "auto",
-    filenameStyle: "basic"
-  };
-
-  for (var i = 0; i < COBALT_NODES.length; i++) {
-    try {
-      var controller = new AbortController();
-      var timer = setTimeout(function() { controller.abort(); }, 5000);
-      var res = await fetch(COBALT_NODES[i], {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: controller.signal
-      });
-      clearTimeout(timer);
-      if (!res.ok) continue;
-      var data = await res.json();
-      if (data && (data.status === "tunnel" || data.status === "redirect") && data.url) {
-        return data.url;
-      }
-    } catch (e) {}
-  }
-  return "";
-}
-
-async function startDownload(idx) {
-  if (isPreparing) return;
-
-  var q = QUALITY_LIST[idx];
+function showLiveStatus(qualityName, activeIdx) {
   var card = document.getElementById("statusCard");
   var title = document.getElementById("scTitle");
   var pct = document.getElementById("scPct");
@@ -458,40 +435,56 @@ async function startDownload(idx) {
 
   clearInterval(window.__prog);
   isPreparing = true;
-  setButtonsLocked(idx, true);
+  setButtonsLocked(activeIdx, true);
 
   card.style.display = "block";
-  var p = 20;
+  var p = 12;
   fill.style.width = p + "%";
   pct.textContent = p + "%";
-  title.textContent = "⏳ " + q.quality + " तैयार हो रहा है...";
-  sub.textContent = "डायरेक्ट डाउनलोड लिंक निकाला जा रहा है...";
+  title.textContent = "⏳ " + qualityName + " तैयार हो रहा है...";
+  sub.textContent = "स्टेप 1/3: YouTube से हाई-स्पीड स्ट्रीम निकाली जा रही है...";
 
   window.__prog = setInterval(function() {
-    if (p < 88) {
-      p += 17;
-      if (p > 88) p = 88;
+    if (p < 90) {
+      p += 11;
+      if (p > 90) p = 90;
       fill.style.width = p + "%";
       pct.textContent = p + "%";
+      if (p >= 40 && p < 75) {
+        sub.textContent = "स्टेप 2/3: FFmpeg वीडियो और ऑडियो को H.264 MP4 में जोड़ रहा है...";
+      } else if (p >= 75) {
+        sub.textContent = "स्टेप 3/3: फाइल तैयार है, ब्राउज़र डाउनलोड शुरू हो रहा है...";
+      }
     }
-  }, 700);
+  }, 750);
 
-  var directLink = await tryCobaltDirect(currentVideoUrl, q);
+  setTimeout(function() {
+    clearInterval(window.__prog);
+    fill.style.width = "100%";
+    pct.textContent = "100%";
+    title.textContent = "✅ " + qualityName + " डाउनलोड के लिए भेज दिया गया है!";
+    sub.textContent = "ऊपर ब्राउज़र नोटिफिकेशन में डाउनलोड प्रगति देखें।";
+    isPreparing = false;
+    setButtonsLocked(-1, false);
+  }, 8000);
+}
 
-  clearInterval(window.__prog);
-  fill.style.width = "100%";
-  pct.textContent = "100%";
-
-  if (directLink) {
-    title.textContent = "✅ " + q.quality + " डाउनलोड शुरू हो गया है!";
-    sub.textContent = "फाइल सीधे आपके फोन में सेव हो रही है।";
-    window.location.href = directLink;
-  } else {
-    title.textContent = "✅ " + q.quality + " सेवर खुल रहा है...";
-    sub.textContent = "सीधे इसी टैब में डाउनलोड पेज लोड हो रहा है...";
-    var fmt = (q.ext === "mp3") ? "mp3" : "mp4";
-    window.location.href = "https://www.y2mate.nu/en-3f8/?url=" + encodeURIComponent(currentVideoUrl) + "&format=" + fmt;
+async function startDownload(idx) {
+  if (isPreparing) {
+    toast("कृपया प्रतीक्षा करें, पिछला वीडियो तैयार हो रहा है...");
+    return;
   }
+  await loadServerUrl();
+  try {
+    var ping = await fetch(MY_BACKEND_SERVER + "/");
+    if (!ping.ok) throw new Error("offline");
+  } catch (e) {
+    toast("सर्वर बंद है! पहले Termux में start चलाएं।");
+    return;
+  }
+  var q = QUALITY_LIST[idx];
+  showLiveStatus(q.quality, idx);
+  window.location.href = MY_BACKEND_SERVER + "/api/download?url=" + encodeURIComponent(currentVideoUrl) + "&res=" + q.res + "&ext=" + q.ext;
 }
 </script>
 </body>
